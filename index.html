@@ -11,25 +11,26 @@
 	</head>
 	<body>
 		<div id="contenedor">
-<!-- FORMULARIO LOGIN
-		  <div class="div-center">
-		    <div class="content">
-		    <img src="img/logo1.png" alt="logo" id='imgLogin'>
-		      <h3>Iniciar Sesión</h3>
+<!-- FORMULARIO LOGIN -->
+		<!--   <div class="div-center">
+		  <div class="content">
+		  <img src="img/logo1.png" alt="logo" id='imgLogin'>
+		    <h3>Iniciar Sesión</h3>
+		    <hr />
+		      <div class="form-group">
+		        <label for="usuario">Usuario</label>
+		        <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario">
+		      </div>
+		      <div class="form-group">
+		        <label for="password">Contraseña</label>
+		        <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+		      </div>
+		      <button type="submit" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
 		      <hr />
-		        <div class="form-group">
-		          <label for="usuario">Usuario</label>
-		          <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario">
-		        </div>
-		        <div class="form-group">
-		          <label for="password">Contraseña</label>
-		          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
-		        </div>
-		        <button type="submit" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
-		        <hr />
-		    </div>
- -->
+		  </div> -->
 
+
+<!--
 		<div id="cont_norte">
 				<div id="imagenLogo" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
 					<div id="imagen">
@@ -48,7 +49,7 @@
 				</div>
 		</div>
 		<div id="cont_centro">
-			<div id="tbl_cocina">
+			<div class="tbl_cocina">
 			<table class="table table-bordered">
               <thead>
               	 <tr>
@@ -115,7 +116,73 @@
             </table>
         </div>
 		</div>
+	-->
+  
+  <!-- MODAL VENTANA EMERGENTE PEDIDOS  -->
+   	<div id="pedidoCocina">
+   		<div id="pedidoCocinaCentro">
+   			<div id="numeroPedido">
+   				<h1>NUMERO PEDIDO</h1>
+   			</div>
+   			<div id="detallePedidoCocina">
+   				<div class="tbl_cocina" id="tablaCocinaDetalle">
+					<table class="table table-bordered">
+		              <thead>
+		              	 <tr>
+		              	 	<th scope="col">Productos</th>
+		              	 	<th scope="col">Cantidad</th>
+		              	 	
+		              	 </tr>
+		              </thead>  
+		                <tbody>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>		
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>arroz con huevo</td>
+								<td>5</td>
+							</tr>		                
+						</tbody>
+		            </table>
+		        </div>
+   			</div>
+   		</div>
+   		<div id="pedidoCocinaSur">
+   			<button class="btn">PREPARAR</button>
+   			<button class=" btn ">ENTREGAR</button>
+   		</div>
 
+   		 
+   	</div>
 
 
 
