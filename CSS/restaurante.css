@@ -1,4 +1,19 @@
 
+/*
+Estilo para la interfaz del restaurante
+
+Autor: Paula Sanchez - Harold Cupitra;
+Fecha: 07/02/2018;
+
+*/
+
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 10px; 
+}
+
 /*falta rst*/
 body{
 	background-color: #D6D6D6;
@@ -10,6 +25,7 @@ body{
 	width: 95vw;
 	min-width: 320px;
 	margin: auto;
+	padding-top: 1%;
 }
 
 /****  FORMULARIO LOGIN*/
@@ -46,4 +62,86 @@ div.content h3{
 	margin-left: 35%;
 	margin-right: 35%;
 }
-/**/
+/******* CHEF1*************/
+
+#cont_norte{
+	width: 90%;
+	height: 100px;
+	margin: auto;
+	padding-top: 0;
+	background-color: #E6E6E6;
+}
+
+/* Elementos dentro del cont_norte */
+
+
+#imagenLogo{
+	/*background-color: #000;	*/	
+	height: 90%;
+	padding-top: 1%;
+}
+
+
+
+#imgLogoChef{
+	width: 100%;
+	height: 90%;
+	
+}
+
+#infoLogo{	
+	/*background-color: #000;	*/
+	height: 90%;
+	padding-top: 1%;
+	margin-left: 1%;
+}
+
+#logoModulo{
+	background-color: #fff;	
+	height: 90%;
+}
+
+#logoNombre{
+	background-color: #fff;	
+	height: 90%;
+
+}
+
+
+
+/* Fin de elementos dentro del cont_norte */
+
+#cont_centro{
+	width: 90%;
+	height: 70%;
+	background-color: #E6E6E6;
+	margin: auto;
+	margin-top: 2.5%;
+	padding-top:1.5%;
+}
+
+/*Elementos cont_Centro*/
+#tbl_cocina {
+     overflow:scroll;
+     height:100%;
+     width:100%;
+     text-align: center;
+     font-size: 20px;
+}
+#tbl_cocina table {
+    width:100%;
+    background-color:lightgray;
+}
+
+#tbl_cocina th{
+	text-align: center;
+	font-size: 25px;
+}
+
+#tbl_cocina button{
+	float: center;
+	height: 35%;
+	width: 80%;
+	background-color: #fff;
+
+}
