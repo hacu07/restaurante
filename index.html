@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<link rel="icon" type="image" href="IMG/logo.png">
-	<title>Restaurante ADSI</title>
-	<link rel="stylesheet" type="text/css" href="LIBS/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="CSS/restaurante.css">
-</head>
-<body >
-	<div id="contenedor" class="">
-		<div id="cont_norte">
-				<div id="imagenLogo" class="col-xs-3 col-sm-3 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-					<div id="imagen">
-						
-					</div>
-					
-				</div>
-				<div id="infoLogo" class="col-xs-6 col-sm-6 col-md-5 col-lg-5 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"> 
-					<div id="logoModulo" class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-						
-					</div>
-					<div id="logoNombre" class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-						
-					</div>
-				</div>
-		</div>
-		<div id="cont_centro">
-			<div id="login" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2"> 
-				<input type="text" name="campoUsuario" id="campoUsuario" placeholder="Usuario" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2" >
-				<input type="password" name="campoContrasenia" id="campoContrasenia" placeholder="Contraseña" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-				<button class="" id="btnLogin" class="" >Entrar</button>
-		</div>
-	</div>
-	<script src="LIBS/js/jquery.js"></script>
-	<script src="LIBS/js/bootstrap.min.js"></script>
-</body>
-</html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+		<title>Restaurante ADSI</title>
+		<link rel="icon" href="favicon-32x32.png" type = "image" sizes="32x32">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/restaurante.css">
+	</head>
+	<body>
+		<div id="contenedor">
+<!---->
+		  <div class="div-center">
+		    <div class="content">
+		    <img src="img/logo1.png" alt="logo" id='imgLogin'>
+		      <h3>Iniciar Sesión</h3>
+		      <hr />
+		        <div class="form-group">
+		          <label for="usuario">Usuario</label>
+		          <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario">
+		        </div>
+		        <div class="form-group">
+		          <label for="password">Contraseña</label>
+		          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+		        </div>
+		        <button type="submit" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
+		        <hr />
+		    </div>
+
+<!---->
+		</div>		
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/restaurante.js"></script>		
+	</body>
+</html>	

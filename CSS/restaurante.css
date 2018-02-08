@@ -1,116 +1,49 @@
-/*
-Estilo para la interfaz del restaurante
 
-Autor: Paula Sanchez - Harold Cupitra;
-Fecha: 07/02/2018;
-
-*/
-
-*{
-	margin: 0;
-	padding: 0;
-	border: 0;
-	border-radius: 10px; 
-}
-
+/*falta rst*/
 body{
 	background-color: #D6D6D6;
 }
 
 #contenedor{
- 	width: 95vw;
-	height: 95vh;
-	margin: auto;
-	margin-top: 2.5vh;
-	padding-top: 2.5%;
-	/*falta centrar verticalmente */
 	background-color: #FFF;
-}
-
-#cont_norte{
-	width: 90%;
-	height: 20%;
+	height: 100vh;
+	width: 95vw;
+	min-width: 320px;
 	margin: auto;
-	padding-top: 1.5%;
-	background-color: #E6E6E6;
 }
 
-/* Elementos dentro del cont_norte */
-
-#imagenLogo{
-	background-color: #000;		
-	height: 90%;
-	padding-top: 1%;
-}
-#imagen{
-	background-color: #fff;	
-	height: 85%;
-}
-
-#infoLogo{	
-	background-color: #000;	
-	height: 90%;
-	padding-top: 1%;
-}
-
-#logoModulo{
-	background-color: #fff;	
-	height: 40%;
-/* 	margin-top: 5%; */
+/****  FORMULARIO LOGIN*/
+.div-center {
+  width: 400px;
+  height: 400px;
+  background-color: #55C5D0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 1em 2em;
+  border-bottom: 2px solid #ccc;
+  display: table;
 }
 
-#logoNombre{
-	background-color: #fff;	
-	height: 40%;
-	margin-top: 2%;
+div.content {
+  display: table-cell;
+  vertical-align: middle;
+
 }
 
-
-
-/* Fin de elementos dentro del cont_norte */
-
-#cont_centro{
-	width: 90%;
-	height: 70%;
-	background-color: #E6E6E6;
-	margin: auto;
-	margin-top: 2.5%;
-	padding-top:1.5%;
-}
-
-/*Elementos cont_Centro*/
-#login{
-	background-color: #fff;	
-	height: 95%;
-}
-
-#areaCentro{
-	background-color: #000;	
-	height: 95%;
-}
-
-#login #campoUsuario,#campoContrasenia{
-	height: 10%;
-	background-color: #E6E6E6;
-	margin-top: 10%;
-	font-size: 40px;
+div.content h3{
 	text-align: center;
 }
 
-#btnLogin{
-	margin-top: 8%;
-	height: 10%;
-	width: 40%;
-	font-size: 30px;
-	margin-left: 30%;
-	margin-right: 30%;
+#imgLogin{
+	width: 30%;
+	margin-left: 35%;
+	margin-right: 35%;
 }
-
-
-
-/* Fin de elementos cont_Centro*/
-
-
-
-
-
+/**/
