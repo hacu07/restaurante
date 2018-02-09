@@ -4,7 +4,7 @@
 function forPantallaChef1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 
-	txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
+	txt +='<div id="cont_centro"><div id="tbl_cocina"><table class="table table-hover table-striped">';
 	txt +='<thead><tr><th>Pedido</th><th>Mesero</th><th>Mesa</th><th>Estado</th><th>Ver</th></tr></thead>';
 	txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>En preparacion</td>';
 	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
@@ -19,7 +19,19 @@ function forPantallaChef1(modulo, empleado){
 	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
 	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
 	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
-	txt +='</tbody></table></div>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>En preparacion</td>';
+	txt +='<td><button type="button" class="btn btn-info btn-tabla" data-toggle="modal" data-target="#myModal">Ver</button></td></tr>';
+	txt +='</tbody></table></div></div>';
 	return txt;
 }
 
@@ -42,9 +54,12 @@ function cargarModal(){
 	txt += '<div class="modal-dialog">';
 	txt += '<!-- Modal content--><div class="modal-content">';
 	txt += '<div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>';
-	txt += '<h4 class="modal-title">Modal Header</h4></div>';
-	txt += '<div class="modal-body"><p>Some text in the modal.</p></div>';
-	txt += '<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+	txt += '<div id="numeroPedido"><h1>NUMERO PEDIDO</h1></div></div>';
+	txt += '<div class="modal-body"><div id="detallePedidoCocina"><div class="tbl_cocina" id="tablaCocinaDetalle">';
+	txt += '<table class="table table-bordered"><thead><tr><th scope="col">Productos</th><th scope="col">Cantidad</th></tr>';
+	txt += '</thead><tbody><tr><td>arroz con huevo</td><td>5</td></tr><tr><td>arroz con huevo</td><td>5</td></tr><tr><td>arroz con huevo</td><td>5</td></tr><tr><td>arroz con huevo</td><td>5</td></tr><tr><td>arroz con huevo</td><td>5</td></tr><tr><td>arroz con huevo</td><td>5</td></tr></tbody></table></div></div></div>';
+	txt += '<div class="modal-footer"><div id="pedidoCocinaSur"><button type="button" class="btn btn-warning">PREPARAR</button>';
+	txt += '<button type="button" class="btn btn-success">ENTREGAR</button></div>';
 	txt += '</div></div></div></div>';
 	return txt;
 }

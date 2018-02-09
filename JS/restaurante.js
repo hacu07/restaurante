@@ -20,7 +20,7 @@ function mostrarPedido(idPedido){
 }
 //****** MOSTRAR VENTANAS **************
 function mostrarVentanaChef1(){
-	var txt= forPantallaChef1('COCINA', 'Juanito');
+	var txt= forPantallaChef1('COCINA', 'Paula Sanchez Arias');
 	$('#contenedor').html(txt);
 	$('#contenedor').append(cargarModal());
 }
