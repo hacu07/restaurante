@@ -66,6 +66,9 @@ div.content h3{
 	height: 100px;
 	background-color: #55C5D0;
 	color: #FFF;
+	padding-right: 5%;
+	  display: flex;
+  align-items: center;
 }
 
 /* Elementos dentro del cont_norte */
@@ -79,10 +82,6 @@ div.content h3{
 	height: 100%;
 }
 
-#imgLogoChef{
-	width: 100%;
-	height: 90%;
-}
 
 
 #infoLogo{	
@@ -151,11 +150,23 @@ div.content h3{
      font-size: 20px;
 }
 
+/* #cerrarSesion{
+	  display: flex;
+  align-items: center;
+} */
+#btnCerrar{
+	background-color: #fff;
+} 
+.glyphicon-off{
+	color: #55C5D0;
+}
 
 @media screen and (max-width: 1103px) {
 	h1{
-		font-size: 20px;
+		font-size: 16px;
+		font-weight: bold;
 		text-align: center;
+		margin-top: 0;
 	}
 }
 

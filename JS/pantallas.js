@@ -40,8 +40,9 @@ function forPantallaChef1(modulo, empleado){
 function forEncabezado(modulo, empleado){
 	var txt ='<div id="cont_norte"><div id="imagenLogo" class="col-xs-3 col-xs-offset-1 ">';
 	txt +='<img src="img/logo1.png" alt="logo" id="imgLoginChef"></div>';
-	txt +='<div id="logoModulo" class="col-xs-5"><h1>'+ modulo +'</h1></div>';
-	txt +='<div id="logoNombre" class="col-xs-3"><h1>'+ empleado +'</h1></div></div>';
+	txt +='<div class="col-xs-6"><div id="logoModulo" class="col-xs-12 col-md-6"><h1>'+ modulo +'</h1></div>';
+	txt +='<div id="logoNombre" class="col-xs-12 col-md-6"><h1>'+ empleado +'</h1></div></div>';
+	txt +='<div id="cerrarSesion" class="col-xs-2 "><button class="btn" id="btnCerrar"><span class="glyphicon glyphicon-off"></span></button></div></div>';
 	return txt;
 }
 
