@@ -98,12 +98,12 @@ function forEncabezado(modulo, empleado){
 	var txt ='<div id="cont_norte"><div id="imagenLogo" class="col-xs-3">';
 	txt +='<img src="img/logo1.png" alt="logo" id="imgLoginChef"></div>';
 	if (modulo != ''){
-		txt +='<div id="logoModulo" class="col-xs-4"><h1>'+ modulo +'</h1></div>';
-		txt +='<div id="logoNombre" class="col-xs-3"><h1>'+ empleado +'</h1></div>';
-		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-warning" id="btnSalir" href = "index.html">Salir</a></div></div>';
+		txt +='<div class="col-xs-7 "><div id="logoModulo" class="col-xs-12 col-md-6"><h1>'+ modulo +'</h1></div>';
+		txt +='<div id="logoNombre" class="col-xs-12 col-md-6"><h1>'+ empleado +'</h1></div></div>';
+		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></div></div>';
 	}else{	//Caso mesero, el encabezado es diferente
 		txt +='<div id="logoNombre" class="col-xs-7"><h1>'+ empleado +'</h1></div>';
-		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-warning" id="btnSalir" href = "index.html">Salir</a></div></div>';
+		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></div></div>';
 	}
 	return txt;
 }
