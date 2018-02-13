@@ -5,14 +5,14 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 	<title>Restaurante ADSI</title>
-	<link rel="icon" href="logo.png" type = "image" sizes="32x32">
-	<link rel="stylesheet" href="css/bootstrap.min2.css">
+	<link rel="icon" href="favicon-32x32.png" type = "image" sizes="32x32">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/restaurante.css">
 </head>
 <body>
 	<div id="contenedor">
 		<!-- FORMULARIO LOGIN -->
-		<div class="div-center">
+		<div class="formLogin">
 		    <div class="content">
 		    	<img src="img/logo1.png" alt="logo" id='imgLogin'>
 		      <h3>Iniciar Sesión</h3>
@@ -25,15 +25,16 @@
 		          <label for="password">Contraseña</label>
 		          <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
 		        </div>
-		        <button type="submit" class="btn btn-primary" onclick="iniciarSesion()">Ingresar</button>
-		        <hr />
+		        <hr />		        
+		        <button type="submit" class="btn btn-primary pull-right" onclick="iniciarSesion()">Ingresar</button>
+
 		    </div>
 		</div>
 		<!-- FIN FORMULARIO LOGIN -->
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>		
+	<script src="js/bootstrap.min.js"></script>		
 	<script src="js/pantallas.js"></script>		
 	<script src="js/restaurante.js"></script>
 
