@@ -5,8 +5,8 @@ function forPantallaChef1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
 	txt +='<thead><tr><th>#</th><th>Mesero</th><th>Mesa</th><th>Demora</th><th>Estado</th></tr></thead>';
-	txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarVentanaPedidoCocina(1)">En Espera</button></td></tr>';
+	/*txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';*/
+	/*txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarVentanaPedidoCocina(1)">En Espera</button></td></tr>';
 	txt +='<tr><td>2</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
 	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCocina(2)">En preparacion</button></td></tr>';
 	txt +='<tr><td>3</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
@@ -15,6 +15,7 @@ function forPantallaChef1(modulo, empleado){
 	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCocina(4)">En preparacion</button></td></tr>';
 	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
 	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="mostrarVentanaPedidoCocina(5)">Preparado</button></td></tr>';
+	*/
 	txt +='</tbody></table></div>';
 	return txt;
 }

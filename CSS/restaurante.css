@@ -12,13 +12,17 @@ Fecha: 07/02/2018;
 	border: 0;
 }
 
-body{
-	background-color: #D6D6D6;
-}
+
 
 :root{
+	--bg-body: #D6D6D6;
 	--bg-azul: #55C5D0;
 }
+
+body{
+	background-color: var(--bg-body);
+}
+
 
 #contenedor{
 	background-color: #FFF;
@@ -178,7 +182,7 @@ th {
     color: white;
 }
 
-tr th{
+tr,th{
 	text-align: center;
 }
 
