@@ -2,21 +2,11 @@
 
 /*Presenta tabla de pedidos para preparacion y despacho por el Chef*/
 function forPantallaChef1(modulo, empleado){
+
 	var txt =forEncabezado(modulo, empleado);
-	txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
-	txt +='<thead><tr><th>#</th><th>Mesero</th><th>Mesa</th><th>Demora</th><th>Estado</th></tr></thead>';
-	/*txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';*/
-	/*txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarVentanaPedidoCocina(1)">En Espera</button></td></tr>';
-	txt +='<tr><td>2</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCocina(2)">En preparacion</button></td></tr>';
-	txt +='<tr><td>3</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCocina(3)">En preparacion</button></td></tr>';
-	txt +='<tr><td>4</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCocina(4)">En preparacion</button></td></tr>';
-	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="mostrarVentanaPedidoCocina(5)">Preparado</button></td></tr>';
-	*/
-	txt +='</tbody></table></div>';
+	txt +='<div id="cont_centro"></div>';
+	/*txt += '';
+	txt +='</tbody></table></div>';*/
 	return txt;
 }
 
@@ -101,10 +91,10 @@ function forEncabezado(modulo, empleado){
 	if (modulo != ''){
 		txt +='<div class="col-xs-7 "><div id="logoModulo" class="col-xs-12 col-md-6"><h1>'+ modulo +'</h1></div>';
 		txt +='<div id="logoNombre" class="col-xs-12 col-md-6"><h1>'+ empleado +'</h1></div></div>';
-		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></div></div>';
+		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></a></div></div>';
 	}else{	//Caso mesero, el encabezado es diferente
 		txt +='<div id="logoNombre" class="col-xs-7"><h1>'+ empleado +'</h1></div>';
-		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></div></div>';
+		txt += '<div class="col-xs-2" id="divBotonSalir"><a type="button" class="btn btn-info" id="btnSalir" href = "index.html"><span class="glyphicon glyphicon-off"></span></a></div></div>';
 	}
 	return txt;
 }
