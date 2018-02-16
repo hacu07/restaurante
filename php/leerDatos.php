@@ -13,7 +13,10 @@ switch ($opcion) {
 		break;
 	
 	case 2:
-		$sql = "SELECT pedidos.idPedido, usuario.nombre, mesa.numMesa, pedidos.fechaPedido from mesa inner join pedidos on pedidos.numMesa = mesa.numMesa inner join usuario on pedidos.idMesero = usuario.idUsuario";
+		$sql = "SELECT pedidos.idPedido, usuario.nombre, mesa.numMesa, pedidos.fechaPedido , estadopedido.estado
+					from mesa inner join pedidos on pedidos.numMesa = mesa.numMesa 
+    						INNER join estadopedido on pedidos.idEstado = estadopedido.idEstado
+		  					inner join usuario on pedidos.idMesero = usuario.idUsuario ";
 		leerRegistro($sql);
 		break;
 }

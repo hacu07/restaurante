@@ -5,8 +5,7 @@ function forPantallaChef1(modulo, empleado){
 
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
-	/*txt += '';
-	txt +='</tbody></table></div>';*/
+	//Desps de cargar este DIV se hace la consulta para el llenado de la tabla en consultarPedidosCocina();
 	return txt;
 }
 
