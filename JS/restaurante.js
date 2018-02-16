@@ -81,8 +81,8 @@ function consultarPedidosCocina(){
 	ejecutarAjaxJson(parametros,2);
 }
 
-function consultarDatosDetalleCocina(){
-	var parametros = { "opc" : 3};
+function consultarDatosDetalleCocina(idPedido){
+	var parametros = { "opc" : 3 , "idPedido" : idPedido };
 	ejecutarAjaxJson(parametros,3);
 }
 
@@ -153,7 +153,7 @@ function mostrarVentanaMesero1(){
 function mostrarVentanaPedidoCocina(idPedido){
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
 	//$(".modal-body").html(cargarDatosPedidoCocina(idPedido));
-	consultarDatosDetalleCocina();
+	consultarDatosDetalleCocina(idPedido);
 	$("#myModal").collapse('show');  
 }
 
