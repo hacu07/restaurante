@@ -19,6 +19,13 @@ switch ($opcion) {
 		  					inner join usuario on pedidos.idMesero = usuario.idUsuario ";
 		leerRegistro($sql);
 		break;
+
+	case 3: 
+		$sql = "SELECT producto.nombre, productopedido.cantidad, estadopedido.estado 
+					FROM producto INNER JOIN productopedido on producto.idProducto = productopedido.idProducto
+		     					  INNER JOIN estadopedido on productopedido.idEstado = estadopedido.idEstado";
+		leerRegistro($sql);
+		break;
 }
 
 

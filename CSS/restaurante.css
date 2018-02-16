@@ -17,6 +17,14 @@ Fecha: 07/02/2018;
 :root{
 	--bg-body: #D6D6D6;
 	--bg-azul: #55C5D0;
+	--bg-enEspera : #d9534f;  /* Cambia color del fondo del boton En espera*/
+	--font-btn: #fff; /* Cambia color del texto de los botones*/
+	--font-Ordenando: #000; /* Cambia color del texto del boton ordenando*/
+	--bg-Preparando : #f0ad4e;/* Cambia color del fondo del boton Preparando*/
+	--bg-Preparado:#5bc0de;/* Cambia color del fondo del boton Preparado*/
+	--bg-Entregado:#5cb85c;/* Cambia color del fondo del boton entregado*/
+	--bg-Ordenando:#fff; /* Cambia color del fondo del boton Ordenando*/
+
 }
 
 body{
@@ -184,6 +192,31 @@ th {
 
 tr,th{
 	text-align: center;
+}
+
+.btn-EnEspera{
+ background-color: var(--bg-enEspera);
+ color : var(--font-btn);
+}
+
+.btn-Preparando{
+ background-color: var(--bg-preparando);
+ color: var(--font-btn);
+}
+
+.btn-Preparado{
+ background-color: var(--bg-preparado);
+ color: var(--font-btn);
+}
+
+.btn-Entregado{
+	background-color: var(--bg-entregado);
+	color: var(--font-btn);
+}
+
+.btn-Ordenando{
+	background-color: var(--bg-Ordenando);
+	color: var(--font-Ordenando);
 }
 
 /*******************************************************/

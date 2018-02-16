@@ -7,6 +7,7 @@
 var nav = 1;				//Controla la navegacion entre pantallas. 1: Inicial
 var usuario = {};		//Contiene la respuesta de la tabla usuario
 var pedidos = {}; 		//consulta para mostrar en jefeCocina 
+var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
 var filaHtml ; //	Llena las filas 
 
 
@@ -64,6 +65,12 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
+		case 3: 
+			if(response.length > 0) { 
+				detallesPedidoCocina = response;
+				tablaDetalleCocina(detallesPedidoCocina);
+			}
+		break;
 		}
 
 }
@@ -74,6 +81,11 @@ function consultarPedidosCocina(){
 	ejecutarAjaxJson(parametros,2);
 }
 
+function consultarDatosDetalleCocina(){
+	var parametros = { "opc" : 3};
+	ejecutarAjaxJson(parametros,3);
+}
+
 
 function tablaCocina(filasArreglo){
 	//Llenado de filas html
@@ -81,14 +93,36 @@ function tablaCocina(filasArreglo){
 	fila +='<thead><tr><th>#</th><th>Mesero</th><th>Mesa</th><th>Demora</th><th>Estado</th></tr></thead>';
 	fila += "<tbody>";
 	for (var i = 0; i < filasArreglo.length; i++) {
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn'>"+ filasArreglo[i]["estado"] +"</button></td></tr>";
+
+		var estado = filasArreglo[i]["estado"] ;
+		var claseEstado = estado.replace(" ","");
+
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+"'  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ filasArreglo[i]["estado"] +"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);
 	//	return filaHtml;
 }
 
+function tablaDetalleCocina(filasArreglo){
+	//fila = '<h5>Pedido Nº '+ filasArreglo[0]["idPedido"] +'</h5>';
+	 var  fila = '<table class="table table-hover table-striped">';
+	fila +='<thead><tr><th>Producto</th><th>Cant.</th><th>Estado</th><th>Preparar</th><th>Entregado</th></thead><tbody>';
 
+	for (var i = 0; i < filasArreglo.length; i++){
+
+
+		var estado = filasArreglo[i]["estado"] ;
+		var claseEstado = estado.replace(" ","");
+
+		fila += '<tbody><tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td class="btn-'+claseEstado+'">'+filasArreglo[i]["estado"]+'</td>';		
+		
+	}
+
+		fila +='</tbody></table>';
+		$('.modal-body').html(fila);
+
+}
 
 
 //****** MOSTRAR VENTANAS **************************************************
@@ -118,7 +152,8 @@ function mostrarVentanaMesero1(){
 //Despliega datos de un pedido en la ventana modal ***********************
 function mostrarVentanaPedidoCocina(idPedido){
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
-	$(".modal-body").html(cargarDatosPedidoCocina(idPedido));
+	//$(".modal-body").html(cargarDatosPedidoCocina(idPedido));
+	consultarDatosDetalleCocina();
 	$("#myModal").collapse('show');  
 }
 

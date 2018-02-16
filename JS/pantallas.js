@@ -164,51 +164,10 @@ function cargarDatosPedidoCocina(idPedido){
 	var txt = '<table class="table table-hover table-striped">';
 	txt +='<thead><tr><th>Producto</th><th>Cant.</th><th>Estado</th><th>Preparar</th><th>Entregado</th></thead>';
 
-	txt +='<tbody><tr><td>Churrasco Argentino</td><td>3</td><td>En espera</td>';
+/*	txt +='<tbody><tr><td>Churrasco Argentino</td><td>3</td><td>En espera</td>';
 	txt +='<td><button type="button" class="btn btn-danger btn-tabla" onclick="cambiarEstadoPedido()"> Asignar</button></td>';
 	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>En espera</td>';
-	txt +='<td><button type="button" class="btn btn-danger btn-tabla" onclick="cambiarEstadoPedido()"> Asignar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>En espera</td>';
-	txt +='<td><button type="button" class="btn btn-danger btn-tabla" onclick="cambiarEstadoPedido()"> Asignar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparando</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="cambiarEstadoPedido()">Preparar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparando</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="cambiarEstadoPedido()">Preparar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparando</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="cambiarEstadoPedido()">Preparar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparando</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="cambiarEstadoPedido()">Preparar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in" disabled></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparado</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="cambiarEstadoPedido()">Entregar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in"></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparado</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="cambiarEstadoPedido()">Entregar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in"></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparado</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="cambiarEstadoPedido()">Entregar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in"></td></tr>';
-
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Preparado</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="cambiarEstadoPedido()">Entregar</button></td>';
-	txt +='<td><input type="checkbox" id="checkbox110" class="filled-in"></td></tr>';
-
-	txt +='</tbody></table>';
+	txt +='</tbody></table>';*/
 	return txt;		
 }
 
