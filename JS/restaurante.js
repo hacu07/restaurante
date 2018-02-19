@@ -120,7 +120,7 @@ function tablaDetalleCocina(filasArreglo){
 		var estado = filasArreglo[i]["estado"] ;
 		var claseEstado = estado.replace(" ","");
 
-		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td class="btn-'+claseEstado+'" ><div class="btn-group"><button type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+' dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" >En espera</button><button class="dropdown-item btn-block btn-Preparando" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" >Preparado</button><button class="dropdown-item btn-block btn-Entregado">Entregado</button> </div></div></td> ';		
+		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(1,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(1,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
 		
 	}
 		fila +='</tbody></table>';
@@ -213,4 +213,43 @@ function cerrarModal(){
 }
 */
 
+
+/**/
+function cambiarEstadoProducto(estado , idNumProducto){
+	removerClases(idNumProducto);
+	switch(estado){
+		case 1://En Espera
+			$('#btnTd'+idNumProducto).text("En Espera");
+			$('#btnTd'+idNumProducto).toggleClass("btn-EnEspera");
+			$('#flecha'+idNumProducto).toggleClass("btn-EnEspera");
+			break;
+		case 2://Preparando
+			$('#btnTd'+idNumProducto).text("Preparando");
+			$('#btnTd'+idNumProducto).toggleClass("btn-Preparando");
+			$('#flecha'+idNumProducto).toggleClass("btn-Preparando");
+			break; 
+		case 3://Preparado
+			$('#btnTd'+idNumProducto).text("Preparado");
+			$('#btnTd'+idNumProducto).toggleClass("btn-Preparado");
+			$('#flecha'+idNumProducto).toggleClass("btn-Preparado");
+			break;
+		case 4://Entregado
+			$('#btnTd'+idNumProducto).text("Entregado");
+			$('#btnTd'+idNumProducto).toggleClass("btn-Entregado");
+			$('#flecha'+idNumProducto).toggleClass("btn-Entregado");
+			break;
+	}
+}
+
+
+function removerClases(idNumProducto){
+	$('#btnTd'+idNumProducto).removeClass("btn-EnEspera");
+	$('#btnTd'+idNumProducto).removeClass("btn-Preparando");
+	$('#btnTd'+idNumProducto).removeClass("btn-Preparado");
+	$('#btnTd'+idNumProducto).removeClass("btn-Entregado");
+	$('#flecha'+idNumProducto).removeClass("btn-EnEspera");
+	$('#flecha'+idNumProducto).removeClass("btn-EnEspera");
+	$('#flecha'+idNumProducto).removeClass("btn-EnEspera");
+	$('#flecha'+idNumProducto).removeClass("btn-EnEspera");
+}
 
