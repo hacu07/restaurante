@@ -22,7 +22,7 @@ switch ($opcion) {
 
 	case 3: 
 		$idPedido = $_POST["idPedido"];
-		$sql = "SELECT producto.nombre, productopedido.cantidad, estadopedido.estado 
+		$sql = "SELECT producto.nombre, productopedido.cantidad, estadopedido.estado,productopedido.numero 
 					FROM producto INNER JOIN productopedido on producto.idProducto = productopedido.idProducto
 		     					  INNER JOIN estadopedido on productopedido.idEstado = estadopedido.idEstado WHERE productopedido.idpedido =".$idPedido;
 		leerRegistro($sql);

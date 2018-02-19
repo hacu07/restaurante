@@ -5,10 +5,11 @@
 * ver.: 1.00
 ********************************************************************/
 var nav = 1;				//Controla la navegacion entre pantallas. 1: Inicial
-var usuario = {};		//Contiene la respuesta de la tabla usuario
-var pedidos = {}; 		//consulta para mostrar en jefeCocina 
+var usuario = {};			//Contiene la respuesta de la tabla usuario
+var pedidos = {}; 			//consulta para mostrar en jefeCocina 
 var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
-var filaHtml ; //	Llena las filas 
+var filaHtml ; 				//Llena las filas 
+var claseEstado; 			//Estado en el que se encuentran los productos del pedido
 
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
@@ -69,7 +70,11 @@ function leerDatos(responseJSON, opc){
 			if(response.length > 0) { 
 				detallesPedidoCocina = response;
 				tablaDetalleCocina(detallesPedidoCocina);
+			}else
+			{
+				$(".modal-body").html("");
 			}
+
 		break;
 		}
 
@@ -107,7 +112,7 @@ function tablaCocina(filasArreglo){
 function tablaDetalleCocina(filasArreglo){
 	//fila = '<h5>Pedido Nº '+ filasArreglo[0]["idPedido"] +'</h5>';
 	 var  fila = '<table class="table table-hover table-striped">';
-	fila +='<thead><tr><th>Producto</th><th>Cant.</th><th>Estado</th><th>Preparar</th><th>Entregado</th></thead><tbody>';
+	fila +='<thead><tr><th>Producto</th><th>Cant.</th><th>Estado</th></thead><tbody>';
 
 	for (var i = 0; i < filasArreglo.length; i++){
 
@@ -115,10 +120,9 @@ function tablaDetalleCocina(filasArreglo){
 		var estado = filasArreglo[i]["estado"] ;
 		var claseEstado = estado.replace(" ","");
 
-		fila += '<tbody><tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td class="btn-'+claseEstado+'">'+filasArreglo[i]["estado"]+'</td>';		
+		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td class="btn-'+claseEstado+'" ><div class="btn-group"><button type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+' dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" >En espera</button><button class="dropdown-item btn-block btn-Preparando" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" >Preparado</button><button class="dropdown-item btn-block btn-Entregado">Entregado</button> </div></div></td> ';		
 		
 	}
-
 		fila +='</tbody></table>';
 		$('.modal-body').html(fila);
 
@@ -208,3 +212,5 @@ function cerrarModal(){
 
 }
 */
+
+

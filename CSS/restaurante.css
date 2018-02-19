@@ -200,17 +200,17 @@ tr,th{
 }
 
 .btn-Preparando{
- background-color: var(--bg-preparando);
+ background-color: var(--bg-Preparando);
  color: var(--font-btn);
 }
 
 .btn-Preparado{
- background-color: var(--bg-preparado);
+ background-color: var(--bg-Preparado);
  color: var(--font-btn);
 }
 
 .btn-Entregado{
-	background-color: var(--bg-entregado);
+	background-color: var(--bg-Entregado);
 	color: var(--font-btn);
 }
 
@@ -218,6 +218,7 @@ tr,th{
 	background-color: var(--bg-Ordenando);
 	color: var(--font-Ordenando);
 }
+
 
 /*******************************************************/
 
