@@ -40,7 +40,7 @@ function ejecutarAjaxJson(datos, opc){
 	    },
 	 
 	    error : function(xhr, status) {
-	    	mostrarAlerta(' No se pudo realizar la conexión al servidor. ' + status)
+	    	console.log(' No se pudo realizar la conexión al servidor. ' + status)
 	    },	 
 	});	
 }
@@ -73,6 +73,15 @@ function leerDatos(responseJSON, opc){
 			}else
 			{
 				$(".modal-body").html("");
+			}
+
+		break;
+		case 4:
+			if (response["ok"] == "actualizo") {
+				console.log("si Modifico");
+
+			}else{
+				console.log("Error "+ response);
 			}
 
 		break;
@@ -120,7 +129,7 @@ function tablaDetalleCocina(filasArreglo){
 		var estado = filasArreglo[i]["estado"] ;
 		var claseEstado = estado.replace(" ","");
 
-		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(1,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
+		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(5,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
 		
 	}
 		fila +='</tbody></table>';
@@ -215,29 +224,38 @@ function cerrarModal(){
 
 
 /* cambia el estado del producto en la interfaz detallePedido del jefe de cocina*/
-function cambiarEstadoProducto(estado, idNumProducto){
+function cambiarEstadoProducto(idEstado, idNumProducto){
 	removerClases(idNumProducto);
-	switch(estado){
-		case 1://En Espera
-			asignarClases("EnEspera",idNumProducto);
+	switch(idEstado){
+		case 2://En Espera
+			asignarClases("EnEspera",idEstado,idNumProducto);
 			break;
-		case 2://Preparando
-			asignarClases("Preparando",idNumProducto);
+		case 3://Preparando
+			asignarClases("Preparando",idEstado,idNumProducto);
 			break; 
-		case 3://Preparado
-			asignarClases("Preparado",idNumProducto);
+		case 4://Preparado
+			asignarClases("Preparado",idEstado,idNumProducto);
 			break;
-		case 4://Entregado
-			asignarClases("EnTregado",idNumProducto);
+		case 5://Entregado
+			asignarClases("Entregado",idEstado,idNumProducto);
 			break;
 	}
 }
 
 /* Asigna las clases al dropdown de tabla detalla pedido de la interfaz del Jefe de cocina*/
-function asignarClases(clase,idNumProducto){
-	$('#btnTd'+idNumProducto).text(clase);
+function asignarClases(clase,idEstado,idNumProducto){
 	$('#btnTd'+idNumProducto).toggleClass("btn-"+clase);
 	$('#flecha'+idNumProducto).toggleClass("btn-"+clase);
+
+	if (clase =="EnEspera") {
+		clase = clase.replace("nE", "n E");
+		$('#btnTd'+idNumProducto).text(clase);
+	}else{
+		$('#btnTd'+idNumProducto).text(clase);
+	}
+
+	var parametros = {"opc" : 4, "idEstado": idEstado, "numero" : idNumProducto};
+	ejecutarAjaxJson(parametros,4);
 }
 
 

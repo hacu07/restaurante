@@ -27,6 +27,14 @@ switch ($opcion) {
 		     					  INNER JOIN estadopedido on productopedido.idEstado = estadopedido.idEstado WHERE productopedido.idpedido =".$idPedido;
 		leerRegistro($sql);
 		break;
+
+	case 4: 
+		$idEstado = $_POST["idEstado"];
+		$numero = $_POST["numero"];
+		$sql = "UPDATE productopedido SET idEstado = {$idEstado} WHERE numero ={$numero}";
+
+		actualizarRegistro($sql);
+		break;
 }
 
 
@@ -48,6 +56,27 @@ function leerRegistro($sql){
 	}
 	mysqli_close($conexion);
 	echo json_encode($rows);
+}
+
+
+/*****************************************************************************
+INSERTA, ACTUALIZA O ELIMINA REGISTROS DE LA BASE DE DATOS
+*****************************************************************************/
+
+function actualizarRegistro($sql){
+
+		include("conexionDB.php");
+
+		if ($conexion->query($sql) === TRUE) {	
+			$respuesta = array('ok' => 'actualizo');
+
+		}else  {
+	
+			$respuesta = array('ok' => 'error' );
+		}
+
+		echo json_encode($respuesta);
+
 }
 
 
