@@ -214,34 +214,35 @@ function cerrarModal(){
 */
 
 
-/**/
-function cambiarEstadoProducto(estado , idNumProducto){
+/* cambia el estado del producto en la interfaz detallePedido del jefe de cocina*/
+function cambiarEstadoProducto(estado, idNumProducto){
 	removerClases(idNumProducto);
 	switch(estado){
 		case 1://En Espera
-			$('#btnTd'+idNumProducto).text("En Espera");
-			$('#btnTd'+idNumProducto).toggleClass("btn-EnEspera");
-			$('#flecha'+idNumProducto).toggleClass("btn-EnEspera");
+			asignarClases("EnEspera",idNumProducto);
 			break;
 		case 2://Preparando
-			$('#btnTd'+idNumProducto).text("Preparando");
-			$('#btnTd'+idNumProducto).toggleClass("btn-Preparando");
-			$('#flecha'+idNumProducto).toggleClass("btn-Preparando");
+			asignarClases("Preparando",idNumProducto);
 			break; 
 		case 3://Preparado
-			$('#btnTd'+idNumProducto).text("Preparado");
-			$('#btnTd'+idNumProducto).toggleClass("btn-Preparado");
-			$('#flecha'+idNumProducto).toggleClass("btn-Preparado");
+			asignarClases("Preparado",idNumProducto);
 			break;
 		case 4://Entregado
-			$('#btnTd'+idNumProducto).text("Entregado");
-			$('#btnTd'+idNumProducto).toggleClass("btn-Entregado");
-			$('#flecha'+idNumProducto).toggleClass("btn-Entregado");
+			asignarClases("EnTregado",idNumProducto);
 			break;
 	}
 }
 
+/* Asigna las clases al dropdown de tabla detalla pedido de la interfaz del Jefe de cocina*/
+function asignarClases(clase,idNumProducto){
+	$('#btnTd'+idNumProducto).text(clase);
+	$('#btnTd'+idNumProducto).toggleClass("btn-"+clase);
+	$('#flecha'+idNumProducto).toggleClass("btn-"+clase);
+}
 
+
+/* Remueve las clases que se encuentren en el dropdown de la tablaDetallePedido 
+	de las interfaz del jefe de cocina para poder asignar una nueva  */
 function removerClases(idNumProducto){
 	$('#btnTd'+idNumProducto).removeClass("btn-EnEspera");
 	$('#btnTd'+idNumProducto).removeClass("btn-Preparando");
