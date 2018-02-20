@@ -35,7 +35,13 @@ switch ($opcion) {
 
 		actualizarRegistro($sql);
 		break;
+	case 5:
+		$idPedido = $_POST["idPedido"];
+		$sql= "SELECT MIN(idEstado) FROM productopedido WHERE idPedido = {$idPedido}";
+		leerRegistro($sql);
+		break;
 }
+
 
 
 

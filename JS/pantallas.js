@@ -106,7 +106,6 @@ function cargarModalCocina(){
 	txt += '<div class="modal-header"><button type="button" class="close" onclick="cerrarModal()">&times;</button>';
 	txt += '<h4 class="modal-title"></h4></div>';
 	txt += '<div class="modal-body"></div><div class="modal-footer">';
-	txt += '<button type="button" class="btn btn-success" onclick="cerrarModal()">Confirmar Cambios</button>';
 	txt += '</div></div></div></div>';
 	return txt;
 }

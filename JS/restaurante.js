@@ -272,3 +272,5 @@ function removerClases(idNumProducto){
 	$('#flecha'+idNumProducto).removeClass("btn-Entregado");
 }
 
+
+
