@@ -85,6 +85,9 @@ function leerDatos(responseJSON, opc){
 			}
 
 		break;
+		case 5:
+
+		break;
 		}
 
 }
@@ -108,15 +111,16 @@ function tablaCocina(filasArreglo){
 	fila += "<tbody>";
 	for (var i = 0; i < filasArreglo.length; i++) {
 
-		var estado = filasArreglo[i]["estado"] ;
-		var claseEstado = estado.replace(" ","");
+		var estado = parseInt(filasArreglo[i]["idEstado"]);
+		var claseEstado = nombrarEstado(estado);
 
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+"'  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ filasArreglo[i]["estado"] +"</button></td></tr>";
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+"'  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ claseEstado+"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);
 	//	return filaHtml;
 }
+
 
 function tablaDetalleCocina(filasArreglo){
 	//fila = '<h5>Pedido Nº '+ filasArreglo[0]["idPedido"] +'</h5>';
@@ -135,6 +139,27 @@ function tablaDetalleCocina(filasArreglo){
 		fila +='</tbody></table>';
 		$('.modal-body').html(fila);
 
+}
+
+function nombrarEstado(idEstado){
+	switch(idEstado){
+
+		case 2: 
+			nombreEstado = "EnEspera";
+		break;
+		case 3: 
+			nombreEstado = "Preparando";
+		break;
+
+		case 4: 
+			nombreEstado = "Preparado";
+		break;
+		case 5: 
+			nombreEstado = "Entregado";
+		break;
+	}
+
+	return nombreEstado;
 }
 
 
@@ -272,5 +297,8 @@ function removerClases(idNumProducto){
 	$('#flecha'+idNumProducto).removeClass("btn-Entregado");
 }
 
+/*Actualiza el estado minimo el pedido*/
 
+function cargarEstadoPedido(idPedido){
+}
 

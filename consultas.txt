@@ -1,1 +1,0 @@
-UPDATE `productopedido` SET idEstado = 3 WHERE numero = 1

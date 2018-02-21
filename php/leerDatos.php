@@ -13,10 +13,12 @@ switch ($opcion) {
 		break;
 	
 	case 2:
-		$sql = "SELECT pedidos.idPedido, usuario.nombre, mesa.numMesa, pedidos.fechaPedido , estadopedido.estado
-					from mesa inner join pedidos on pedidos.numMesa = mesa.numMesa 
-    						INNER join estadopedido on pedidos.idEstado = estadopedido.idEstado
-		  					inner join usuario on pedidos.idMesero = usuario.idUsuario ";
+		$sql = "SELECT DISTINCT Pe.idPedido, U.nombre, Pe.numMesa, Pe.fechaPedido, Pr.idEstado FROM  pedidos Pe
+				JOIN usuario U ON Pe.idMesero = U.idUsuario 
+				JOIN productoPedido Pr ON Pe.idPedido = Pr.idPedido 
+				WHERE Pr.idEstado <= 5 AND 
+				Pr.idEstado IN
+				( select MIN(idEstado) FROM productopedido Pr WHERE Pr.idPedido = Pe.idPedido )";
 		leerRegistro($sql);
 		break;
 
@@ -37,9 +39,10 @@ switch ($opcion) {
 		break;
 	case 5:
 		$idPedido = $_POST["idPedido"];
-		$sql= "SELECT MIN(idEstado) FROM productopedido WHERE idPedido = {$idPedido}";
+		$sql= "SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}";
 		leerRegistro($sql);
 		break;
+
 }
 
 
