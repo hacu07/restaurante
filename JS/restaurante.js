@@ -78,7 +78,7 @@ function leerDatos(responseJSON, opc){
 		break;
 		case 4:
 			if (response["ok"] == "actualizo") {
-				console.log("si Modifico");
+				consultarPedidosCocina();
 
 			}else{
 				console.log("Error "+ response);
