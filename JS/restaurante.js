@@ -11,7 +11,6 @@ var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para 
 var filaHtml ; 				//Llena las filas 
 var claseEstado; 			//Estado en el que se encuentran los productos del pedido
 
-
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
 	var user = $('#usuario').val();
@@ -19,8 +18,6 @@ function iniciarSesion(){
 	var parametros = { "opc" : 1, "usuario" : user, "password" : pass};
 	ejecutarAjaxJson(parametros,1);
 }
-
-
 
 /* ejecutarAjaxJson  *********************************************************** 
 	* Ejecuta una consulta AJAX en el servidor. Usa el metodo POST 
@@ -45,7 +42,6 @@ function ejecutarAjaxJson(datos, opc){
 	});	
 }
 
-
 function leerDatos(responseJSON, opc){
 	var response = JSON.parse(responseJSON);
 	switch(opc){
@@ -69,7 +65,6 @@ function leerDatos(responseJSON, opc){
 				tablaCocina(pedidos);
 			}
 		break;
-
 		case 3: 
 			if(response.length > 0) { 
 				detallesPedidoCocina = response;
@@ -78,35 +73,34 @@ function leerDatos(responseJSON, opc){
 			{
 				$(".modal-body").html("");
 			}
-
 		break;
 		case 4:
 			if (response["ok"] == "actualizo") {
 				//consultarPedidosCocina();
-
 			}else{
 				console.log("Error "+ response);
 			}
-
 		break;
 		case 6:
 			if (response["ok"] == "actualizo") {
 				consultarPedidosCocina();
-
 			}else{
 				console.log("Error "+ response);
 			}
-
 		break;
-
-
 		case 10:
 			 if (response.length > 0) {
 			 	facturas = response;
 			 	tablaCaja(facturas);
 
 			 }
-		break;	
+		break;
+		case 11:
+			if (response.length>0) {
+				cargarDatosPedidoCaja(response);
+			}
+		break;
+
 		}
 
 }
@@ -218,7 +212,8 @@ function mostrarVentanaPedidoCocina(idPedido){
 //Despliega datos de un pedido en la ventana modal ***********************
 function mostrarVentanaPedidoCaja(idPedido){
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
-	$(".modal-body").html(cargarDatosPedidoCaja(idPedido));
+	consultarDetalleFactura(idPedido);
+	//cargarDatosPedidoCaja(idPedido);
 	$("#myModal").collapse('show');  
 }
 
@@ -240,13 +235,10 @@ function regresar(){
 	switch (nav){
 		case 1: 	//Modulo Cocina
 			break;
-
 		case 2: 	//Modulo Caja
 			break;
-
 		case 3: 	//Modulo Mesero Pantalla inicial, 
 			break;
-
 		case 31: 	//Modulo Ventana Hacer nuevo pedido
 		case 32: 	//Modulo Ventana Ver un pedido
 			mostrarVentanaMesero1();
@@ -330,20 +322,19 @@ function consultarFacturas(){
 	ejecutarAjaxJson(parametros,10);
 }
 
+function consultarDetalleFactura(idPedido){
+	var parametros = {"opc" : 11, "idPedido" : idPedido};
+	ejecutarAjaxJson(parametros,11);
+}
+
 function tablaCaja(filasFactura){
 	//Llena las filas de HTML 
-
 	var fila = '<table class="table table-hover table-striped">';
 	fila += '<thead><tr><th># Pedido</th><th>Mesa </th><th>Valor </th><th>Estado</th><th>Ver</th></tr></thead>';
 	fila += '<tbody>';
-
 	for (var i =0; i< filasFactura.length; i++) {
-
-		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["valorFactura"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button> </button></td></tr>';
+		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["valorFactura"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button class="btn btnVerCaja" onclick="mostrarVentanaPedidoCaja('+filasFactura[i]["idPedido"]+')">Ver</button></td></tr>';
 	}
-
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
-
-
 }

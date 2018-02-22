@@ -12,4 +12,8 @@ muestra el valor de pedido. (Falta calcular el Iva )
 SELECT SUM(producto.Precio*productopedido.cantidad) AS valorPedido FROM producto JOIN productopedido on producto.idProducto = productopedido.idProducto
 
 
-z
+
+
+
+ mostrar detalles de la tablaDetallesFactura del modal de modulo caja 
+select producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = 1

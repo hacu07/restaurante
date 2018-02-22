@@ -14,7 +14,7 @@ function forPantallaCaja1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
 
-	
+
 	/*txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
 	txt +='<thead><tr><th># Pedido</th><th>Valor</th><th>Mesa</th><th>Demora</th><th>Ver</th></tr></thead>';
 	txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
@@ -122,8 +122,6 @@ function cargarModalCaja(){
 	txt += '<div class="modal-header"><button type="button" class="close" onclick="cerrarModal()">&times;</button>';
 	txt += '<h4 class="modal-title"></h4></div>';
 	txt += '<div class="modal-body"></div><div class="modal-footer">';
-	txt += '<button type="button" class="btn btn-warning" onclick="imprimirFactura()">Imprimir</button>';
-	txt += '<button type="button" class="btn btn-success" onclick="cerrarModal()">Pagar</button>';
 	txt += '</div></div></div></div>';
 	return txt;
 }
@@ -174,26 +172,19 @@ function cargarDatosPedidoCocina(idPedido){
 }
 
 //**** HTML con datos de un Pedido a cargar en ventana modal, PROVISIONAL??? ***********************
-function cargarDatosPedidoCaja(idPedido){
-	var txt = '<h5>Pedido '+ idPedido +'</h5>';
-	var txt = '<table class="table table-hover table-striped">';
-	txt +='<thead><tr><th>Producto</th><th>Cant.</th><th>Estado</th><th>Precio</th><th>Total</th></thead><tbody>';
+function cargarDatosPedidoCaja(detalleFactura){
+	var txt = '<table class="table table-hover table-striped id="tablaFactura">';
+	txt +='<thead><tr><th>Nombre Producto</th><th>Precio.</th><th>Cantidad</th><th>Valor</th></thead><tbody>';
 
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
-	txt +='<tr><td>Churrasco Argentino</td><td>3</td><td>Entregado</td><td>$15.000</td><td>$45.000</td></tr>';
 
-	txt +='<tr align="right"><td colspan = 3>Subtotal</td><td colspan = 2>$450.000</td></tr>';
+	for (var i = 0; detalleFactura.length <0 ; i++) {
+		txt +='<tr><td>'+detalleFactura[i]["nombre"]+'</td><td>'+detalleFactura[i]["Precio"]+'</td><td>'+detalleFactura[i]["cantidad"]+'</td><td>'+detalleFactura[i]["valor"]+'</td></tr>';
+	}
+
+/*	txt +='<tr align="right"><td colspan = 3>Subtotal</td><td colspan = 2>$450.000</td></tr>';
 	txt +='<tr align="right"><td colspan = 3>IVA</td><td colspan = 2>$72.000</td></tr>';
-	txt +='<tr align="right"><td colspan = 3>A PAGAR</td><td colspan = 2>$522.000</td></tr>';
-
+	txt +='<tr align="right"><td colspan = 3>A PAGAR</td><td colspan = 2>$522.000</td></tr>';*/
 	txt +='</tbody></table>';
-	return txt;		
+
+	$(".modal-body").html(txt);
 }

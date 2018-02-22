@@ -31,21 +31,12 @@ switch ($opcion) {
 		break;
 
 	case 4: 
-		/*$idPedido = $_POST["idPedido"];*/
 		$idEstado = $_POST["idEstado"];
 		$numero = $_POST["numero"];
 		$sql = "UPDATE productopedido SET idEstado = {$idEstado} WHERE numero ={$numero}";
 		actualizarRegistro($sql);
-		/*$sql2 = "UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}) WHERE idPedido ={$idPedido}";
-		actualizarRegistro($sql2);*/
-		//actualizarEstadoPedido($idPedido);
 		break;
 
-	/*case 5:
-		$idPedido = $_POST["idPedido"];
-		$sql= "SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}";
-		leerRegistro($sql);
-		break; */
 		case 6:
 			$idPedido = $_POST["idPedido"];
 			$sql2 = "UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}) WHERE idPedido ={$idPedido}";
@@ -66,6 +57,10 @@ switch ($opcion) {
 
        leerRegistro($sql);         			 
 		break;
+	case 11:
+		$idPedido = $_POST["idPedido"];
+		$sql = "SELECT producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = {$idPedido}";
+	break;
 
 }
 

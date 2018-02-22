@@ -223,6 +223,13 @@ tr,th{
   width: 60%;
 }
 
+.btnVerCaja{
+	width: 90%;
+	background-color: #fff;
+	color: var(--bg-azul);
+	font-weight: bold;
+}
+
 
 /*******************************************************/
 
