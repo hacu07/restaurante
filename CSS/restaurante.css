@@ -219,6 +219,11 @@ tr,th{
 	color: var(--font-Ordenando);
 }
 
+.btnAncho{
+	width:60%;
+	vertical-align: middle
+}
+
 
 /*******************************************************/
 

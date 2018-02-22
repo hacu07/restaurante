@@ -56,6 +56,9 @@ function leerDatos(responseJSON, opc){
 					usuario = response;
 					mostrarVentanaChef1(usuario[0]["nombre"]);	//Envia nombre del empleado
 					consultarPedidosCocina();
+				}else if (response[0]["idRol"]==4){
+					cajero = response
+					mostrarVentanaCaja1(cajero[0]["nombre"]); 
 				}
 			}
 		break;
@@ -114,7 +117,7 @@ function tablaCocina(filasArreglo){
 		var estado = parseInt(filasArreglo[i]["idEstado"]);
 		var claseEstado = nombrarEstado(estado);
 
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+"'  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ claseEstado+"</button></td></tr>";
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ claseEstado+"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);
@@ -133,7 +136,7 @@ function tablaDetalleCocina(filasArreglo){
 		var estado = filasArreglo[i]["estado"] ;
 		var claseEstado = estado.replace(" ","");
 
-		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+'">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(5,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
+		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+' btnAncho">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(5,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
 		
 	}
 		fila +='</tbody></table>';
@@ -173,8 +176,8 @@ function mostrarVentanaChef1(nombre){
 	nav = 1;	//no. de ventana de modulo mesero
 }
 
-function mostrarVentanaCaja1(){
-	var txt= forPantallaCaja1('CAJA', 'Pepito');
+function mostrarVentanaCaja1(nombreCajero){
+	var txt= forPantallaCaja1('CAJA', nombreCajero);
 	$('#contenedor').html(txt);
 	$('#contenedor').append(cargarModalCaja());//Agrega HTML del formulario modal
 	nav = 2;	//no. de ventana de modulo mesero
