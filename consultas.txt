@@ -1,0 +1,15 @@
+CONSULTA MODULO COCINA 
+actualiza el estado del pedido segun  el estado minimo de los productos 
+
+UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = 1) WHERE idPedido = 1
+
+
+
+
+
+consulta modulo caja 
+muestra el valor de pedido. (Falta calcular el Iva )
+SELECT SUM(producto.Precio*productopedido.cantidad) AS valorPedido FROM producto JOIN productopedido on producto.idProducto = productopedido.idProducto
+
+
+z

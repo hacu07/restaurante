@@ -12,8 +12,11 @@ function forPantallaChef1(modulo, empleado){
 /*Presenta tabla de pedidos para control, facturacion y pagos por el cajero*/
 function forPantallaCaja1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
-	txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
-	txt +='<thead><tr><th>#</th><th>Mesero</th><th>Mesa</th><th>Demora</th><th>Ver</th></tr></thead>';
+	txt +='<div id="cont_centro"></div>';
+
+	
+	/*txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
+	txt +='<thead><tr><th># Pedido</th><th>Valor</th><th>Mesa</th><th>Demora</th><th>Ver</th></tr></thead>';
 	txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
 	txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarVentanaPedidoCaja(1)">En Espera</button></td></tr>';
 	txt +='<tr><td>2</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
@@ -24,7 +27,7 @@ function forPantallaCaja1(modulo, empleado){
 	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCaja(4)">En preparacion</button></td></tr>';
 	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
 	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="mostrarVentanaPedidoCaja(5)">Preparado</button></td></tr>';
-	txt +='</tbody></table></div>';
+	txt +='</tbody></table></div>';*/
 	return txt;
 }
 

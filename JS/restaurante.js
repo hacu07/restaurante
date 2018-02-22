@@ -59,6 +59,7 @@ function leerDatos(responseJSON, opc){
 				}else if (response[0]["idRol"]==4){
 					cajero = response
 					mostrarVentanaCaja1(cajero[0]["nombre"]); 
+					consultarFacturas();
 				}
 			}
 		break;
@@ -81,6 +82,15 @@ function leerDatos(responseJSON, opc){
 		break;
 		case 4:
 			if (response["ok"] == "actualizo") {
+				//consultarPedidosCocina();
+
+			}else{
+				console.log("Error "+ response);
+			}
+
+		break;
+		case 6:
+			if (response["ok"] == "actualizo") {
 				consultarPedidosCocina();
 
 			}else{
@@ -88,14 +98,21 @@ function leerDatos(responseJSON, opc){
 			}
 
 		break;
-		case 5:
 
-		break;
+
+		case 10:
+			 if (response.length > 0) {
+			 	facturas = response;
+			 	tablaCaja(facturas);
+
+			 }
+		break;	
 		}
 
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
+
 function consultarPedidosCocina(){
 	var parametros = { "opc" : 2};
 	ejecutarAjaxJson(parametros,2);
@@ -117,7 +134,7 @@ function tablaCocina(filasArreglo){
 		var estado = parseInt(filasArreglo[i]["idEstado"]);
 		var claseEstado = nombrarEstado(estado);
 
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"] +")'>"+ claseEstado+"</button></td></tr>";
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"]+")'>"+ claseEstado+"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);
@@ -136,7 +153,7 @@ function tablaDetalleCocina(filasArreglo){
 		var estado = filasArreglo[i]["estado"] ;
 		var claseEstado = estado.replace(" ","");
 
-		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group btnAncho"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+' btnAncho">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(5,'+filasArreglo[i]["numero"]+')">Entregado</button> </div></div></td> ';		
+		fila += '<tr><td>'+filasArreglo[i]["nombre"]+'</td><td>'+filasArreglo[i]["cantidad"]+'</td><td  ><div class="btn-group btnAncho"><button id="btnTd'+filasArreglo[i]["numero"]+'" type="button" class="btn btn-'+claseEstado+' btnAncho">'+claseEstado+'</button><button type="button" class="btn btn-'+claseEstado+'" id="flecha'+filasArreglo[i]["numero"]+'" dropdown-toggle dropdown-toggle-split " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button><div class="dropdown-menu"><button class="dropdown-item btn-block btn-EnEspera" onclick="cambiarEstadoProducto(2,'+filasArreglo[i]["numero"]+','+filasArreglo[i]["idPedido"]+')" >En espera</button><button class="dropdown-item btn-block btn-Preparando" onclick="cambiarEstadoProducto(3,'+filasArreglo[i]["numero"]+','+filasArreglo[i]["idPedido"]+')" >Preparando</button><button class="dropdown-item btn-block btn-Preparado" onclick="cambiarEstadoProducto(4,'+filasArreglo[i]["numero"]+','+filasArreglo[i]["idPedido"]+')">Preparado</button><button class="dropdown-item btn-block btn-Entregado" onclick="cambiarEstadoProducto(5,'+filasArreglo[i]["numero"]+','+filasArreglo[i]["idPedido"]+')">Entregado</button> </div></div></td> ';		
 		
 	}
 		fila +='</tbody></table>';
@@ -252,26 +269,26 @@ function cerrarModal(){
 
 
 /* cambia el estado del producto en la interfaz detallePedido del jefe de cocina*/
-function cambiarEstadoProducto(idEstado, idNumProducto){
+function cambiarEstadoProducto(idEstado, idNumProducto,idPedido){
 	removerClases(idNumProducto);
 	switch(idEstado){
 		case 2://En Espera
-			asignarClases("EnEspera",idEstado,idNumProducto);
+			asignarClases("EnEspera",idEstado,idNumProducto,idPedido);
 			break;
 		case 3://Preparando
-			asignarClases("Preparando",idEstado,idNumProducto);
+			asignarClases("Preparando",idEstado,idNumProducto,idPedido);
 			break; 
 		case 4://Preparado
-			asignarClases("Preparado",idEstado,idNumProducto);
+			asignarClases("Preparado",idEstado,idNumProducto,idPedido);
 			break;
 		case 5://Entregado
-			asignarClases("Entregado",idEstado,idNumProducto);
+			asignarClases("Entregado",idEstado,idNumProducto,idPedido);
 			break;
 	}
 }
 
 /* Asigna las clases al dropdown de tabla detalla pedido de la interfaz del Jefe de cocina*/
-function asignarClases(clase,idEstado,idNumProducto){
+function asignarClases(clase,idEstado,idNumProducto,idPedido){
 	$('#btnTd'+idNumProducto).toggleClass("btn-"+clase);
 	$('#flecha'+idNumProducto).toggleClass("btn-"+clase);
 
@@ -284,6 +301,9 @@ function asignarClases(clase,idEstado,idNumProducto){
 
 	var parametros = {"opc" : 4, "idEstado": idEstado, "numero" : idNumProducto};
 	ejecutarAjaxJson(parametros,4);
+	parametros = "";
+	parametros = {"opc" : 6, "idPedido": idPedido}
+	ejecutarAjaxJson(parametros,6);
 }
 
 
@@ -300,8 +320,30 @@ function removerClases(idNumProducto){
 	$('#flecha'+idNumProducto).removeClass("btn-Entregado");
 }
 
-/*Actualiza el estado minimo el pedido*/
 
-function cargarEstadoPedido(idPedido){
+
+/***********MODULO DE CAJA ****************
+/consultas del modulo de caja 
+******************************************/
+function consultarFacturas(){
+	var parametros = { "opc" : 10};
+	ejecutarAjaxJson(parametros,10);
 }
 
+function tablaCaja(filasFactura){
+	//Llena las filas de HTML 
+
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th># Pedido</th><th>Mesa </th><th>Valor </th><th>Estado</th><th>Ver</th></tr></thead>';
+	fila += '<tbody>';
+
+	for (var i =0; i< filasFactura.length; i++) {
+
+		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["valorFactura"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button> </button></td></tr>';
+	}
+
+	fila += '</tbody></table>';
+	$('#cont_centro').html(fila);
+
+
+}

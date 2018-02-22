@@ -24,23 +24,47 @@ switch ($opcion) {
 
 	case 3: 
 		$idPedido = $_POST["idPedido"];
-		$sql = "SELECT producto.nombre, productopedido.cantidad, estadopedido.estado,productopedido.numero 
+		$sql = "SELECT productoPedido.idPedido, producto.nombre, productopedido.cantidad, estadopedido.estado,productopedido.numero 
 					FROM producto INNER JOIN productopedido on producto.idProducto = productopedido.idProducto
 		     					  INNER JOIN estadopedido on productopedido.idEstado = estadopedido.idEstado WHERE productopedido.idpedido =".$idPedido;
 		leerRegistro($sql);
 		break;
 
 	case 4: 
+		/*$idPedido = $_POST["idPedido"];*/
 		$idEstado = $_POST["idEstado"];
 		$numero = $_POST["numero"];
 		$sql = "UPDATE productopedido SET idEstado = {$idEstado} WHERE numero ={$numero}";
-
 		actualizarRegistro($sql);
+		/*$sql2 = "UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}) WHERE idPedido ={$idPedido}";
+		actualizarRegistro($sql2);*/
+		//actualizarEstadoPedido($idPedido);
 		break;
-	case 5:
+
+	/*case 5:
 		$idPedido = $_POST["idPedido"];
 		$sql= "SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}";
 		leerRegistro($sql);
+		break; */
+		case 6:
+			$idPedido = $_POST["idPedido"];
+			$sql2 = "UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}) WHERE idPedido ={$idPedido}";
+			actualizarRegistro($sql2);
+		break;
+		
+
+
+		//CONSULTAS MODULO DE CAJA (inicia desde 10)
+
+
+	case 10:  
+		// Consulta los pedidos  que esten en estado entregado (5) para cargar tabla Facturas en modulo caja. 
+		$sql= "SELECT factura.idPedido,pedidos.numMesa,factura.valorFactura,estadopedido.estado 
+				FROM factura JOIN pedidos on factura.idPedido = pedidos.idPedido 
+    			     		 JOIN estadopedido on pedidos.idEstado = estadopedido.idEstado 	
+                			 WHERE pedidos.idEstado = 5";
+
+       leerRegistro($sql);         			 
 		break;
 
 }
