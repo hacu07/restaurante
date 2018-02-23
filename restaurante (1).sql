@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-02-2018 a las 00:08:58
+-- Tiempo de generación: 23-02-2018 a las 02:11:43
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -148,10 +148,10 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEstado`) VALUES
-(1, '2018-02-05 08:43:51', 1, 1, 2),
+(1, '2018-02-05 08:43:51', 1, 1, 5),
 (2, '2018-02-15 10:29:09', 4, 6, 2),
 (3, '2018-02-15 10:29:09', 3, 7, 2),
-(4, '2018-02-15 10:29:09', 2, 8, 2),
+(4, '2018-02-15 10:29:09', 2, 8, 5),
 (5, '2018-02-15 10:29:09', 1, 9, 2),
 (6, '2018-02-15 10:29:09', 5, 6, 2),
 (7, '2018-02-15 10:29:09', 4, 8, 2);
@@ -200,9 +200,21 @@ CREATE TABLE `productopedido` (
 --
 
 INSERT INTO `productopedido` (`idPedido`, `idProducto`, `cantidad`, `valor`, `idEstado`, `numero`) VALUES
-(1, 1, 4, 40000, 2, 1),
-(1, 1, 6, 60000, 4, 2),
-(1, 3, 5, 10000, 3, 3);
+(1, 1, 4, 40000, 5, 1),
+(1, 1, 6, 60000, 5, 2),
+(1, 3, 5, 10000, 5, 3),
+(3, 4, 2, 16000, 2, 4),
+(3, 1, 2, 20000, 2, 5),
+(3, 3, 2, 4000, 2, 6),
+(3, 2, 2, 6000, 2, 7),
+(2, 1, 4, 40000, 5, 8),
+(2, 5, 2, 10000, 5, 9),
+(2, 3, 4, 8000, 5, 10),
+(2, 2, 1, 4000, 5, 11),
+(4, 4, 1, 8000, 5, 12),
+(4, 2, 2, 6000, 5, 13),
+(4, 3, 2, 4000, 5, 14),
+(4, 5, 5, 10000, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -368,7 +380,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productopedido`
 --
 ALTER TABLE `productopedido`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
