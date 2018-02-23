@@ -50,16 +50,14 @@ switch ($opcion) {
 
 	case 10:  
 		// Consulta los pedidos  que esten en estado entregado (5) para cargar tabla Facturas en modulo caja. 
-		$sql= "SELECT factura.idPedido,pedidos.numMesa,factura.valorFactura,estadopedido.estado 
-				FROM factura JOIN pedidos on factura.idPedido = pedidos.idPedido 
-    			     		 JOIN estadopedido on pedidos.idEstado = estadopedido.idEstado 	
-                			 WHERE pedidos.idEstado = 5";
+		$sql= "SELECT pedidos.idPedido,pedidos.numMesa,estadopedido.estado FROM pedidos JOIN estadopedido on pedidos.idEstado = estadopedido.idEstado WHERE pedidos.idEstado = 5";
 
        leerRegistro($sql);         			 
 		break;
 	case 11:
 		$idPedido = $_POST["idPedido"];
 		$sql = "SELECT producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = {$idPedido}";
+		leerRegistro($sql);
 	break;
 
 }

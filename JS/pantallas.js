@@ -13,21 +13,7 @@ function forPantallaChef1(modulo, empleado){
 function forPantallaCaja1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
-
-
-	/*txt +='<div id="cont_centro"><table class="table table-hover table-striped">';
-	txt +='<thead><tr><th># Pedido</th><th>Valor</th><th>Mesa</th><th>Demora</th><th>Ver</th></tr></thead>';
-	txt +='<tbody><tr><td>1</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarVentanaPedidoCaja(1)">En Espera</button></td></tr>';
-	txt +='<tr><td>2</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCaja(2)">En preparacion</button></td></tr>';
-	txt +='<tr><td>3</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCaja(3)">En preparacion</button></td></tr>';
-	txt +='<tr><td>4</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarVentanaPedidoCaja(4)">En preparacion</button></td></tr>';
-	txt +='<tr><td>5</td><td>Juan</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="mostrarVentanaPedidoCaja(5)">Preparado</button></td></tr>';
-	txt +='</tbody></table></div>';*/
+	/*txt +='<div id="cont_centro"></div>';*/ //Se realiza la ventana "MENSAJE" para una segunda version 
 	return txt;
 }
 
@@ -174,17 +160,49 @@ function cargarDatosPedidoCocina(idPedido){
 //**** HTML con datos de un Pedido a cargar en ventana modal, PROVISIONAL??? ***********************
 function cargarDatosPedidoCaja(detalleFactura){
 	var txt = '<table class="table table-hover table-striped id="tablaFactura">';
-	txt +='<thead><tr><th>Nombre Producto</th><th>Precio.</th><th>Cantidad</th><th>Valor</th></thead><tbody>';
+	txt +='<thead><tr><th>Nombre Producto</th><th>Precio</th><th>Cantidad</th><th>Valor</th></thead><tbody>';
+	var Subtotal = 0; //SUMA LOS VALORES RECIBIDOS PARA MOSTRAR AL FINAL 
 
 
-	for (var i = 0; detalleFactura.length <0 ; i++) {
+	for (var i = 0; i < detalleFactura.length ; i++) {
+		Subtotal = Subtotal + parseInt(detalleFactura[i]["valor"]);
 		txt +='<tr><td>'+detalleFactura[i]["nombre"]+'</td><td>'+detalleFactura[i]["Precio"]+'</td><td>'+detalleFactura[i]["cantidad"]+'</td><td>'+detalleFactura[i]["valor"]+'</td></tr>';
 	}
 
-/*	txt +='<tr align="right"><td colspan = 3>Subtotal</td><td colspan = 2>$450.000</td></tr>';
-	txt +='<tr align="right"><td colspan = 3>IVA</td><td colspan = 2>$72.000</td></tr>';
-	txt +='<tr align="right"><td colspan = 3>A PAGAR</td><td colspan = 2>$522.000</td></tr>';*/
-	txt +='</tbody></table>';
+	//CALCULOS DE IVA Y VALOR A PAGAR 
 
+	var iva = (Subtotal * 19)/100; //Calcula el iva de la factura
+	var valorPagar = Subtotal + iva ; // Calcula el valor total de la factura. 
+	//
+	Subtotal = formatter.format(Subtotal);
+	iva = formatter.format(iva);
+	valorPagar = formatter.format(valorPagar);
+
+	txt +='</tbody></table>';
+	txt += '<div>';
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">Subtotal	</h4>';
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">'+Subtotal+'</h4>';
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">IVA</h4>';	
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">'+iva+'</h4>';
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">TOTAL A PAGAR</h4>';
+	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">'+valorPagar+'</h4>';
+	txt += '</div>';
+
+	txt += '<div></div>';
+	txt += '<button>Imprimir<span class="glyphicon glyphicon-print"></span></button>';
+	txt += '';
+	txt += '';
+	txt += '';
+	txt += '';
+	txt += '</div>';
 	$(".modal-body").html(txt);
 }
+
+
+//Funcion auxiliar para dar formato a valores numericos ***/
+var formatter = new Intl.NumberFormat('en-US', {
+	style:'currency',
+	currency: 'USD',
+	miniumFractionDigits: 2,
+
+});

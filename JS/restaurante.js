@@ -330,11 +330,21 @@ function consultarDetalleFactura(idPedido){
 function tablaCaja(filasFactura){
 	//Llena las filas de HTML 
 	var fila = '<table class="table table-hover table-striped">';
-	fila += '<thead><tr><th># Pedido</th><th>Mesa </th><th>Valor </th><th>Estado</th><th>Ver</th></tr></thead>';
+	fila += '<thead><tr><th># Pedido</th><th>Mesa </th><th>Estado</th><th>Ver</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< filasFactura.length; i++) {
-		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["valorFactura"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button class="btn btnVerCaja" onclick="mostrarVentanaPedidoCaja('+filasFactura[i]["idPedido"]+')">Ver</button></td></tr>';
+		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button class="btn btnVerCaja" onclick="mostrarVentanaPedidoCaja('+filasFactura[i]["idPedido"]+')">Ver</button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
 }
+
+
+//Funcion auxiliar para dar formato a valores numericos ***/
+
+var formatter = new Intl.NumberFormat('en-US', {
+	style:'currency',
+	currency: 'USD',
+	miniumFractionDigits: 2,
+
+});
