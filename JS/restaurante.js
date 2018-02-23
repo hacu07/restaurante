@@ -10,8 +10,8 @@ var pedidos = {}; 			//consulta para mostrar en jefeCocina
 var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
 var filaHtml ; 				//Llena las filas 
 var claseEstado; 			//Estado en el que se encuentran los productos del pedido
-var idCajero = 0;
-var idPedido = 0;
+var idCajeroGlobal = 0;
+var idPedidoGlobal = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
@@ -56,6 +56,7 @@ function leerDatos(responseJSON, opc){
 					consultarPedidosCocina();
 				}else if (response[0]["idRol"]==4){
 					cajero = response
+					setIdCajero(parseInt(cajero[0]["idUsuario"]));
 					mostrarVentanaCaja1(cajero[0]["nombre"]); 
 					consultarFacturas();
 				}
@@ -99,12 +100,44 @@ function leerDatos(responseJSON, opc){
 		break;
 		case 11:
 			if (response.length>0) {
-				cargarDatosPedidoCaja(response);
+				cargarDatosPedidoCaja(response,getIdPedido(),getIdCajero());
 			}
+		break;
+
+		case 12:
+		//Respuesta al generar la factura
+		if (response["ok"] == "actualizo") {
+			console.log("nueva factura");
+
+		}else{
+			console.log("no registro factura");
+		}
+
 		break;
 
 		}
 
+}
+
+/******************** obtener y asignar valores de variables globales ***********************************/
+
+//Asigna a la variable global idPedidoGlobal el numero del pedido
+function setIdPedido(numPedido){
+	idPedidoGlobal = numPedido;
+}
+
+//Asigna a la variable global idCajeroGlobal el numero del Cajero que ha iniciado sesion
+function setIdCajero(numCajero){
+	idCajeroGlobal = numCajero;
+}
+
+//	Devuelve el idCajero que inicio Sesion
+function getIdCajero(){
+	return idCajeroGlobal;
+}
+
+function getIdPedido(){
+	return idPedidoGlobal;
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
@@ -213,6 +246,7 @@ function mostrarVentanaPedidoCocina(idPedido){
 
 //Despliega datos de un pedido en la ventana modal ***********************
 function mostrarVentanaPedidoCaja(idPedido){
+	setIdPedido(idPedido);
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
 	consultarDetalleFactura(idPedido);
 	//cargarDatosPedidoCaja(idPedido);

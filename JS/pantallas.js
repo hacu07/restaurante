@@ -158,7 +158,7 @@ function cargarDatosPedidoCocina(idPedido){
 }
 
 //**** HTML con datos de un Pedido a cargar en ventana modal, PROVISIONAL??? ***********************
-function cargarDatosPedidoCaja(detalleFactura){
+function cargarDatosPedidoCaja(detalleFactura,numPedido,numCajero){
 	var txt = '<table class="table table-hover table-striped id="tablaFactura">';
 	txt +='<thead><tr><th>Nombre Producto</th><th>Precio</th><th>Cantidad</th><th>Valor</th></thead><tbody>';
 	var Subtotal = 0; //SUMA LOS VALORES RECIBIDOS PARA MOSTRAR AL FINAL 
@@ -174,9 +174,9 @@ function cargarDatosPedidoCaja(detalleFactura){
 	var iva = (Subtotal * 19)/100; //Calcula el iva de la factura
 	var valorPagar = Subtotal + iva ; // Calcula el valor total de la factura. 
 	//
-	Subtotal = formatter.format(Subtotal);
+	/*Subtotal = formatter.format(Subtotal);
 	iva = formatter.format(iva);
-	valorPagar = formatter.format(valorPagar);
+	valorPagar = formatter.format(valorPagar);*/
 
 	txt +='</tbody></table>';
 	txt += '<div>';
@@ -191,10 +191,18 @@ function cargarDatosPedidoCaja(detalleFactura){
 
 	var txt1 ='<div>';
 	var txt1 ='<input type="number" class="col-xs-12 col-md-6 col-lg-6 " id="ccCliente" placeholder="Ingrese la cedula del cliente">';
-	txt1 += '<button type="button" class="col-xs-12 col-md-6 col-lg-6 btn btn-success">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';
+	txt1 += '<button type="button" class="col-xs-12 col-md-6 col-lg-6 btn btn-success" onclick="generarFacturaPedido('+numPedido+','+numCajero+','+valorPagar+','+iva+')">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';//falta crear evento onclick
 	txt1 += '</div>';
 	$(".modal-footer").html(txt1);
 
+}
+
+
+/* Inserta en la BD una nueva factura  */
+function generarFacturaPedido(idPedido,idCajero,valorFac,ivaFac){
+	 var ccCliente = $('#ccCliente').val();
+	 var parametros = { "opc" : 12, "idPedido" : idPedido, "idCajero" : idCajero, "valorFactura" : valorFac, "ivaFactura" : ivaFac, "ccCliente" : ccCliente };
+	 ejecutarAjaxJson(parametros,12);
 }
 
 

@@ -59,6 +59,15 @@ switch ($opcion) {
 		$sql = "SELECT producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = {$idPedido}";
 		leerRegistro($sql);
 	break;
+	case 12:
+		$idPedido= $_POST["idPedido"];
+		$idCajero= $_POST["idCajero"];
+		$valorFactura= $_POST["valorFactura"];
+		$ivaFactura= $_POST["ivaFactura"];
+		$ccCliente= $_POST["ccCliente"];
+		$sql = "INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),{$valorFactura},{$ivaFactura},{$idCajero},{$idPedido},'{$ccCliente}')";
+		actualizarRegistro($sql);
+	break;
 
 }
 
