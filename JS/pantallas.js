@@ -187,15 +187,14 @@ function cargarDatosPedidoCaja(detalleFactura){
 	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">TOTAL A PAGAR</h4>';
 	txt += '<h4 class="valoresFactura col-xs-6 col-md-6 col-sm-6 col-lg-6">'+valorPagar+'</h4>';
 	txt += '</div>';
-
-	txt += '<div></div>';
-	txt += '<button>Imprimir<span class="glyphicon glyphicon-print"></span></button>';
-	txt += '';
-	txt += '';
-	txt += '';
-	txt += '';
-	txt += '</div>';
 	$(".modal-body").html(txt);
+
+	var txt1 ='<div>';
+	var txt1 ='<input type="number" class="col-xs-12 col-md-6 col-lg-6 " id="ccCliente" placeholder="Ingrese la cedula del cliente">';
+	txt1 += '<button type="button" class="col-xs-12 col-md-6 col-lg-6 btn btn-success">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';
+	txt1 += '</div>';
+	$(".modal-footer").html(txt1);
+
 }
 
 

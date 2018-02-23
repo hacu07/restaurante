@@ -10,6 +10,8 @@ var pedidos = {}; 			//consulta para mostrar en jefeCocina
 var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
 var filaHtml ; 				//Llena las filas 
 var claseEstado; 			//Estado en el que se encuentran los productos del pedido
+var idCajero = 0;
+var idPedido = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
