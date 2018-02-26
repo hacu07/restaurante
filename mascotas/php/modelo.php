@@ -3,9 +3,14 @@
 $opcion = $_POST["opc"];
 
 switch ($opcion) {
-	case 1:ç
+	case 1:
 	//Consulta los nombres de los criaderos
 		$sql = "SELECT nombreCriadero FROM criaderos";
+		leerRegistro($sql);
+		break;
+	case 2:
+		$codCriadero = $_POST["codCriadero"];
+		$sql = "SELECT codMascota,nombreMascota,propietario FROM mascotas WHERE codCriadero = {$codCriadero}";
 		leerRegistro($sql);
 		break;
 }

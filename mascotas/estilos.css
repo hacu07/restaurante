@@ -23,13 +23,12 @@
 }
 
 #tabla{
-
 	width: 80%;
 	height: 65%;
 	margin: auto;
 	margin-top: 5%;
 	text-align: center;
-	background-color: #000;
-	color: #fff;
+	background-color: #fff;
+	color: #000;
 }
 
