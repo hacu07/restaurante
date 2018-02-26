@@ -1,0 +1,35 @@
+*{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#contenedor{
+	height: 80%;
+	width: 40%;
+	margin: auto;
+	background-color: #000;
+	color: #fff;
+	padding-top: 2%;
+}
+
+#cont_norte{
+	width: 80%;
+	height: 20%;
+	margin: auto;
+	text-align: center;
+	background-color: #fff;
+	color: #000;
+}
+
+#tabla{
+
+	width: 80%;
+	height: 65%;
+	margin: auto;
+	margin-top: 5%;
+	text-align: center;
+	background-color: #fff;
+	color: #000;
+}
+
