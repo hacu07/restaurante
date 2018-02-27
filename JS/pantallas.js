@@ -104,7 +104,7 @@ function cargarModalCocina(){
 function cargarModalCaja(){
 	var txt='<!-- Modal --><div class="modal fade" id="myModal" role="dialog">';
 	txt += '<div class="modal-dialog">';
-	txt += '<!-- Modal content--><div class="modal-content">';
+	txt += '<!-- Modal content--><div id="contenidoModal" class="modal-content">';
 	txt += '<div class="modal-header"><button type="button" class="close" onclick="cerrarModal()">&times;</button>';
 	txt += '<h4 class="modal-title"></h4></div>';
 	txt += '<div class="modal-body"></div><div class="modal-footer">';
@@ -203,6 +203,7 @@ function generarFacturaPedido(idPedido,idCajero,valorFac,ivaFac){
 	 var ccCliente = $('#ccCliente').val();
 	 var parametros = { "opc" : 12, "idPedido" : idPedido, "idCajero" : idCajero, "valorFactura" : valorFac, "ivaFactura" : ivaFac, "ccCliente" : ccCliente };
 	 ejecutarAjaxJson(parametros,12);
+	 imprimir("contenidoModal");
 }
 
 
@@ -213,3 +214,14 @@ var formatter = new Intl.NumberFormat('en-US', {
 	miniumFractionDigits: 2,
 
 });
+
+function imprimir(nombreDiv){
+	var contenido= document.getElementById(nombreDiv).innerHTML;
+     var contenidoOriginal= document.body.innerHTML;
+
+     document.body.innerHTML = contenido;
+
+     window.print();
+
+     document.body.innerHTML = contenidoOriginal;
+}
