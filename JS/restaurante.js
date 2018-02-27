@@ -96,25 +96,31 @@ function leerDatos(responseJSON, opc){
 			 	facturas = response;
 			 	tablaCaja(facturas);
 
-			 }
+			 }else if (response.length == 0){
+					$('#cont_centro').html('<h1>No hay pedidos por facturar</h1>');
+			}
 		break;
 		case 11:
 			if (response.length>0) {
 				cargarDatosPedidoCaja(response,getIdPedido(),getIdCajero());
 			}
 		break;
-
 		case 12:
-		//Respuesta al generar la factura
-		if (response["ok"] == "actualizo") {
-			console.log("nueva factura");
+			//Respuesta al generar la factura
+			if (response["ok"] == "actualizo") {
+				console.log("nueva factura");
 
-		}else{
-			console.log("no registro factura");
-		}
-
+			}else{
+				console.log("no registro factura");
+			}
 		break;
+		case 13:
+			if (response["ok"] == "actualizo") {
+				console.log("cambio estado pedido");
 
+			}else{
+				console.log("NO CAMBIO ESTADO PEDIDO DESPUES DE FACTURAR");
+			}
 		}
 
 }

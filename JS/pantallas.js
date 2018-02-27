@@ -200,10 +200,15 @@ function cargarDatosPedidoCaja(detalleFactura,numPedido,numCajero){
 
 /* Inserta en la BD una nueva factura  */
 function generarFacturaPedido(idPedido,idCajero,valorFac,ivaFac){
-	 var ccCliente = $('#ccCliente').val();
-	 var parametros = { "opc" : 12, "idPedido" : idPedido, "idCajero" : idCajero, "valorFactura" : valorFac, "ivaFactura" : ivaFac, "ccCliente" : ccCliente };
-	 ejecutarAjaxJson(parametros,12);
-	 imprimir("contenidoModal");
+	var ccCliente = $('#ccCliente').val();
+	var parametros = { "opc" : 12, "idPedido" : idPedido, "idCajero" : idCajero, "valorFactura" : valorFac, "ivaFactura" : ivaFac, "ccCliente" : ccCliente };
+	ejecutarAjaxJson(parametros,12);
+	imprimir("contenidoModal");
+	//cambiarEstado a pagado (Porque se ha generado una nueva factura)
+	var parametros1 = { "opc" : 13, "idPedido" : idPedido };
+	ejecutarAjaxJson(parametros1,13);
+	//Vuelve y carga la tabla del cajero 
+	consultarFacturas();
 }
 
 
@@ -216,12 +221,12 @@ var formatter = new Intl.NumberFormat('en-US', {
 });
 
 function imprimir(nombreDiv){
+	$('.modal-footer').hide();
 	var contenido= document.getElementById(nombreDiv).innerHTML;
-     var contenidoOriginal= document.body.innerHTML;
-
-     document.body.innerHTML = contenido;
-
-     window.print();
-
-     document.body.innerHTML = contenidoOriginal;
+    var contenidoOriginal= document.body.innerHTML;
+    document.body.innerHTML = contenido;
+    window.print();
+    document.body.innerHTML = contenidoOriginal;
+    $('.modal-footer').show();
+    cerrarModal();
 }

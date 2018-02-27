@@ -68,6 +68,11 @@ switch ($opcion) {
 		$sql = "INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),{$valorFactura},{$ivaFactura},{$idCajero},{$idPedido},'{$ccCliente}')";
 		actualizarRegistro($sql);
 	break;
+	case 13:
+		$idPedido = $_POST["idPedido"];
+		$sql = "UPDATE pedidos SET idEstado = 6 WHERE idPedido = {$idPedido}";
+		actualizarRegistro($sql);
+	break;
 
 }
 
