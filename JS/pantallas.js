@@ -13,6 +13,7 @@ function forPantallaChef1(modulo, empleado){
 function forPantallaCaja1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
+	txt +='<div id="cont_sur"><button id="btnCargarFacturas" class="btn" onclick="consultarFacturas()">Actualizar Facturas</button></div>';
 	/*txt +='<div id="cont_centro"></div>';*/ //Se realiza la ventana "MENSAJE" para una segunda version 
 	return txt;
 }
@@ -194,6 +195,7 @@ function cargarDatosPedidoCaja(detalleFactura,numPedido,numCajero){
 	txt1 += '<button type="button" class="col-xs-12 col-md-6 col-lg-6 btn btn-success" onclick="generarFacturaPedido('+numPedido+','+numCajero+','+valorPagar+','+iva+')">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';//falta crear evento onclick
 	txt1 += '</div>';
 	$(".modal-footer").html(txt1);
+
 
 }
 

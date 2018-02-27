@@ -239,6 +239,21 @@ tr,th{
 	height: 34px;
 }
 
+#cont_sur{
+	align-content: center;
+	width: 95%;
+	height: 10%;
+	margin-top: 1%;
+	margin: auto;
+}
+
+#btnCargarFacturas{
+	vertical-align: middle;
+	
+	background-color: var(--bg-azul);
+	color: #fff;
+}
+
 
 /*******************************************************/
 
