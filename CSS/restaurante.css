@@ -254,6 +254,19 @@ tr,th{
 	color: #fff;
 }
 
+.btnSur{
+	color: #fff;
+	background-color: var(--bg-azul);
+	font-weight: bold;
+	margin-top: 5%;		
+}
+
+#btnNuevoPedido{
+	color: var(--bg-azul);
+	background-color: #fff;
+	font-weight: bold;
+}
+
 
 /*******************************************************/
 

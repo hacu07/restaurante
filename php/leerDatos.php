@@ -80,6 +80,10 @@ switch ($opcion) {
 		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero}";
 		leerRegistro($sql);
 	break;
+	case 21:
+		$sql = "SELECT numMesa, capacidad FROM mesa WHERE idEstado = 1";
+		leerRegistro($sql);
+	break;
 }
 
 

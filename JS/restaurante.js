@@ -4,7 +4,7 @@
 * ajustes:
 * ver.: 1.00
 ********************************************************************/
-var nav = 0;				//Controla la navegacion entre pantallas. 1: Inicial
+
 var usuario = {};			//Contiene la respuesta de la tabla usuario
 var pedidos = {}; 			//consulta para mostrar en jefeCocina 
 var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
@@ -65,8 +65,7 @@ function leerDatos(responseJSON, opc){
 					mesero = response;
 					setIdMesero(parseInt(mesero[0]["idUsuario"])); //Obtenemos el Id del mesero que ha iniciado sesion y lo almacenamos en la variable global  'idMeseroGlobal'
 					setNombreMesero(mesero[0]["nombre"]); //obtenemos el nombre del mesero
-					nav = 1;
-					navegar();
+					navegar(1);
 				}
 			}
 		break;
@@ -136,6 +135,12 @@ function leerDatos(responseJSON, opc){
 			if (response.length > 0 ) {
 				pedidosMesero = response;
 				cargarTablaPedidosMesero(pedidosMesero);
+			}
+		break;
+		case 21:
+			if (response.length > 0) {
+				mesasDisponibles = response;
+				cargarTablaMesasDisponibles(mesasDisponibles);
 			}
 		break;
 	}
@@ -305,13 +310,14 @@ function mostrarPedidoMesero(idPedido){
 }
 
 //Modulo de Navegacion, presenta pantalla anterior a la actual **************
-function navegar(){
+function navegar(nav){
 	switch (nav){
 		case 1:
 			mostrarVentanaMesero1();
 			consultarPedidosMesero();
 		break;
 		case 2:
+			consultarMesasDisponibles();
 		break;
 		case 3:
 		break;
@@ -417,6 +423,7 @@ function tablaCaja(filasFactura){
 }
 
 
+
 //Funcion auxiliar para dar formato a valores numericos ***/
 
 var formatter = new Intl.NumberFormat('en-US', {
@@ -451,4 +458,23 @@ function cargarTablaPedidosMesero(pedidosMesero){
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
+}
+
+function consultarMesasDisponibles(){
+	var parametros = { "opc" : 21};
+	ejecutarAjaxJson(parametros,21);
+}
+
+function cargarTablaMesasDisponibles(mesasDisponibles){
+	var fila = '<h3>MESAS DISPONIBLES</h3><table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Mesas Disponibles</th><th>Capacidad</th><th>Asignar</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< mesasDisponibles.length; i++) {
+		fila += '<tr><td>'+ mesasDisponibles[i]["numMesa"] +'</td><td>'+ mesasDisponibles[i]["capacidad"] +'</td><td><button id="btnNuevoPedido" class="btn btn-block"><span class="glyphicon glyphicon-plus"></span></button></td></tr>';
+	}
+	fila += '</tbody></table>';
+	$('#cont_centro').html(fila);
+
+	var btn = '<button class="btn btn-block btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Menú Pedidos</button>';
+	$('#cont_sur').html(btn);
 }
