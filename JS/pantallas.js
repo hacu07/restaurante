@@ -21,20 +21,8 @@ function forPantallaCaja1(modulo, empleado){
 /*Presenta tabla para toma de pedidos por el mesero*/
 function forPantallaMesero1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
-	txt +='<div id="cont_centro"><h4 class="tituloTabla">SUS PEDIDOS</h4><table class="table table-hover table-striped">';
-	txt +='<thead><tr><th>#</th><th>Mesa</th><th>Demora</th><th>Estado</th></tr></thead>';
-	txt +='<tbody><tr><td>1</td><td>15</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-danger btn-tabla"  onclick="mostrarPedidoMesero(1)">En Espera</button></td></tr>';
-	txt +='<tr><td>2</td><td>10</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarPedidoMesero(2)">En preparacion</button></td></tr>';
-	txt +='<tr><td>3</td><td>5</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarPedidoMesero(3)">En preparacion</button></td></tr>';
-	txt +='<tr><td>4</td><td>8</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-warning btn-tabla" onclick="mostrarPedidoMesero(4)">En preparacion</button></td></tr>';
-	txt +='<tr><td>5</td><td>20</td><td>0h:05m:30s</td>';
-	txt +='<td><button type="button" class="btn btn-info btn-tabla" onclick="mostrarPedidoMesero(5)">Preparado</button></td></tr>';
-	txt +='</tbody></table>';
-
+	txt +='<div id="cont_centro"></div>';
+	txt +='<div id="cont_sur"></div>';
 	return txt;
 }
 
@@ -138,12 +126,6 @@ function tablaPedidoMesero(idPedido){	// cargarModalMesero(){
 	return txt;
 }
 
-function cargarPieMesero(){
-	var txt ='<div id="cont_pie">';
-	txt += '<button type="button" class="btn btn-success pull-left" onclick="regresar()">Regresar</button>';
-	txt += '<button type="button" class="btn btn-success pull-right" onclick="mostrarVentanaNuevoPedido()">Nuevo</button></div>';
-	return txt;
-}
 
 //**** HTML con datos de un Pedido a cargar en ventana modal, PROVISIONAL??? ***********************
 function cargarDatosPedidoCocina(idPedido){

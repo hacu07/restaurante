@@ -74,6 +74,12 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 	break;
 
+	//CONSULTAS MODULO DE MESERO (inicia desde 20)
+	case 20: 
+		$idMesero = $_POST["idMesero"];
+		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero}";
+		leerRegistro($sql);
+	break;
 }
 
 

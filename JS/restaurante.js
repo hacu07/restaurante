@@ -4,14 +4,16 @@
 * ajustes:
 * ver.: 1.00
 ********************************************************************/
-var nav = 1;				//Controla la navegacion entre pantallas. 1: Inicial
+var nav = 0;				//Controla la navegacion entre pantallas. 1: Inicial
 var usuario = {};			//Contiene la respuesta de la tabla usuario
 var pedidos = {}; 			//consulta para mostrar en jefeCocina 
 var detallesPedidoCocina = {}; //Contiene los datos del detalle del pedido para le modulo de jefe de cocina. 
 var filaHtml ; 				//Llena las filas 
 var claseEstado; 			//Estado en el que se encuentran los productos del pedido
 var idCajeroGlobal = 0;
+var idMeseroGlobal = 0;  	//Contiene el ID del mesero que ha iniciado sesion
 var idPedidoGlobal = 0;
+var nombreMeseroGlobal = ""; 
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
@@ -55,10 +57,16 @@ function leerDatos(responseJSON, opc){
 					mostrarVentanaChef1(usuario[0]["nombre"]);	//Envia nombre del empleado
 					consultarPedidosCocina();
 				}else if (response[0]["idRol"]==4){
-					cajero = response
+					cajero = response;
 					setIdCajero(parseInt(cajero[0]["idUsuario"]));
 					mostrarVentanaCaja1(cajero[0]["nombre"]); 
 					consultarFacturas();
+				}else if(response[0]["idRol"]==5){
+					mesero = response;
+					setIdMesero(parseInt(mesero[0]["idUsuario"])); //Obtenemos el Id del mesero que ha iniciado sesion y lo almacenamos en la variable global  'idMeseroGlobal'
+					setNombreMesero(mesero[0]["nombre"]); //obtenemos el nombre del mesero
+					nav = 1;
+					navegar();
 				}
 			}
 		break;
@@ -121,8 +129,16 @@ function leerDatos(responseJSON, opc){
 			}else{
 				console.log("NO CAMBIO ESTADO PEDIDO DESPUES DE FACTURAR");
 			}
-		}
+		break;
 
+		/**********************Respuestas del modulo del mesero************************/
+		case 20:
+			if (response.length > 0 ) {
+				pedidosMesero = response;
+				cargarTablaPedidosMesero(pedidosMesero);
+			}
+		break;
+	}
 }
 
 /******************** obtener y asignar valores de variables globales ***********************************/
@@ -144,6 +160,24 @@ function getIdCajero(){
 
 function getIdPedido(){
 	return idPedidoGlobal;
+}
+
+//	Devuelve el idMesero que inicio Sesion
+function getIdMesero(){
+	return idMeseroGlobal;
+}
+
+function setIdMesero(numMesero){
+	idMeseroGlobal = numMesero;
+}
+
+//	Devuelve el nombreMesero que inicio Sesion
+function getNombreMesero(){
+	return nombreMeseroGlobal;
+}
+
+function setNombreMesero(nomMesero){
+	nombreMeseroGlobal = nomMesero;
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
@@ -236,10 +270,8 @@ function mostrarVentanaCaja1(nombreCajero){
 }
 
 function mostrarVentanaMesero1(){
-	var txt= forPantallaMesero1('', 'Pepito');
+	var txt= forPantallaMesero1('MESERO', getNombreMesero());
 	$('#contenedor').html(txt);
-	$('#contenedor').append(cargarPieMesero());//Agrega HTML con boton en piepagina	
-	nav = 3;	//no. de ventana de modulo mesero
 }
 
 //Despliega datos de un pedido en la ventana modal ***********************
@@ -273,20 +305,23 @@ function mostrarPedidoMesero(idPedido){
 }
 
 //Modulo de Navegacion, presenta pantalla anterior a la actual **************
-function regresar(){
+function navegar(){
 	switch (nav){
-		case 1: 	//Modulo Cocina
-			break;
-		case 2: 	//Modulo Caja
-			break;
-		case 3: 	//Modulo Mesero Pantalla inicial, 
-			break;
-		case 31: 	//Modulo Ventana Hacer nuevo pedido
-		case 32: 	//Modulo Ventana Ver un pedido
+		case 1:
 			mostrarVentanaMesero1();
-			break;
+			consultarPedidosMesero();
+		break;
+		case 2:
+		break;
+		case 3:
+		break;
+		case 4:
+		break;
+		case 5:
+		break;
+		case 6:
+		break;
 
-		default:
 	}
 }
 
@@ -390,3 +425,30 @@ var formatter = new Intl.NumberFormat('en-US', {
 	miniumFractionDigits: 2,
 
 });
+
+
+
+/*************************MODULO DE MESERO***********************
+Consultas del modulo del mesero
+**************************************************************/
+
+function consultarPedidosMesero(){
+	var parametros = {"opc" : 20, "idMesero" : getIdMesero()};
+	ejecutarAjaxJson(parametros, 20);
+}
+
+function cargarTablaPedidosMesero(pedidosMesero){
+	//Llena las filas de HTML 
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th># Pedido</th><th># Mesa </th><th>Estado</th><th>Ver</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< pedidosMesero.length; i++) {
+
+		estado = pedidosMesero[i]["estado"];
+		claseEstado = estado.replace("n E", "nE");
+
+		fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+	}
+	fila += '</tbody></table>';
+	$('#cont_centro').html(fila);
+}
