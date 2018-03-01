@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-02-2018 a las 02:11:43
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 7.1.7
+-- Tiempo de generación: 01-03-2018 a las 12:51:17
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -115,19 +113,20 @@ INSERT INTO `factura` (`idFactura`, `numFactura`, `fechaFactura`, `valorFactura`
 
 CREATE TABLE `mesa` (
   `numMesa` int(11) NOT NULL,
-  `idEstado` int(11) DEFAULT NULL
+  `idEstado` int(11) DEFAULT NULL,
+  `capacidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `mesa`
 --
 
-INSERT INTO `mesa` (`numMesa`, `idEstado`) VALUES
-(1, 1),
-(2, 2),
-(4, 2),
-(3, 3),
-(5, 3);
+INSERT INTO `mesa` (`numMesa`, `idEstado`, `capacidad`) VALUES
+(1, 1, 4),
+(2, 1, 8),
+(3, 1, 10),
+(4, 2, 4),
+(5, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -149,8 +148,8 @@ CREATE TABLE `pedidos` (
 
 INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEstado`) VALUES
 (1, '2018-02-05 08:43:51', 1, 1, 5),
-(2, '2018-02-15 10:29:09', 4, 6, 2),
-(3, '2018-02-15 10:29:09', 3, 7, 2),
+(2, '2018-02-15 10:29:09', 4, 6, 5),
+(3, '2018-02-15 10:29:09', 3, 7, 5),
 (4, '2018-02-15 10:29:09', 2, 8, 5),
 (5, '2018-02-15 10:29:09', 1, 9, 2),
 (6, '2018-02-15 10:29:09', 5, 6, 2),
@@ -203,10 +202,10 @@ INSERT INTO `productopedido` (`idPedido`, `idProducto`, `cantidad`, `valor`, `id
 (1, 1, 4, 40000, 5, 1),
 (1, 1, 6, 60000, 5, 2),
 (1, 3, 5, 10000, 5, 3),
-(3, 4, 2, 16000, 2, 4),
-(3, 1, 2, 20000, 2, 5),
-(3, 3, 2, 4000, 2, 6),
-(3, 2, 2, 6000, 2, 7),
+(3, 4, 2, 16000, 5, 4),
+(3, 1, 2, 20000, 5, 5),
+(3, 3, 2, 4000, 5, 6),
+(3, 2, 2, 6000, 5, 7),
 (2, 1, 4, 40000, 5, 8),
 (2, 5, 2, 10000, 5, 9),
 (2, 3, 4, 8000, 5, 10),
@@ -430,7 +429,6 @@ ALTER TABLE `productopedido`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

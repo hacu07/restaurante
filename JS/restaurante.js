@@ -143,6 +143,41 @@ function leerDatos(responseJSON, opc){
 				cargarTablaMesasDisponibles(mesasDisponibles);
 			}
 		break;
+
+		case 22:
+			//Respuesta al generar pedido
+			if (response["ok"] == "actualizo") {
+				console.log("nueva Pedido");
+
+			}else{
+				console.log("no registro Pedido");
+			}
+		break;
+		case 23:
+			//Actualiza estado de la mesa
+			if (response["ok"] == "actualizo") {
+				console.log("Actualizo estado de la mesa");
+
+			}else{
+				console.log("no Actualizo estado de la mesa");
+			}
+		break;
+
+		case 24:
+			//TOMA EL ULTIMO PEDIDO
+			if(response.length > 0 ){
+				setIdPedido(response[0]["idPedido"]);
+			} else{
+				console.log("NO TOMO EL ULTIMO PEDIDO ");
+			}
+		break;
+
+		case 25:
+			if (response.length > 0) {
+				crearInterfazCategoria(response);
+			}
+		break;
+
 	}
 }
 
@@ -322,6 +357,7 @@ function navegar(nav){
 		case 3:
 		break;
 		case 4:
+			mostrarVentanaCategorias();
 		break;
 		case 5:
 		break;
@@ -470,11 +506,47 @@ function cargarTablaMesasDisponibles(mesasDisponibles){
 	fila += '<thead><tr><th>Mesas Disponibles</th><th>Capacidad</th><th>Asignar</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< mesasDisponibles.length; i++) {
-		fila += '<tr><td>'+ mesasDisponibles[i]["numMesa"] +'</td><td>'+ mesasDisponibles[i]["capacidad"] +'</td><td><button id="btnNuevoPedido" class="btn btn-block"><span class="glyphicon glyphicon-plus"></span></button></td></tr>';
+		fila += '<tr><td>'+ mesasDisponibles[i]["numMesa"] +'</td><td>'+ mesasDisponibles[i]["capacidad"] +'</td><td><button id="btnNuevoPedido" class="btn btn-block" onclick="generarNuevoPedido('+mesasDisponibles[i]["numMesa"]+','+getIdMesero()+')"><span class="glyphicon glyphicon-plus"></span></button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
 
 	var btn = '<button class="btn btn-block btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Menú Pedidos</button>';
 	$('#cont_sur').html(btn);
+}
+
+function generarNuevoPedido(numMesa,idMesero){
+	var parametros = {"opc": 22, "numMesa":numMesa, "idMesero":idMesero}; //Insertar un nuevo pedido 
+	ejecutarAjaxJson(parametros,22);
+	var parametros2 = {"opc": 23, "numMesa": numMesa}; // Actualiza estado de la mesa
+	ejecutarAjaxJson(parametros2,23);
+	navegar(4);
+}
+
+function mostrarVentanaCategorias() {
+	consultarUltimoPedido();
+	consultarCategorias();
+}
+
+function consultarUltimoPedido(){
+	var parametros ={"opc": 24, "idMesero": getIdMesero()};
+	ejecutarAjaxJson(parametros,24);
+}
+
+function consultarCategorias(){
+	var parametros = {"opc":25};
+	ejecutarAjaxJson(parametros,25);
+}
+
+function crearInterfazCategoria(categorias){
+	var txt = '<h3>PEDIDO N° '+getIdPedido()+'</h3>';
+		txt += '<div id="categorias">';
+		for (var i = 0; i< categorias.length; i++) {
+			
+			txt += '<button class="btn  btnCategoria">'+categorias[i]["nombre"]+'</button>';
+
+		}
+		txt += '</div>';
+		$('#cont_centro').html(txt);
+
 }

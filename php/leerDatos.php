@@ -84,9 +84,31 @@ switch ($opcion) {
 		$sql = "SELECT numMesa, capacidad FROM mesa WHERE idEstado = 1";
 		leerRegistro($sql);
 	break;
+
+	case 22:
+		$numMesa = $_POST["numMesa"];
+		$idMesero = $_POST["idMesero"];
+		$sql= "INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES ({$numMesa},NOW(),{$idMesero},1)";
+		actualizarRegistro($sql);
+	break;
+
+	case 23:
+		$numMesa = $_POST["numMesa"];
+		$sql = "UPDATE mesa SET idEstado = 2 WHERE numMesa ={$numMesa}";
+		actualizarRegistro($sql);
+	break;
+
+	case 24:
+		$idMesero = $_POST["idMesero"];
+		$sql = "SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = {$idMesero} AND idEstado = 1";
+		leerRegistro($sql);
+	break;
+
+	case 25:
+		$sql= "SELECT * FROM categoria";
+		leerRegistro($sql);
+	break;
 }
-
-
 
 
 /****** LEER REGISTRO   ******************************************************
