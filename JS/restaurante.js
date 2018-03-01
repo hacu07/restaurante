@@ -164,19 +164,28 @@ function leerDatos(responseJSON, opc){
 		break;
 
 		case 24:
+			if (response.length > 0) {
+				crearInterfazCategoria(response);
+				consultarUltimoPedido();
+			}
+		break;
+
+		case 25:
 			//TOMA EL ULTIMO PEDIDO
 			if(response.length > 0 ){
-				setIdPedido(response[0]["idPedido"]);
+				$('#ultimoPedido').text(response[0]["idPedido"]);
 			} else{
 				console.log("NO TOMO EL ULTIMO PEDIDO ");
 			}
 		break;
 
-		case 25:
-			if (response.length > 0) {
-				crearInterfazCategoria(response);
+		case 26:
+			if(response.length > 0){
+				console.length
 			}
 		break;
+
+		
 
 	}
 }
@@ -518,35 +527,42 @@ function cargarTablaMesasDisponibles(mesasDisponibles){
 function generarNuevoPedido(numMesa,idMesero){
 	var parametros = {"opc": 22, "numMesa":numMesa, "idMesero":idMesero}; //Insertar un nuevo pedido 
 	ejecutarAjaxJson(parametros,22);
-	var parametros2 = {"opc": 23, "numMesa": numMesa}; // Actualiza estado de la mesa
-	ejecutarAjaxJson(parametros2,23);
+	parametros = "";
+	var parametros = {"opc": 23, "numMesa": numMesa}; // Actualiza estado de la mesa
+	ejecutarAjaxJson(parametros, 23);
 	navegar(4);
 }
 
 function mostrarVentanaCategorias() {
-	consultarUltimoPedido();
+	//consultarUltimoPedido();
 	consultarCategorias();
+	consultarUltimoPedido();
 }
 
 function consultarUltimoPedido(){
-	var parametros ={"opc": 24, "idMesero": getIdMesero()};
-	ejecutarAjaxJson(parametros,24);
-}
-
-function consultarCategorias(){
-	var parametros = {"opc":25};
+	var parametros ={"opc": 25, "idMesero": getIdMesero()};
 	ejecutarAjaxJson(parametros,25);
 }
 
+function consultarCategorias(){
+	var parametros = {"opc": 24 };
+	ejecutarAjaxJson(parametros, 24 );
+}
+
 function crearInterfazCategoria(categorias){
-	var txt = '<h3>PEDIDO N° '+getIdPedido()+'</h3>';
+	var txt = '<h3 id="ultimoPedido">PEDIDO N° </h3>';
 		txt += '<div id="categorias">';
 		for (var i = 0; i< categorias.length; i++) {
 			
-			txt += '<button class="btn  btnCategoria">'+categorias[i]["nombre"]+'</button>';
+			txt += '<button class="btn btnCategoria" onclick="consultarProductosCategoria('+categorias[i]["idCategoria"]+')">'+categorias[i]["nombre"]+'</button>';
 
 		}
-		txt += '</div>';
-		$('#cont_centro').html(txt);
+	txt += '</div>';
+	$('#cont_centro').html(txt);
+}
 
+
+function consultarProductosCategoria(idCategoria){
+	var parametros ={"opc": 26, "idCategoria":idCategoria};
+	ejecutarAjaxJson(parametros,26);
 }

@@ -99,15 +99,23 @@ switch ($opcion) {
 	break;
 
 	case 24:
+		$sql= "SELECT * FROM categoria";
+		leerRegistro($sql);
+	break;
+
+	case 25:
 		$idMesero = $_POST["idMesero"];
 		$sql = "SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = {$idMesero} AND idEstado = 1";
 		leerRegistro($sql);
 	break;
 
-	case 25:
-		$sql= "SELECT * FROM categoria";
+	case 26:
+		$idCategoria = $_POST["idCategoria"];
+		$sql = "SELECT idProducto, nombre, precio FROM producto WHERE idCategoria = {$idCategoria}";
 		leerRegistro($sql);
 	break;
+
+
 }
 
 
