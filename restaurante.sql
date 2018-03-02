@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-03-2018 a las 12:51:17
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 02-03-2018 a las 05:20:33
+-- Versión del servidor: 10.1.25-MariaDB
+-- Versión de PHP: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -103,7 +105,9 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idFactura`, `numFactura`, `fechaFactura`, `valorFactura`, `ivaFactura`, `idCajero`, `idPedido`, `ccCliente`) VALUES
-(1, '500', '2018-02-05 08:58:29', 139900, 20900, 2, 1, '65778612');
+(1, '500', '2018-02-05 08:58:29', 139900, 20900, 2, 1, '65778612'),
+(2, 'Aqui va numFactura', '2018-03-01 19:39:56', 130900, 20900, 2, 1, ''),
+(3, 'Aqui va numFactura', '2018-03-01 19:40:13', 73780, 11780, 2, 2, '');
 
 -- --------------------------------------------------------
 
@@ -122,11 +126,11 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`numMesa`, `idEstado`, `capacidad`) VALUES
-(1, 1, 4),
-(2, 1, 8),
+(1, 2, 4),
+(2, 2, 8),
 (3, 1, 10),
-(4, 2, 4),
-(5, 3, 2);
+(4, 1, 4),
+(5, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,9 @@ INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEsta
 (4, '2018-02-15 10:29:09', 2, 8, 5),
 (5, '2018-02-15 10:29:09', 1, 9, 2),
 (6, '2018-02-15 10:29:09', 5, 6, 2),
-(7, '2018-02-15 10:29:09', 4, 8, 2);
+(7, '2018-02-15 10:29:09', 4, 8, 2),
+(12, '2018-03-01 20:01:06', 1, 6, 1),
+(13, '2018-03-01 20:28:15', 2, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -175,9 +181,15 @@ CREATE TABLE `producto` (
 INSERT INTO `producto` (`idProducto`, `Precio`, `nombre`, `idCategoria`) VALUES
 (1, 10000, 'carne asada', 1),
 (2, 3000, 'sopa de verduras', 1),
-(3, 2000, 'jugos naturales', 1),
+(3, 2000, 'jugos naturales', 2),
 (4, 8000, 'bandeja paisa', 1),
-(5, 2000, 'cerveza', 1);
+(5, 2000, 'cerveza', 2),
+(6, 3000, 'limonada Natural', 2),
+(7, 4500, 'limonada de coco', 2),
+(8, 4000, 'Cerezada', 2),
+(9, 4000, 'Gaseosa', 2),
+(10, 3000, 'Jugo del valle', 2),
+(11, 2500, 'jugo hit', 2);
 
 -- --------------------------------------------------------
 
@@ -364,17 +376,17 @@ ALTER TABLE `estadopedido`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `productopedido`
 --
@@ -429,6 +441,7 @@ ALTER TABLE `productopedido`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

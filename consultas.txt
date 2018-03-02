@@ -17,3 +17,11 @@ SELECT SUM(producto.Precio*productopedido.cantidad) AS valorPedido FROM producto
 
  mostrar detalles de la tablaDetallesFactura del modal de modulo caja 
 select producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = 1
+
+
+
+MUESTRA LOS PRODUCTOS QUE DEBEN IR EN CATEGORIA PLATOS 
+SELECT nombre FROM producto where idCategoria = 1 
+
+MUESTRA LOS PRODUCTOS QUE DEBEN IR EN CATEGORIA PLATOS 
+SELECT nombre FROM producto where idCategoria = 2 
