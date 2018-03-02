@@ -25,3 +25,19 @@ SELECT nombre FROM producto where idCategoria = 1
 
 MUESTRA LOS PRODUCTOS QUE DEBEN IR EN CATEGORIA PLATOS 
 SELECT nombre FROM producto where idCategoria = 2 
+
+
+
+
+
+------------STORE PROCEDURE----------------
+
+//Cuando se selecciona una mesa para un nuevo pedido se ejecuta este sp
+
+DELIMITER $$
+create procedure sp_registrarNuevoPedido(in numeroMesa int, in ideMesero int )
+begin 
+	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
+    UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
+    SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
+END

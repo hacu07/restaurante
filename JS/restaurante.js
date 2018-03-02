@@ -144,7 +144,7 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		case 22:
+		/*case 22:
 			//Respuesta al generar pedido
 			if (response["ok"] == "actualizo") {
 				console.log("nueva Pedido");
@@ -161,23 +161,29 @@ function leerDatos(responseJSON, opc){
 			}else{
 				console.log("no Actualizo estado de la mesa");
 			}
+		break;*/
+
+		case 22:
+			if (response.length > 0) {
+				$('#ultimoPedido').text('Pedido N° '+response[0]["idPedido"]);
+			} 
 		break;
 
 		case 24:
 			if (response.length > 0) {
 				crearInterfazCategoria(response);
-				consultarUltimoPedido();
+				/*consultarUltimoPedido();*/
 			}
 		break;
 
-		case 25:
+		/*case 25:
 			//TOMA EL ULTIMO PEDIDO
 			if(response.length > 0 ){
 				$('#ultimoPedido').text(response[0]["idPedido"]);
 			} else{
 				console.log("NO TOMO EL ULTIMO PEDIDO ");
 			}
-		break;
+		break;*/
 
 		case 26:
 			if(response.length > 0){
@@ -525,18 +531,21 @@ function cargarTablaMesasDisponibles(mesasDisponibles){
 }
 
 function generarNuevoPedido(numMesa,idMesero){
-	var parametros = {"opc": 22, "numMesa":numMesa, "idMesero":idMesero}; //Insertar un nuevo pedido 
+	/*var parametros = {"opc": 22, "numMesa":numMesa, "idMesero":idMesero}; //Insertar un nuevo pedido 
 	ejecutarAjaxJson(parametros,22);
 	parametros = "";
 	var parametros = {"opc": 23, "numMesa": numMesa}; // Actualiza estado de la mesa
-	ejecutarAjaxJson(parametros, 23);
+	ejecutarAjaxJson(parametros, 23);*/
 	navegar(4);
+	//Enviamos los parametros para ejecutar el procedimiento almacenado
+	var parametros = {"opc" : 22, "numMesa" : numMesa , "idMesero" : idMesero};
+	ejecutarAjaxJson(parametros, 22);
 }
 
 function mostrarVentanaCategorias() {
 	//consultarUltimoPedido();
 	consultarCategorias();
-	consultarUltimoPedido();
+	/*consultarUltimoPedido();*/
 }
 
 function consultarUltimoPedido(){
