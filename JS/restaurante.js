@@ -144,25 +144,6 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		/*case 22:
-			//Respuesta al generar pedido
-			if (response["ok"] == "actualizo") {
-				console.log("nueva Pedido");
-
-			}else{
-				console.log("no registro Pedido");
-			}
-		break;
-		case 23:
-			//Actualiza estado de la mesa
-			if (response["ok"] == "actualizo") {
-				console.log("Actualizo estado de la mesa");
-
-			}else{
-				console.log("no Actualizo estado de la mesa");
-			}
-		break;*/
-
 		case 22:
 			if (response.length > 0) {
 				$('#ultimoPedido').text('Pedido N° '+response[0]["idPedido"]);
@@ -176,18 +157,10 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		/*case 25:
-			//TOMA EL ULTIMO PEDIDO
-			if(response.length > 0 ){
-				$('#ultimoPedido').text(response[0]["idPedido"]);
-			} else{
-				console.log("NO TOMO EL ULTIMO PEDIDO ");
-			}
-		break;*/
 
 		case 26:
 			if(response.length > 0){
-				console.length
+				mostrarProductosMesero(response);
 			}
 		break;
 
@@ -531,11 +504,6 @@ function cargarTablaMesasDisponibles(mesasDisponibles){
 }
 
 function generarNuevoPedido(numMesa,idMesero){
-	/*var parametros = {"opc": 22, "numMesa":numMesa, "idMesero":idMesero}; //Insertar un nuevo pedido 
-	ejecutarAjaxJson(parametros,22);
-	parametros = "";
-	var parametros = {"opc": 23, "numMesa": numMesa}; // Actualiza estado de la mesa
-	ejecutarAjaxJson(parametros, 23);*/
 	navegar(4);
 	//Enviamos los parametros para ejecutar el procedimiento almacenado
 	var parametros = {"opc" : 22, "numMesa" : numMesa , "idMesero" : idMesero};
@@ -543,9 +511,7 @@ function generarNuevoPedido(numMesa,idMesero){
 }
 
 function mostrarVentanaCategorias() {
-	//consultarUltimoPedido();
 	consultarCategorias();
-	/*consultarUltimoPedido();*/
 }
 
 function consultarUltimoPedido(){
@@ -562,9 +528,7 @@ function crearInterfazCategoria(categorias){
 	var txt = '<h3 id="ultimoPedido">PEDIDO N° </h3>';
 		txt += '<div id="categorias">';
 		for (var i = 0; i< categorias.length; i++) {
-			
 			txt += '<button class="btn btnCategoria" onclick="consultarProductosCategoria('+categorias[i]["idCategoria"]+')">'+categorias[i]["nombre"]+'</button>';
-
 		}
 	txt += '</div>';
 	$('#cont_centro').html(txt);
@@ -572,6 +536,18 @@ function crearInterfazCategoria(categorias){
 
 
 function consultarProductosCategoria(idCategoria){
-	var parametros ={"opc": 26, "idCategoria":idCategoria};
+	var parametros ={"opc": 26, "idCategoria" : idCategoria};
 	ejecutarAjaxJson(parametros,26);
+}
+
+
+function mostrarProductosMesero(productos){
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< productos.length; i++) {
+		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["precio"] +'</td><td><Button class="btn btn-block"> Seleccionar</button></td></tr>';
+	}
+	fila += '</tbody></table>';
+	$('#cont_centro').html(fila);
 }

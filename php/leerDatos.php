@@ -91,31 +91,14 @@ switch ($opcion) {
 		$sql = "call sp_registrarNuevoPedido({$numMesa},{$idMesero})";
 		leerRegistro($sql);
 	break;
-	/*case 22:	//Registra un nuevo pedido cuando la mesa es seleccionada
-		$numMesa = $_POST["numMesa"];
-		$idMesero = $_POST["idMesero"];
-		$sql= "INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES ({$numMesa},NOW(),{$idMesero},1)";
-		actualizarRegistro($sql);
-	break;
-
-	case 23: //Actualiza el estado de la mesa cuando es seleccionada para un nuevo pedido - lo cambia a 'No Disponible'
-		$numMesa = $_POST["numMesa"];
-		$sql = "UPDATE mesa SET idEstado = 2 WHERE numMesa ={$numMesa}";
-		actualizarRegistro($sql);
-	break;*/
 
 	case 24:
 		$sql= "SELECT * FROM categoria";
 		leerRegistro($sql);
 	break;
 
-	/*case 25: //Obtiene el ultimo pedido registrado por ese mesero que se encuentre en estado 'Ordenando'
-		$idMesero = $_POST["idMesero"];
-		$sql = "SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = {$idMesero} AND idEstado = 1";
-		leerRegistro($sql);
-	break;*/
 
-	case 26:
+	case 26: //Busca los productos segun la categoria seleccionada
 		$idCategoria = $_POST["idCategoria"];
 		$sql = "SELECT idProducto, nombre, precio FROM producto WHERE idCategoria = {$idCategoria}";
 		leerRegistro($sql);
