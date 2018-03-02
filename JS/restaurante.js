@@ -14,6 +14,7 @@ var idCajeroGlobal = 0;
 var idMeseroGlobal = 0;  	//Contiene el ID del mesero que ha iniciado sesion
 var idPedidoGlobal = 0;
 var nombreMeseroGlobal = ""; 
+var respuestaGlobal = "";
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
@@ -147,6 +148,7 @@ function leerDatos(responseJSON, opc){
 		case 22:
 			if (response.length > 0) {
 				$('#ultimoPedido').text('Pedido N° '+response[0]["idPedido"]);
+				setIdPedido(response[0]["idPedido"]);
 			} 
 		break;
 
@@ -160,7 +162,9 @@ function leerDatos(responseJSON, opc){
 
 		case 26:
 			if(response.length > 0){
-				mostrarProductosMesero(response);
+				setRespuestaGlobal(response);
+				navegar(5);
+				//mostrarProductosMesero(response);
 			}
 		break;
 
@@ -206,6 +210,15 @@ function getNombreMesero(){
 
 function setNombreMesero(nomMesero){
 	nombreMeseroGlobal = nomMesero;
+}
+
+function getRespuestaGlobal(){
+	return respuestaGlobal;
+}
+
+function setRespuestaGlobal(response){
+	respuestaGlobal = response;
+
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
@@ -348,8 +361,10 @@ function navegar(nav){
 			mostrarVentanaCategorias();
 		break;
 		case 5:
+			mostrarProductosMesero(getRespuestaGlobal());
 		break;
 		case 6:
+			mostrarDetalleProducto();
 		break;
 
 	}
@@ -532,6 +547,10 @@ function crearInterfazCategoria(categorias){
 		}
 	txt += '</div>';
 	$('#cont_centro').html(txt);
+	var btn = '<button class="btn btn-block btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Menú Pedidos</button>';
+	$('#cont_sur').html(btn);
+
+	$('#ultimoPedido').text('Pedido N° '+getIdPedido());
 }
 
 
@@ -546,8 +565,39 @@ function mostrarProductosMesero(productos){
 	fila += '<thead><tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {
-		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["precio"] +'</td><td><Button class="btn btn-block"> Seleccionar</button></td></tr>';
+		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["precio"] +'</td><td><Button class="btn btn-block" onclick="mostrarDetalleProducto('+ productos[i]["idProducto"] +','+ productos[i]["nombre"] +','+ productos[i]["precio"] +')">Seleccionar</button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
+
+	var btn = '<button class="btn btn-block btnSur" onclick="navegar(4)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a categorias </button>';
+	$('#cont_sur').html(btn);
+}
+
+
+//MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
+/*function mostrarDetalleProducto(idProducto,nombre,precio){
+
+	var txt = '<div id="imgProducto">';
+	txt+= '<img src="'+nombre+'.png">';
+	txt+= '</div>';
+
+	txt += '<div id="detalleProducto">';
+	txt += 		'<div id="detallePrecioProducto">';
+	txt += 			'<h3 id="nombreProducto" class="col-xs-12 col-lg-12 col-md-12">'+nombre+'</h3>';
+	txt += 			'<h4 id="precioProducto" class="col-xs-12 col-lg-12 col-md-12">'+precio+'</h4>';
+	txt += 		'</div>';
+	txt += 	'<div id="cantidadProducto">';
+	txt += 		'<button class="col-xs-4 col-lg-4 col-md-4 col-sm-4"><span class="glyphicon glyphicon-triangle-top"></span></button>';
+	txt += 		'<input type="number" class="form-control col-xs-4 col-lg-4 col-md-4 col-sm-4" id="cantidadProducto" name="cantidadProducto" placeholder="Cantidad">';
+	txt += 		'<button class="col-xs-4 col-lg-4 col-md-4 col-sm-4"><span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+	txt += '</div>';
+	$('#cont_centro').html(txt);
+}*/
+
+function mostrarDetalleProducto(idProducto,nombre,precio){
+
+	var txt = 'HOLA';
+	
+	$('#cont_centro').html(txt);
 }
