@@ -5,6 +5,7 @@ function forPantallaChef1(modulo, empleado){
 
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
+	txt +='<div id="cont_sur"><button class="btn btn-block btnSur" onclick="consultarPedidosCocina()">Actualizar Pedidos</button</div>';
 	//Desps de cargar este DIV se hace la consulta para el llenado de la tabla en consultarPedidosCocina();
 	return txt;
 }

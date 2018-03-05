@@ -178,9 +178,9 @@ function leerDatos(responseJSON, opc){
 		break;
 
 		case 28:
-			if(response.length > 0){
+			//if(response.length > 0){
 				mostrarVentanaProductoPedidoMesero(response);
-			}
+			//}
 		break;
 
 	}
