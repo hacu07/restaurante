@@ -547,7 +547,7 @@ function crearInterfazCategoria(categorias){
 		}
 	txt += '</div>';
 	$('#cont_centro').html(txt);
-	var btn = '<button class="btn btn-block btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Menú Pedidos</button>';
+	var btn = '<button class="btn btn-block btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Pedidos</button>';
 	$('#cont_sur').html(btn);
 
 	$('#ultimoPedido').text('Pedido N° '+getIdPedido());
@@ -565,21 +565,22 @@ function mostrarProductosMesero(productos){
 	fila += '<thead><tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {
-		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["precio"] +'</td><td><Button class="btn btn-block" onclick="mostrarDetalleProducto('+ productos[i]["idProducto"] +','+ productos[i]["nombre"] +','+ productos[i]["precio"] +')">Seleccionar</button></td></tr>';
+		var nombreProducto = "'"+ productos[i]["nombre"] +"'";
+		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["precio"] +'</td><td><Button class="btn btn-block" onclick="mostrarDetalleProducto('+ productos[i]["idProducto"] +','+ nombreProducto +','+ productos[i]["precio"] +')">Seleccionar</button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
 
-	var btn = '<button class="btn btn-block btnSur" onclick="navegar(4)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a categorias </button>';
+	var btn = '<button class="btn btn-block btnSur" onclick="navegar(4)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Categorias </button>';
 	$('#cont_sur').html(btn);
 }
 
 
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
-/*function mostrarDetalleProducto(idProducto,nombre,precio){
-
+function mostrarDetalleProducto(idProducto,nombre,precio){
+	var nombreImg = nombre.replace(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
 	var txt = '<div id="imgProducto">';
-	txt+= '<img src="'+nombre+'.png">';
+	txt+= '<img src="IMG/'+nombreImg+'.png">';
 	txt+= '</div>';
 
 	txt += '<div id="detalleProducto">';
@@ -587,17 +588,38 @@ function mostrarProductosMesero(productos){
 	txt += 			'<h3 id="nombreProducto" class="col-xs-12 col-lg-12 col-md-12">'+nombre+'</h3>';
 	txt += 			'<h4 id="precioProducto" class="col-xs-12 col-lg-12 col-md-12">'+precio+'</h4>';
 	txt += 		'</div>';
+	txt += 	'</div>';
 	txt += 	'<div id="cantidadProducto">';
-	txt += 		'<button class="col-xs-4 col-lg-4 col-md-4 col-sm-4"><span class="glyphicon glyphicon-triangle-top"></span></button>';
-	txt += 		'<input type="number" class="form-control col-xs-4 col-lg-4 col-md-4 col-sm-4" id="cantidadProducto" name="cantidadProducto" placeholder="Cantidad">';
-	txt += 		'<button class="col-xs-4 col-lg-4 col-md-4 col-sm-4"><span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+	txt += 		'<button class="btnSur" onclick="aumentarCant('+ precio +')"><span class="glyphicon glyphicon-triangle-top"></span></button>';
+	txt += 		'<input type="number" class="" text="1" id="cantProducto" name="cantidadProducto" placeholder="Cant.">';
+	txt += 		'<button class="btnSur" onclick="disminuirCant('+ precio +')"><span class="glyphicon glyphicon-triangle-bottom"></span></button>';
 	txt += '</div>';
+	txt += 	'<h3 id="totalProducto">...</h3>'
 	$('#cont_centro').html(txt);
-}*/
 
-function mostrarDetalleProducto(idProducto,nombre,precio){
+	var btn = '<button class="btn  btnSur " onclick="navegar(4)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a categorias </button> ';
+	btn += '<button class="btn  btnSur" onclick="agregarProductoPedido()"> Agregar al pedido </button> ';
+	$('#cont_sur').html(btn);
 
-	var txt = 'HOLA';
-	
-	$('#cont_centro').html(txt);
+
+	$('#cantProducto').val("1");
+}
+
+
+function aumentarCant(precio){
+	cantidad = $('#cantProducto').val();
+	cantidad = parseInt(cantidad) + 1;
+	precio = cantidad * precio;
+	$('#totalProducto').val(precio);
+	$('#cantProducto').val(cantidad);
+}
+
+function disminuirCant(precio){
+	cantidad = $('#cantProducto').val();
+	if (cantidad > 1) {
+		cantidad = parseInt(cantidad) - 1;
+		precio = cantidad * precio;
+		$('#totalProducto').val(precio);
+		$('#cantProducto').val(cantidad);
+	}
 }

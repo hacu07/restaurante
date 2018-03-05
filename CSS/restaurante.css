@@ -241,10 +241,16 @@ tr,th{
 
 #cont_sur{
 	align-content: center;
-	width: 95%;
+	width: 90%;
 	height: 10%;
 	margin-top: 1%;
 	margin: auto;
+}
+
+#cont_sur button{
+	width: 46%;
+	margin-right: 1%;
+	margin-left: 1%;
 }
 
 #btnCargarFacturas{
@@ -276,6 +282,26 @@ tr,th{
 	margin-top: 2%;
 }
 
+
+#cantidadProducto {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#cantidadProducto button, input{
+	width: 33.3%;
+	height: 30px;
+}
+
+#imgProducto img {
+	width: 45%;
+	
+}
+
+#cantProducto{
+	text-align: center;
+}
+
 /*******************************************************/
 
 .alinearMedio{
@@ -283,15 +309,15 @@ tr,th{
   	align-items: center;
 }
 
-  @media screen and (max-width: 700px){
-  	#logoModulo h1, #logoNombre h1{
-  		    font-size: 15px;
-  		    font-weight: bold;
-			text-align: center;
-			margin-bottom: 0;
-  	}
-  	
-  }
+@media screen and (max-width: 700px){
+	#logoModulo h1, #logoNombre h1{
+		    font-size: 15px;
+		    font-weight: bold;
+		text-align: center;
+		margin-bottom: 0;
+	}
+	
+}
 
  /*  @media screen and (max-width: 1560px){
  	#logoModulo h1, #logoNombre h1{
