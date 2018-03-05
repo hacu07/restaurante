@@ -104,7 +104,22 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 27: //Inserta el producto seleccionado a productoPedido
+		$idPedido = $_POST["idPedido"];
+		$idProducto = $_POST["idProducto"];
+		$cantidad = $_POST["cantidad"];
+		$valor = $_POST["valor"];
+		$sql = "INSERT INTO productopedido(idPedido, idProducto, cantidad, valor, idEstado) values({$idPedido},{$idProducto},{$cantidad},{$valor},2)";
+		actualizarRegistro($sql);
+	break;
 
+	case 28: //Consulta los productos del pedido para la interfaz del mesero
+		$idPedido = $_POST["idPedido"];
+		$sql = "SELECT producto.nombre, productopedido.cantidad, estadopedido.estado 
+						from productopedido join producto on productopedido.idProducto = producto.idProducto
+    					join estadopedido on productopedido.idEstado = estadopedido.idEstado
+    					where productopedido.idPedido = {$idPedido}";
+		leerRegistro($sql);
 }
 
 

@@ -155,7 +155,7 @@ function cargarDatosPedidoCaja(detalleFactura,numPedido,numCajero){
 	//CALCULOS DE IVA Y VALOR A PAGAR 
 
 	var iva = (Subtotal * 19)/100; //Calcula el iva de la factura
-	var valorPagar = Subtotal + iva ; // Calcula el valor total de la factura. 
+	var valorPagar = Subtotal ; // Calcula el valor total de la factura. 
 	//
 	/*Subtotal = formatter.format(Subtotal);
 	iva = formatter.format(iva);

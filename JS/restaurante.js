@@ -168,7 +168,20 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		
+		case 27:
+			if (response["ok"] == "actualizo") {
+				navegar(3);
+
+			}else{
+				console.log("NO REGISTRO PRODUCTO");
+			}
+		break;
+
+		case 28:
+			if(response.length > 0){
+				mostrarVentanaProductoPedidoMesero(response);
+			}
+		break;
 
 	}
 }
@@ -222,7 +235,6 @@ function setRespuestaGlobal(response){
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
-
 function consultarPedidosCocina(){
 	var parametros = { "opc" : 2};
 	ejecutarAjaxJson(parametros,2);
@@ -356,6 +368,7 @@ function navegar(nav){
 			consultarMesasDisponibles();
 		break;
 		case 3:
+			consultarProductosPedido(getIdPedido());
 		break;
 		case 4:
 			mostrarVentanaCategorias();
@@ -493,7 +506,7 @@ function cargarTablaPedidosMesero(pedidosMesero){
 		estado = pedidosMesero[i]["estado"];
 		claseEstado = estado.replace("n E", "nE");
 
-		fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+		fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
@@ -598,9 +611,9 @@ function mostrarDetalleProducto(idProducto,nombre,precio){
 	$('#cont_centro').html(txt);
 
 	var btn = '<button class="btn  btnSur " onclick="navegar(4)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a categorias </button> ';
-	btn += '<button class="btn  btnSur" onclick="agregarProductoPedido()"> Agregar al pedido </button> ';
+	btn += '<button class="btn  btnSur" onclick="agregarProductoPedido('+ idProducto +')"> Agregar al pedido </button> ';
 	$('#cont_sur').html(btn);
-
+	$('#totalProducto').text(precio);
 
 	$('#cantProducto').val("1");
 }
@@ -622,4 +635,32 @@ function disminuirCant(precio){
 		$('#totalProducto').text(precio);
 		$('#cantProducto').val(cantidad);
 	}
+}
+
+//Envia los parametros para realizar la insercion en la BD del producto al pedido
+function agregarProductoPedido(idProducto){
+	cantidad = $('#cantProducto').val();
+	valor = $('#totalProducto').text();
+	var parametros = {"opc" : 27, "idPedido" : getIdPedido(), "idProducto" : idProducto, "cantidad" : cantidad, "valor" : valor };
+	ejecutarAjaxJson(parametros,27);
+}
+
+function consultarProductosPedido(idPedido){
+	setIdPedido(idPedido);
+	var parametros = { "opc" : 28, "idPedido" : idPedido};
+	ejecutarAjaxJson(parametros, 28);
+}
+
+function mostrarVentanaProductoPedidoMesero(productos){
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>PRODUCTO</th><th>CANTIDAD</th><th>ESTADO</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< productos.length; i++) {
+		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button id="btnNuevoPedido" class="btn btn-block">'+ productos[i]["estado"] +'</button></td></tr>';
+	}
+	fila += '</tbody></table>';
+	$('#cont_centro').html(fila);
+	var btn = '<button class="btn btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Pedidos</button>';
+	btn += '<button class="btn  btnSur" onclick="consultarCategorias('+ getIdPedido()+')"> Agregar Productos</button> ';
+	$('#cont_sur').html(btn);
 }

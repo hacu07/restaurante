@@ -41,3 +41,11 @@ begin
     UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
     SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
 END
+
+
+//Consulta los productos del pedido en el modulo del mesero
+
+select producto.nombre, productopedido.cantidad, estadopedido.estado 
+	from productopedido join producto on productopedido.idProducto = producto.idProducto
+    					join estadopedido on productopedido.idEstado = estadopedido.idEstado
+    where productopedido.idPedido = 70
