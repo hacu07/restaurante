@@ -609,8 +609,8 @@ function mostrarDetalleProducto(idProducto,nombre,precio){
 function aumentarCant(precio){
 	cantidad = $('#cantProducto').val();
 	cantidad = parseInt(cantidad) + 1;
-	precio = cantidad * precio;
-	$('#totalProducto').val(precio);
+	precio = cantidad * parseInt(precio);
+	$('#totalProducto').text(precio);
 	$('#cantProducto').val(cantidad);
 }
 
@@ -618,8 +618,8 @@ function disminuirCant(precio){
 	cantidad = $('#cantProducto').val();
 	if (cantidad > 1) {
 		cantidad = parseInt(cantidad) - 1;
-		precio = cantidad * precio;
-		$('#totalProducto').val(precio);
+		precio = cantidad * parseInt(precio);
+		$('#totalProducto').text(precio);
 		$('#cantProducto').val(cantidad);
 	}
 }
