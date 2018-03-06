@@ -65,14 +65,15 @@ switch ($opcion) {
 		$valorFactura= $_POST["valorFactura"];
 		$ivaFactura= $_POST["ivaFactura"];
 		$ccCliente= $_POST["ccCliente"];
-		$sql = "INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),{$valorFactura},{$ivaFactura},{$idCajero},{$idPedido},'{$ccCliente}')";
+		$sql = "CALL sp_registrarFactura({$idPedido},{$idCajero},{$valorFactura},{$ivaFactura},'{$ccCliente}')";
+		//$sql = "INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),{$valorFactura},{$ivaFactura},{$idCajero},{$idPedido},'{$ccCliente}')";
 		actualizarRegistro($sql);
 	break;
-	case 13:
+	/*case 13:
 		$idPedido = $_POST["idPedido"];
 		$sql = "UPDATE pedidos SET idEstado = 6 WHERE idPedido = {$idPedido}";
 		actualizarRegistro($sql);
-	break;
+	break;*/
 
 	//CONSULTAS MODULO DE MESERO (inicia desde 20)
 	case 20: 

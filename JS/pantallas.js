@@ -175,7 +175,7 @@ function cargarDatosPedidoCaja(detalleFactura,numPedido,numCajero){
 
 	var txt1 ='<div>';
 	var txt1 ='<input type="number" class="col-xs-12 col-md-6 col-lg-6 " id="ccCliente" placeholder="Ingrese la cedula del cliente">';
-	txt1 += '<button type="button" class="col-xs-12 col-md-6 col-lg-6 btn btn-success" onclick="generarFacturaPedido('+numPedido+','+numCajero+','+valorPagar+','+iva+')">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';//falta crear evento onclick
+	txt1 += '<button type="button" id="btnFacturar" class="col-xs-12 col-md-6 col-lg-6 btn btn-success" onclick="generarFacturaPedido('+numPedido+','+numCajero+','+valorPagar+','+iva+')">Generar factura  <span class="glyphicon glyphicon-print"></span></button>';//falta crear evento onclick
 	txt1 += '</div>';
 	$(".modal-footer").html(txt1);
 
@@ -190,8 +190,8 @@ function generarFacturaPedido(idPedido,idCajero,valorFac,ivaFac){
 	ejecutarAjaxJson(parametros,12);
 	imprimir("contenidoModal");
 	//cambiarEstado a pagado (Porque se ha generado una nueva factura)
-	var parametros1 = { "opc" : 13, "idPedido" : idPedido };
-	ejecutarAjaxJson(parametros1,13);
+	/*var parametros1 = { "opc" : 13, "idPedido" : idPedido };
+	ejecutarAjaxJson(parametros1,13);*/
 	//Vuelve y carga la tabla del cajero 
 	consultarFacturas();
 }
@@ -206,6 +206,8 @@ var formatter = new Intl.NumberFormat('en-US', {
 });
 
 function imprimir(nombreDiv){
+	ccCliente = $('#ccCliente').val();
+	$('#contenidoModal').append('<h4>Cedula del cliente: '+ ccCliente +'</h4>');
 	$('.modal-footer').hide();
 	var contenido= document.getElementById(nombreDiv).innerHTML;
     var contenidoOriginal= document.body.innerHTML;

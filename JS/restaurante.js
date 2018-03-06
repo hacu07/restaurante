@@ -591,7 +591,7 @@ function mostrarProductosMesero(productos){
 
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
 function mostrarDetalleProducto(idProducto,nombre,precio){
-	var nombreImg = nombre.replace(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
+	var nombreImg = nombre.replaceAll(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
 	var txt = '<div id="imgProducto">';
 	txt+= '<img src="IMG/'+nombreImg+'.png">';
 	txt+= '</div>';
@@ -664,3 +664,9 @@ function mostrarVentanaProductoPedidoMesero(productos){
 	btn += '<button class="btn  btnSur" onclick="consultarCategorias('+ getIdPedido()+')"> Agregar Productos</button> ';
 	$('#cont_sur').html(btn);
 }
+
+
+//Funcion para remplazar un caracter en toda una cadena
+String.prototype.replaceAll = function(target, replacement) {
+  return this.split(target).join(replacement);
+};

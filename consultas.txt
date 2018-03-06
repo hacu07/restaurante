@@ -43,9 +43,11 @@ begin
 END
 
 
-//Consulta los productos del pedido en el modulo del mesero
 
-select producto.nombre, productopedido.cantidad, estadopedido.estado 
-	from productopedido join producto on productopedido.idProducto = producto.idProducto
-    					join estadopedido on productopedido.idEstado = estadopedido.idEstado
-    where productopedido.idPedido = 70
+//Cuando el cajero imprime una factura, se inserta una nueva factura en la bd y se actualiza el estado del pedido a "facturado"
+DELIMITER $$
+create procedure sp_registrarFactura(in idePedido int, in ideCajero int, in valFac int, in ivaFac int, in cc varchar(30) )
+BEGIN
+	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
+    UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
+END
