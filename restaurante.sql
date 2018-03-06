@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-03-2018 a las 13:14:58
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.21
+-- Tiempo de generación: 02-03-2018 a las 05:20:33
+-- Versión del servidor: 10.1.25-MariaDB
+-- Versión de PHP: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,23 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `restaurante`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
-	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
-    UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
-	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
-    UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
-    SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -96,8 +81,7 @@ INSERT INTO `estadopedido` (`idEstado`, `estado`) VALUES
 (2, 'En Espera'),
 (3, 'Preparando'),
 (4, 'Preparado'),
-(5, 'Entregado'),
-(6, 'Facturado');
+(5, 'Entregado');
 
 -- --------------------------------------------------------
 
@@ -115,6 +99,15 @@ CREATE TABLE `factura` (
   `idPedido` int(11) NOT NULL,
   `ccCliente` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`idFactura`, `numFactura`, `fechaFactura`, `valorFactura`, `ivaFactura`, `idCajero`, `idPedido`, `ccCliente`) VALUES
+(1, '500', '2018-02-05 08:58:29', 139900, 20900, 2, 1, '65778612'),
+(2, 'Aqui va numFactura', '2018-03-01 19:39:56', 130900, 20900, 2, 1, ''),
+(3, 'Aqui va numFactura', '2018-03-01 19:40:13', 73780, 11780, 2, 2, '');
 
 -- --------------------------------------------------------
 
@@ -378,12 +371,12 @@ ALTER TABLE `estadomesa`
 -- AUTO_INCREMENT de la tabla `estadopedido`
 --
 ALTER TABLE `estadopedido`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
@@ -448,6 +441,7 @@ ALTER TABLE `productopedido`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

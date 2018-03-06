@@ -574,7 +574,7 @@ function consultarProductosCategoria(idCategoria){
 
 
 function mostrarProductosMesero(productos){
-	var fila = '<table class="table table-hover table-striped">';
+	var fila = '<h3>Pedido # '+ getIdPedido() +'<table class="table table-hover table-striped">';
 	fila += '<thead><tr><th>Producto</th><th>Precio</th><th>Seleccionar</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {
@@ -592,7 +592,7 @@ function mostrarProductosMesero(productos){
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
 function mostrarDetalleProducto(idProducto,nombre,precio){
 	var nombreImg = nombre.replaceAll(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
-	var txt = '<div id="imgProducto">';
+	var txt = '<h3>Pedido # '+ getIdPedido() +'<div id="imgProducto">';
 	txt+= '<img src="IMG/'+nombreImg+'.png">';
 	txt+= '</div>';
 
@@ -652,11 +652,12 @@ function consultarProductosPedido(idPedido){
 }
 
 function mostrarVentanaProductoPedidoMesero(productos){
-	var fila = '<table class="table table-hover table-striped">';
+	var fila = '<h3>Pedido # '+ getIdPedido() +'</h3><table class="table table-hover table-striped">';
 	fila += '<thead><tr><th>PRODUCTO</th><th>CANTIDAD</th><th>ESTADO</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {
-		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button id="btnNuevoPedido" class="btn btn-block">'+ productos[i]["estado"] +'</button></td></tr>';
+		estado = productos[i]["estado"].replace(" ","");
+		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-block btn-'+ estado +'">'+ productos[i]["estado"] +'</button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);

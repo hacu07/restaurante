@@ -59,7 +59,7 @@ switch ($opcion) {
 		$sql = "SELECT producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = {$idPedido}";
 		leerRegistro($sql);
 	break;
-	case 12:
+	case 12: 		//Inserta un nuevo registro en la tabla factura y actualiza el estado del pedido a 'Facturado'
 		$idPedido= $_POST["idPedido"];
 		$idCajero= $_POST["idCajero"];
 		$valorFactura= $_POST["valorFactura"];
