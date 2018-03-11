@@ -20,11 +20,12 @@ Fecha: 07/02/2018;
 	--bg-enEspera : #d9534f;  /* Cambia color del fondo del boton En espera*/
 	--font-btn: #fff; /* Cambia color del texto de los botones*/
 	--font-Ordenando: #000; /* Cambia color del texto del boton ordenando*/
+	--font-Facturado: #55C5D0;
 	--bg-Preparando : #f0ad4e;/* Cambia color del fondo del boton Preparando*/
 	--bg-Preparado:#5bc0de;/* Cambia color del fondo del boton Preparado*/
 	--bg-Entregado:#5cb85c;/* Cambia color del fondo del boton entregado*/
 	--bg-Ordenando:#fff; /* Cambia color del fondo del boton Ordenando*/
-
+	--bd-Facturado:#fff;
 }
 
 body{
@@ -218,6 +219,12 @@ tr,th{
 	background-color: var(--bg-Ordenando);
 	color: var(--font-Ordenando);
 }
+
+.btn-Facturado{
+	background-color: var(--bg-Facturado);
+	color: var(--font-Facturado);
+}
+
 
 .btnAncho{
   width: 60%;

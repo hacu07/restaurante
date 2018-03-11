@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2018 a las 20:37:16
+-- Tiempo de generación: 11-03-2018 a las 20:49:39
 -- Versión del servidor: 10.1.22-MariaDB
 -- Versión de PHP: 7.1.4
 
@@ -99,7 +99,8 @@ INSERT INTO `estadopedido` (`idEstado`, `estado`) VALUES
 (2, 'En Espera'),
 (3, 'Preparando'),
 (4, 'Preparado'),
-(5, 'Entregado');
+(5, 'Entregado'),
+(6, 'Facturado');
 
 -- --------------------------------------------------------
 
@@ -123,9 +124,8 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idFactura`, `numFactura`, `fechaFactura`, `valorFactura`, `ivaFactura`, `idCajero`, `idPedido`, `ccCliente`) VALUES
-(1, '500', '2018-02-05 08:58:29', 139900, 20900, 2, 1, '65778612'),
-(2, 'Aqui va numFactura', '2018-03-01 19:39:56', 130900, 20900, 2, 1, ''),
-(3, 'Aqui va numFactura', '2018-03-01 19:40:13', 73780, 11780, 2, 2, '');
+(4, 'Aqui va numFactura', '2018-03-11 14:45:27', 110000, 20900, 2, 1, '34534534'),
+(5, 'Aqui va numFactura', '2018-03-11 14:48:14', 110000, 20900, 2, 1, '');
 
 -- --------------------------------------------------------
 
@@ -169,7 +169,7 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEstado`) VALUES
-(1, '2018-02-05 08:43:51', 1, 1, 5),
+(1, '2018-02-05 08:43:51', 1, 1, 6),
 (2, '2018-02-15 10:29:09', 4, 6, 4),
 (3, '2018-02-15 10:29:09', 3, 7, 5),
 (4, '2018-02-15 10:29:09', 2, 8, 5),
@@ -397,12 +397,12 @@ ALTER TABLE `estadomesa`
 -- AUTO_INCREMENT de la tabla `estadopedido`
 --
 ALTER TABLE `estadopedido`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --

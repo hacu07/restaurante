@@ -299,6 +299,9 @@ function nombrarEstado(idEstado){
 		case 5: 
 			nombreEstado = "Entregado";
 		break;
+		case 6:
+			nombreEstado = "Facturado"; 
+		break;
 	}
 
 	return nombreEstado;
