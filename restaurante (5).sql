@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-03-2018 a las 05:20:33
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 7.1.7
+-- Tiempo de generación: 11-03-2018 a las 20:37:16
+-- Versión del servidor: 10.1.22-MariaDB
+-- Versión de PHP: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `restaurante`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
+	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
+    UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
+    update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
+	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
+    UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
+    SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -126,7 +144,7 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`numMesa`, `idEstado`, `capacidad`) VALUES
-(1, 2, 4),
+(1, 1, 4),
 (2, 2, 8),
 (3, 1, 10),
 (4, 1, 4),
@@ -152,14 +170,14 @@ CREATE TABLE `pedidos` (
 
 INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEstado`) VALUES
 (1, '2018-02-05 08:43:51', 1, 1, 5),
-(2, '2018-02-15 10:29:09', 4, 6, 5),
+(2, '2018-02-15 10:29:09', 4, 6, 4),
 (3, '2018-02-15 10:29:09', 3, 7, 5),
 (4, '2018-02-15 10:29:09', 2, 8, 5),
 (5, '2018-02-15 10:29:09', 1, 9, 2),
-(6, '2018-02-15 10:29:09', 5, 6, 2),
+(6, '2018-02-15 10:29:09', 5, 6, 3),
 (7, '2018-02-15 10:29:09', 4, 8, 2),
-(12, '2018-03-01 20:01:06', 1, 6, 1),
-(13, '2018-03-01 20:28:15', 2, 6, 1);
+(29, '2018-03-04 17:08:52', 1, 6, 5),
+(30, '2018-03-11 14:23:50', 2, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -225,7 +243,15 @@ INSERT INTO `productopedido` (`idPedido`, `idProducto`, `cantidad`, `valor`, `id
 (4, 4, 1, 8000, 5, 12),
 (4, 2, 2, 6000, 5, 13),
 (4, 3, 2, 4000, 5, 14),
-(4, 5, 5, 10000, 5, 15);
+(4, 5, 5, 10000, 5, 15),
+(2, 5, 2, 4000, 5, 16),
+(29, 1, 3, 30000, 5, 17),
+(29, 4, 1, 8000, 5, 18),
+(29, 6, 4, 12000, 5, 19),
+(29, 2, 1, 3000, 5, 20),
+(2, 9, 2, 8000, 4, 21),
+(6, 7, 2, 9000, 3, 22),
+(30, 1, 1, 10000, 3, 23);
 
 -- --------------------------------------------------------
 
@@ -381,7 +407,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
@@ -391,7 +417,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productopedido`
 --
 ALTER TABLE `productopedido`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --

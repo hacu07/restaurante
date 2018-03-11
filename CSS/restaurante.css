@@ -131,7 +131,7 @@ div.content h3{
 	height: 70%;
 	background-color: #E6E6E6;
 	margin: auto;
-	margin-top: 2.5%;
+	/* margin-top: 2.5%; */
 	padding-top:1.5%;
 	overflow: auto;
 	text-align: center;
