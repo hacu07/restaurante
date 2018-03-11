@@ -23,7 +23,7 @@ function forPantallaCaja1(modulo, empleado){
 function forPantallaMesero1(modulo, empleado){
 	var txt =forEncabezado(modulo, empleado);
 	txt +='<div id="cont_centro"></div>';
-	txt +='<div id="cont_sur"><button id="btnNuevoPedidoMesero" class="btn btn-block btnSur" onclick="navegar(2)">Nuevo</button></div>';
+	txt +='<div id="cont_sur"><button id="btnNuevoPedidoMesero" class="btn btnSur" onclick="navegar(2)">Nuevo</button><button class="btn btnSur" onclick="consultarPedidosMesero()">Actualizar Pedidos</button></div>';
 	return txt;
 }
 

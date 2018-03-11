@@ -652,7 +652,7 @@ function consultarProductosPedido(idPedido){
 }
 
 function mostrarVentanaProductoPedidoMesero(productos){
-	var fila = '<h3>Pedido # '+ getIdPedido() +'</h3><table class="table table-hover table-striped">';
+	var fila = '<button id="btnActualizarProductosPedido" class="btn" onclick="consultarProductosPedido('+ getIdPedido() +')">Pedido # '+ getIdPedido() +'</button><table class="table table-hover table-striped">';
 	fila += '<thead><tr><th>PRODUCTO</th><th>CANTIDAD</th><th>ESTADO</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {

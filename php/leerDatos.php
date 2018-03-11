@@ -15,7 +15,7 @@ switch ($opcion) {
 	case 2:
 		$sql = "SELECT DISTINCT Pe.idPedido, U.nombre, Pe.numMesa, Pe.fechaPedido, Pr.idEstado FROM  pedidos Pe
 				JOIN usuario U ON Pe.idMesero = U.idUsuario 
-				JOIN productoPedido Pr ON Pe.idPedido = Pr.idPedido 
+				JOIN productopedido Pr ON Pe.idPedido = Pr.idPedido 
 				WHERE Pr.idEstado <= 5 AND 
 				Pr.idEstado IN
 				( select MIN(idEstado) FROM productopedido Pr WHERE Pr.idPedido = Pe.idPedido )";
