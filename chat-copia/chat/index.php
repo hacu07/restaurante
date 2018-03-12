@@ -12,15 +12,15 @@
 	?>
 	<script src="js/jquery-3.1.1.js"></script>
 	<script src="js/chat.js"></script>
-	<div class="chat_wrapper">
-		<div class="message_box" id="message_box"></div>
+	<div class="contenedor_chat">
+		<div class="caja_mensaje" id="caja_mensaje"></div>
 		<div class="panel">
-			<input type="text" name="name" id="name" placeholder="Your Name" maxlength="15" />
+			<input type="text" name="nombre" id="nombre" placeholder="Tu Nombre" maxlength="15" />
 
-			<input type="text" name="message" id="message" placeholder="Message" maxlength="80" 
-			onkeydown = "if (event.keyCode == 13)document.getElementById('send-btn').click()"  />
+			<input type="text" name="mensaje" id="mensaje" placeholder="Mensaje" maxlength="80" 
+			onkeydown = "if (event.keyCode == 13)document.getElementById('btnEnviar').click()"  />
 		</div>
-		<button id="send-btn" class=button>Send</button>
+		<button id="btnEnviar" class=button>Enviar</button>
 	</div>
 </body>
 </html>

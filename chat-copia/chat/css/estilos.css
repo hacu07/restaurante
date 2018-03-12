@@ -25,7 +25,7 @@ input[type=text]{
 	}
 
 
-.chat_wrapper {
+.contenedor_chat {
 	width: 70%;
 	height:472px;
 	margin-right: auto;
@@ -35,23 +35,23 @@ input[type=text]{
 	padding: 10px;
 	font: 14px 'lucida grande',tahoma,verdana,arial,sans-serif;
 }
-.chat_wrapper .message_box {
+.contenedor_chat .caja_mensaje {
 	background: #F7F7F7;
 	height:350px;
-		overflow: auto;
+	overflow: auto;
 	padding: 10px 10px 20px 10px;
 	border: 1px solid #999999;
 }
-.chat_wrapper  input{
+.contenedor_chat  input{
 	//padding: 2px 2px 2px 5px;
 }
-.system_msg{color: #BDBDBD;font-style: italic;}
-.user_name{font-weight:bold;}
-.user_message{color: #88B6E0;}
+.mensaje_sistema{color: #BDBDBD;font-style: italic;}
+.nombre_usuario{font-weight:bold;}
+.mensaje_usuario{color: #88B6E0;}
 
 @media only screen and (max-width: 720px) {
     /* For mobile phones: */
-    .chat_wrapper {
+    .contenedor_chat {
         width: 95%;
 	height: 40%;
 	}
