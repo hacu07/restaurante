@@ -68,6 +68,7 @@ function leerDatos(responseJSON, opc){
 					setNombreMesero(mesero[0]["nombre"]); //obtenemos el nombre del mesero
 					navegar(1);
 				}
+				iniciarSocket();
 			}
 		break;
 		case 2:
@@ -674,3 +675,40 @@ function mostrarVentanaProductoPedidoMesero(productos){
 String.prototype.replaceAll = function(target, replacement) {
   return this.split(target).join(replacement);
 };
+
+
+
+/***********************************************
+	PRUEBA DE CONEXION CON SOCKET
+*********************************************/
+function iniciarSocket(){
+    //Open a WebSocket connection.
+    var wsUri = "ws://10.78.137.39:9000/restaurante-master/restaurante-master/php/server.php";   
+    websocket = new WebSocket(wsUri); 
+    
+    //Connected to server
+    websocket.onopen = function(ev) {
+        alert('Conectado al servidor');
+    }
+    
+    //Connection close
+    websocket.onclose = function(ev) { 
+        alert('Desconectado');
+    };
+    
+    //Message Receved
+    websocket.onmessage = function(ev) { 
+        alert('Mensaje '+ev.data);
+    };
+    
+    //Error
+    websocket.onerror = function(ev) { 
+        alert('Error '+ev.data);
+    };
+    
+     //Send a Message
+    $('#send').click(function(){ 
+        var mymessage = 'This is a test message'; 
+        websocket.send(mymessage);
+    });
+}

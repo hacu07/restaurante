@@ -26,13 +26,13 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
+CREATE  PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
 	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
     UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
     update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
+CREATE PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
 	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
     UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
     SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
