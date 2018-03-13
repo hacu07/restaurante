@@ -7,15 +7,15 @@ $(document).ready(function(){
 		$('#caja_mensaje').append("<div class=\"mensaje_sistema\">Conectado!</div>"); //Notificacion al usuario
 	}
 
-	$('#btnEnviar').click(function(){ //use clicks message send button	
-		var miMensaje = $('#mensaje').val(); //get message text
-		var miNombre = $('#nombre').val(); //get user name
+	$('#btnEnviar').click(function(){ //Funcion cuando presiona clic en boton enviar	
+		var miMensaje = $('#mensaje').val(); //obtiene el mensaje
+		var miNombre = $('#nombre').val(); //obtiene el nombre
 		
-		if(miNombre == ""){ //empty name?
+		if(miNombre == ""){ //Si el campo de nombre esta vacio
 			alert("Ingrese su nombre por favor!");
 			return;
 		}
-		if(miMensaje == ""){ //emtpy message?
+		if(miMensaje == ""){ //Si el campo de mensaje esta vacio
 			alert("Ingrese algun mensaje por favor!");
 			return;
 		}
@@ -23,23 +23,23 @@ $(document).ready(function(){
 		
 		var objDiv = document.getElementById("caja_mensaje");
 		objDiv.scrollTop = objDiv.scrollHeight;
-		//prepare json data
+		//Prepara los datos de JSON
 		var msg = {
 		message: miMensaje,
 		name: miNombre,
 		color : '<?php echo $colours[$user_colour]; ?>'
 		};
-		//convert and send data to server
+		//Convierte y envia los datos al servidor
 		websocket.send(JSON.stringify(msg));
 	});
 	
-	//#### Message received from server?
+	//#### Mensaje recibido del servidor?
 	websocket.onmessage = function(ev) {
-		var msg = JSON.parse(ev.data); //PHP sends Json data
-		var type = msg.type; //message type
-		var umsg = msg.message; //message text
-		var uname = msg.name; //user name
-		var ucolor = msg.color; //color
+		var msg = JSON.parse(ev.data); //PHP envia los datos JSON
+		var type = msg.type; //Tipo de mensaje
+		var umsg = msg.message; //Texto del mensaje
+		var uname = msg.name; //Nombre Usuario
+		var ucolor = msg.color; //Color Asignado al Usuario
 
 		if(type == 'usermsg') 
 		{
@@ -50,7 +50,7 @@ $(document).ready(function(){
 			$('#caja_mensaje').append("<div class=\"mensaje_sistema\">"+umsg+"</div>");
 		}
 		
-		$('#message').val(''); //reset text
+		$('#message').val(''); //Reseteo del texto
 		
 		var objDiv = document.getElementById("caja_mensaje");
 		objDiv.scrollTop = objDiv.scrollHeight;
