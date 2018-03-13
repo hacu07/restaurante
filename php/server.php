@@ -3,33 +3,34 @@ $host = 'localhost'; //host
 $port = '9000'; //port
 $null = NULL; //null var
 
-//Create TCP/IP sream socket
-$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-//reuseable port
-socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
+//Crea el socket y el recurso que retorna lo almacena en una variable
+$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);//dominio,tipo,protocolo
+//Establece las opciones para el socket
+socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);//recurso socket valido,nivel de protocolo de la opcion, opcion del socket, valor opcional.
 
-//bind socket to specified host
-socket_bind($socket, 0, $port);
+//Vincula un nombre al socket
+socket_bind($socket, 0, $port);//recurso socket valido, direccion, puerto (Solo cuando el dominio del socket = AF_INET)
 
-//listen to port
+//Escucha conexiones entrantes sobre el socket creado 
 socket_listen($socket);
 
-//create & add listning socket to the list
+//Crea y agrega el socket a la lista
 $clients = array($socket);
 
-//start endless loop, so that our script doesn't stop
+//Inicia un ciclo sin fin para que nuestro script nunca se detenga
 while (true) {
-	//manage multipal connections
+	//Gestiona multiples conexiones
 	$changed = $clients;
-	//returns the socket resources in $changed array
-	socket_select($changed, $null, $null, 0, 10);
+	//Devuelve los recursos sockets en arreglo $changed
+	socket_select($changed, $null, $null, 0, 10);//read, write, except, tv_sec (timeout para respuesta, cuando es 0 responde inmediato) , tv_usec
 	
-	//check for new socket
+	//Comprueba que el socket exista en el array
+	//in_array(valorABuscar,Array)
 	if (in_array($socket, $changed)) {
-		$socket_new = socket_accept($socket); //accpet new socket
-		$clients[] = $socket_new; //add socket to client array
+		$socket_new = socket_accept($socket); //Acepta la conexion del socket, devuelve un recurso Socket si es true.
+		$clients[] = $socket_new; //agrega el socket al arreglo Clientes
 		
-		$header = socket_read($socket_new, 1024); //read data sent by the socket
+		$header = socket_read($socket_new, 1024); //lee los datos enviados por el socket (informacion como cadena)
 		perform_handshaking($header, $socket_new, $host, $port); //perform websocket handshake
 		
 		socket_getpeername($socket_new, $ip); //get ip address of connected socket
@@ -127,17 +128,19 @@ function mask($text)
 function perform_handshaking($receved_header,$client_conn, $host, $port)
 {
 	$headers = array();
-	$lines = preg_split("/\r\n/", $receved_header);
+	$lines = preg_split("/\r\n/", $receved_header);//divide la cadena recibida mendiante una expresion regular
 	foreach($lines as $line)
 	{
-		$line = chop($line);
-		if(preg_match('/\A(\S+): (.*)\z/', $line, $matches))
+		$line = chop($line);//Elimina los espacios del final de la cadena
+		if(preg_match('/\A(\S+): (.*)\z/', $line, $matches))//Compara expesiones regulares(patron de busqueda como cadena, cadena, contiene el texto que coincidio con el patron)
 		{
 			$headers[$matches[1]] = $matches[2];
 		}
 	}
 
-	$secKey = $headers['Sec-WebSocket-Key'];
+	$secKey = $headers['Sec-WebSocket-Key'];//obtiene la clave 
+	//sha1()calcula es 'hash' sha1 de un string
+	//pack(formato) empaqueta informacion en cadena binaria
 	$secAccept = base64_encode(pack('H*', sha1($secKey . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
 	//hand shaking header
 	$upgrade  = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n" .
