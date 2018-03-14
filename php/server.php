@@ -31,22 +31,22 @@ while (true) {
 		$clients[] = $socket_new; //agrega el socket al arreglo Clientes
 		
 		$header = socket_read($socket_new, 1024); //lee los datos enviados por el socket (informacion como cadena)
-		perform_handshaking($header, $socket_new, $host, $port); //perform websocket handshake
+		perform_handshaking($header, $socket_new, $host, $port); //Solicitud de WebSocket para conexion con el servidor
 		
-		socket_getpeername($socket_new, $ip); //get ip address of connected socket
-		$response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected'))); //prepare json data
-		send_message($response); //notify all users about new connection
+		socket_getpeername($socket_new, $ip); //Obtiene la direccion IP del socket conectado
+		$response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected'))); //Prepara el JSON
+		send_message($response); //Notifica a todos los usuarios de la nueva conexion
 		
-		//make room for new socket
-		$found_socket = array_search($socket, $changed);
-		unset($changed[$found_socket]);
+		//Hace un espacio para el nuevo Socket
+		$found_socket = array_search($socket, $changed);//(ObjetoABuscar,DondeBuscarlo)
+		unset($changed[$found_socket]);//Destruye el socket de la lista 
 	}
 	
-	//loop through all connected sockets
+	//Bucle a traves de todos los sockets conectados
 	foreach ($changed as $changed_socket) {	
 		
-		//check for any incomming data
-		while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
+		//Verifica cualquier dato entrante
+		while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)//Recibe informacion de un socket conectado(socket,buf,len,flags)
 		{
 			$received_text = unmask($buf); //unmask data
 			$tst_msg = json_decode($received_text); //json decode 
@@ -56,7 +56,7 @@ while (true) {
 			
 			//prepare data to be sent to client
 			$response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'color'=>$user_color)));
-			send_message($response_text); //send data
+			send_message($response_text); //Envia los datos
 			break 2; //exist this loop
 		}
 		

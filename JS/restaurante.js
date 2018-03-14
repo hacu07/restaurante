@@ -683,7 +683,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.39:9000/restaurante-master/restaurante-master/php/server.php";   
+    var wsUri = "ws://192.168.1.84:9000/restaurante-master/restaurante-master/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
