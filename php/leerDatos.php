@@ -13,7 +13,7 @@ switch ($opcion) {
 		break;
 	
 	case 2:
-		$sql = "SELECT DISTINCT Pe.idPedido, U.nombre, Pe.numMesa, Pe.fechaPedido, Pr.idEstado FROM  pedidos Pe
+		$sql = "SELECT DISTINCT Pe.idPedido, U.idUsuario ,U.nombre, Pe.numMesa, Pe.fechaPedido, Pr.idEstado FROM  pedidos Pe
 				JOIN usuario U ON Pe.idMesero = U.idUsuario 
 				JOIN productopedido Pr ON Pe.idPedido = Pr.idPedido 
 				WHERE Pr.idEstado <= 5 AND 

@@ -13,6 +13,7 @@ var claseEstado; 			//Estado en el que se encuentran los productos del pedido
 var idCajeroGlobal = 0;
 var idMeseroGlobal = 0;  	//Contiene el ID del mesero que ha iniciado sesion
 var idPedidoGlobal = 0;
+var idMeseroSocket = 0; 	//Contiene el ID del mesero que va a recibir el mensaje por medio del socket
 var nombreMeseroGlobal = ""; 
 var respuestaGlobal = "";
 
@@ -96,6 +97,19 @@ function leerDatos(responseJSON, opc){
 		case 6:
 			if (response["ok"] == "actualizo") {
 				consultarPedidosCocina();
+
+				//prueba envio de mensajes con SOCKETS
+				//Prepara los datos de JSON
+				var msg = {
+				idPedido: getIdPedido(),
+				idMesero: getIdMeseroSocket()
+				};
+
+				websocket.send(JSON.stringify(msg));
+
+
+				//FIN DE PRUEBA
+
 			}else{
 				console.log("Error "+ response);
 			}
@@ -235,6 +249,15 @@ function setRespuestaGlobal(response){
 
 }
 
+function getIdMeseroSocket(){
+	return idMeseroSocket;
+}
+
+function setIdMeseroSocket(id){
+	idMeseroSocket = id;
+
+}
+
 /******************** ACCIONES DE Consulta  ***************************************************/
 function consultarPedidosCocina(){
 	var parametros = { "opc" : 2};
@@ -257,7 +280,7 @@ function tablaCocina(filasArreglo){
 		var estado = parseInt(filasArreglo[i]["idEstado"]);
 		var claseEstado = nombrarEstado(estado);
 
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"]+")'>"+ claseEstado+"</button></td></tr>";
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"]+","+ filasArreglo[i]["idUsuario"]+")'>"+ claseEstado+"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);
@@ -332,7 +355,9 @@ function mostrarVentanaMesero1(){
 }
 
 //Despliega datos de un pedido en la ventana modal ***********************
-function mostrarVentanaPedidoCocina(idPedido){
+function mostrarVentanaPedidoCocina(idPedido,ideMeseroSocket){
+	setIdPedido(idPedido);
+	setIdMeseroSocket(ideMeseroSocket);
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
 	//$(".modal-body").html(cargarDatosPedidoCocina(idPedido));
 	consultarDatosDetalleCocina(idPedido);
@@ -683,7 +708,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://192.168.1.84:9000/restaurante-master/restaurante-master/php/server.php";   
+    var wsUri = "ws://10.78.137.14:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -698,7 +723,14 @@ function iniciarSocket(){
     
     //Message Receved
     websocket.onmessage = function(ev) { 
-        alert('Mensaje '+ev.data);
+        var msg = JSON.parse(ev.data); //PHP envia los datos JSON
+		var idePedido = msg.idPedido; //Nombre Usuario
+		var ideMesero = msg.idMesero; //Color Asignado al Usuario
+
+		if (ideMesero == getIdMesero()) {
+			
+			navegar(1);
+		}
     };
     
     //Error
