@@ -687,9 +687,9 @@ function agregarProductoPedido(idProducto){
 }
 
 function consultarProductosPedido(idPedido){
+	setIdPedido(idPedido);
 	navegarMesero = 3;
 	console.log(navegarMesero);
-	setIdPedido(idPedido);
 	var parametros = { "opc" : 28, "idPedido" : idPedido};
 	ejecutarAjaxJson(parametros, 28);
 }
@@ -722,7 +722,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.14:9000/restaurante/php/server.php";   
+    var wsUri = "ws://192.168.1.84:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -764,11 +764,6 @@ function iniciarSocket(){
         alert('Error '+ev.data);
     };
     
-     //Send a Message
-    $('#send').click(function(){ 
-        var mymessage = 'This is a test message'; 
-        websocket.send(mymessage);
-    });
 }
 
 //Segun la ventana en que se encuentre el mesero, se actualizara (Solo si esta en la ventana 1 o 3)
@@ -777,7 +772,7 @@ function actualizarVentanaMesero(){
 		case 1: //Se en cuentra en la ventana 1
 			navegar(1);
 		break;
-		case 2:
+		case 3:
 			navegar(3);
 		break;
 	}
