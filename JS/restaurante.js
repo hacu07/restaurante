@@ -16,6 +16,7 @@ var idPedidoGlobal = 0;
 var idMeseroSocket = 0; 	//Contiene el ID del mesero que va a recibir el mensaje por medio del socket
 var nombreMeseroGlobal = ""; 
 var respuestaGlobal = "";
+var navegarMesero = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
@@ -101,6 +102,7 @@ function leerDatos(responseJSON, opc){
 				//prueba envio de mensajes con SOCKETS
 				//Prepara los datos de JSON
 				var msg = {
+				tipoMensaje: 1,
 				idPedido: getIdPedido(),
 				idMesero: getIdMeseroSocket()
 				};
@@ -390,26 +392,32 @@ function mostrarPedidoMesero(idPedido){
 function navegar(nav){
 	switch (nav){
 		case 1:
+			navegarMesero = 1;
 			mostrarVentanaMesero1();
 			consultarPedidosMesero();
 		break;
 		case 2:
+			navegarMesero = 2;
 			consultarMesasDisponibles();
 		break;
 		case 3:
+			navegarMesero = 3;
 			consultarProductosPedido(getIdPedido());
 		break;
 		case 4:
+			navegarMesero = 4;
 			mostrarVentanaCategorias();
 		break;
 		case 5:
+			navegarMesero = 5;
 			mostrarProductosMesero(getRespuestaGlobal());
 		break;
 		case 6:
+			navegarMesero = 6;
 			mostrarDetalleProducto();
 		break;
-
 	}
+	console.log(navegarMesero);
 }
 
 //Cierra el formulario modal **********************************************
@@ -577,6 +585,8 @@ function consultarUltimoPedido(){
 }
 
 function consultarCategorias(){
+	navegarMesero = 4;
+	console.log(navegarMesero);
 	var parametros = {"opc": 24 };
 	ejecutarAjaxJson(parametros, 24 );
 }
@@ -620,6 +630,8 @@ function mostrarProductosMesero(productos){
 
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
 function mostrarDetalleProducto(idProducto,nombre,precio){
+	navegarMesero = 6;
+	console.log(navegarMesero);
 	var nombreImg = nombre.replaceAll(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
 	var txt = '<h3>Pedido # '+ getIdPedido() +'<div id="imgProducto">';
 	txt+= '<img src="IMG/'+nombreImg+'.png">';
@@ -675,6 +687,8 @@ function agregarProductoPedido(idProducto){
 }
 
 function consultarProductosPedido(idPedido){
+	navegarMesero = 3;
+	console.log(navegarMesero);
 	setIdPedido(idPedido);
 	var parametros = { "opc" : 28, "idPedido" : idPedido};
 	ejecutarAjaxJson(parametros, 28);
@@ -724,12 +738,24 @@ function iniciarSocket(){
     //Message Receved
     websocket.onmessage = function(ev) { 
         var msg = JSON.parse(ev.data); //PHP envia los datos JSON
-		var idePedido = msg.idPedido; //Nombre Usuario
-		var ideMesero = msg.idMesero; //Color Asignado al Usuario
-
-		if (ideMesero == getIdMesero()) {
-			
-			navegar(1);
+        var tipoMensaje = msg.tipoMensaje;
+		/*var idePedido = msg.idPedido; //Nombre Usuario
+		var ideMesero = msg.idMesero; //Color Asignado al Usuario*/
+		console.log(tipoMensaje);
+		switch(parseInt(tipoMensaje)){
+			case 0:
+				var msj =  msg.message;
+				alert(msj);
+			break;
+			//Los mensaje de tipo 1 son son para los meseros (Enviados por el Jefe de cocina)
+			case 1:
+				var idePedido = msg.idPedido; //Nombre Usuario
+				var ideMesero = msg.idMesero; //Color Asignado al Usuario
+				console.log("entro");
+				if (ideMesero == getIdMesero()) { //Verificamos que el ID del mesero almacenado en el dispositivo sea igual al que debe de recibir el mensaje
+					actualizarVentanaMesero();
+				}
+			break;
 		}
     };
     
@@ -743,4 +769,16 @@ function iniciarSocket(){
         var mymessage = 'This is a test message'; 
         websocket.send(mymessage);
     });
+}
+
+//Segun la ventana en que se encuentre el mesero, se actualizara (Solo si esta en la ventana 1 o 3)
+function actualizarVentanaMesero(){
+	switch(navegarMesero){
+		case 1: //Se en cuentra en la ventana 1
+			navegar(1);
+		break;
+		case 2:
+			navegar(3);
+		break;
+	}
 }

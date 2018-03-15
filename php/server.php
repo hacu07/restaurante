@@ -34,7 +34,7 @@ while (true) {
 		perform_handshaking($header, $socket_new, $host, $port); //Solicitud de WebSocket para conexion con el servidor
 		
 		socket_getpeername($socket_new, $ip); //Obtiene la direccion IP del socket conectado
-		$response = mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected'))); //Prepara el JSON
+		$response = mask(json_encode(array('tipoMensaje'=> '0', 'message'=>$ip.' connected'))); //Prepara el JSON
 		send_message($response); //Notifica a todos los usuarios de la nueva conexion
 		
 		//Hace un espacio para el nuevo Socket
@@ -53,11 +53,12 @@ while (true) {
 			/*$user_name = $tst_msg->name; //sender name
 			$user_message = $tst_msg->message; //message text
 			$user_color = $tst_msg->color; //color*/
+			$tipoMensaje = $tst_msg->tipoMensaje; // 1: Si el que lo envia es el Jefe de cocina al Mesero
 			$idePedido = $tst_msg->idPedido; //sender name
 			$ideMesero = $tst_msg->idMesero; //message text
 			
 			//prepare data to be sent to client
-			$response_text = mask(json_encode(array('idPedido'=> $idePedido, 'idMesero'=>$ideMesero)));
+			$response_text = mask(json_encode(array('tipoMensaje'=> $tipoMensaje, 'idPedido'=> $idePedido, 'idMesero'=>$ideMesero)));
 			send_message($response_text); //Envia los datos
 			break 2; //exist this loop
 		}
