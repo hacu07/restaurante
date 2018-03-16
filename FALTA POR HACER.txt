@@ -1,0 +1,11 @@
+--------------------------------------
+MODULO MESERO
+--------------------------------------
+
+-Bloquear el boton de ver detalle pedido una vez el estado de este es FACTURADO
+
+
+-------------------------------------
+MODULO CAJERO
+-------------------------------------
+-Una vez facturado un pedido actualizar el estado de los productos a facturado

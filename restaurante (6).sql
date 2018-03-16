@@ -30,6 +30,7 @@ CREATE  PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT,
 	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
     UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
     update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
+    update productopedido set idEstado = 6 where idPedido = idePedido;
 END$$
 
 CREATE PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 

@@ -17,6 +17,7 @@ var idMeseroSocket = 0; 	//Contiene el ID del mesero que va a recibir el mensaje
 var nombreMeseroGlobal = ""; 
 var respuestaGlobal = "";
 var navegarMesero = 0;
+var rolUsuario = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
 function iniciarSesion(){
@@ -55,16 +56,18 @@ function leerDatos(responseJSON, opc){
 		case 1: //Toma la respuesta de la consulta, verifica el Rol y muestra la pantalla correspondiente
 			if(response.length > 0 ){//Si la respuesta trae algo
 				//verificar el rol
-				if (response[0]["idRol"]==3) {
+				if (response[0]["idRol"]==3) {//JefeCocina
+					setRolUsuario(response[0]["idRol"]);
 					usuario = response;
 					mostrarVentanaChef1(usuario[0]["nombre"]);	//Envia nombre del empleado
 					consultarPedidosCocina();
-				}else if (response[0]["idRol"]==4){
+				}else if (response[0]["idRol"]==4){//cajero
+					setRolUsuario(response[0]["idRol"]);
 					cajero = response;
 					setIdCajero(parseInt(cajero[0]["idUsuario"]));
 					mostrarVentanaCaja1(cajero[0]["nombre"]); 
 					consultarFacturas();
-				}else if(response[0]["idRol"]==5){
+				}else if(response[0]["idRol"]==5){//Mesero
 					mesero = response;
 					setIdMesero(parseInt(mesero[0]["idUsuario"])); //Obtenemos el Id del mesero que ha iniciado sesion y lo almacenamos en la variable global  'idMeseroGlobal'
 					setNombreMesero(mesero[0]["nombre"]); //obtenemos el nombre del mesero
@@ -108,7 +111,6 @@ function leerDatos(responseJSON, opc){
 				};
 
 				websocket.send(JSON.stringify(msg));
-
 
 				//FIN DE PRUEBA
 
@@ -257,7 +259,14 @@ function getIdMeseroSocket(){
 
 function setIdMeseroSocket(id){
 	idMeseroSocket = id;
+}
 
+function getRolUsuario(){
+	return rolUsuario;
+}
+
+function setRolUsuario(rol){
+	rolUsuario = rol;
 }
 
 /******************** ACCIONES DE Consulta  ***************************************************/
@@ -367,8 +376,9 @@ function mostrarVentanaPedidoCocina(idPedido,ideMeseroSocket){
 }
 
 //Despliega datos de un pedido en la ventana modal ***********************
-function mostrarVentanaPedidoCaja(idPedido){
+function mostrarVentanaPedidoCaja(idPedido,idMesero){
 	setIdPedido(idPedido);
+	setIdMeseroSocket(idMesero);
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
 	consultarDetalleFactura(idPedido);
 	//cargarDatosPedidoCaja(idPedido);
@@ -505,7 +515,7 @@ function tablaCaja(filasFactura){
 	fila += '<thead><tr><th># Pedido</th><th>Mesa </th><th>Estado</th><th>Ver</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< filasFactura.length; i++) {
-		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button class="btn btnVerCaja" onclick="mostrarVentanaPedidoCaja('+filasFactura[i]["idPedido"]+')">Ver</button></td></tr>';
+		fila += '<tr><td>'+filasFactura[i]["idPedido"]+'</td><td>'+filasFactura[i]["numMesa"]+'</td><td>'+filasFactura[i]["estado"]+'</td><td><button class="btn btnVerCaja" onclick="mostrarVentanaPedidoCaja('+filasFactura[i]["idPedido"]+','+filasFactura[i]["idMesero"]+')">Ver</button></td></tr>';
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
@@ -722,7 +732,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://192.168.1.84:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.137.37:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -743,19 +753,31 @@ function iniciarSocket(){
 		var ideMesero = msg.idMesero; //Color Asignado al Usuario*/
 		console.log(tipoMensaje);
 		switch(parseInt(tipoMensaje)){
-			case 0:
+			case 0: //Mensajes de alerta (Conectado,desconectado,etc.).
 				var msj =  msg.message;
 				alert(msj);
 			break;
-			//Los mensaje de tipo 1 son son para los meseros (Enviados por el Jefe de cocina)
+			//Los mensaje de tipo 1 son son para los meseros y cajeros (Enviados por el Jefe de cocina)
 			case 1:
 				var idePedido = msg.idPedido; //Nombre Usuario
 				var ideMesero = msg.idMesero; //Color Asignado al Usuario
-				console.log("entro");
 				if (ideMesero == getIdMesero()) { //Verificamos que el ID del mesero almacenado en el dispositivo sea igual al que debe de recibir el mensaje
 					actualizarVentanaMesero();
 				}
+				if(getRolUsuario() == 4){	//Si el cajero a iniciado sesion
+					consultarFacturas();
+				}
 			break;
+			case 2: //Mensajes enviados por el Cajero al generar una factura
+				var idePedido = msg.idPedido; //Nombre Usuario
+				var ideMesero = msg.idMesero; //Color Asignado al Usuario
+				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
+					consultarPedidosCocina();
+				}
+				if (ideMesero == getIdMesero()) { //Verificamos que el ID del mesero almacenado en el dispositivo sea igual al que debe de recibir el mensaje
+					actualizarVentanaMesero();
+				}
+			break;	
 		}
     };
     

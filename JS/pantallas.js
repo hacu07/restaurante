@@ -189,11 +189,16 @@ function generarFacturaPedido(idPedido,idCajero,valorFac,ivaFac){
 	var parametros = { "opc" : 12, "idPedido" : idPedido, "idCajero" : idCajero, "valorFactura" : valorFac, "ivaFactura" : ivaFac, "ccCliente" : ccCliente };
 	ejecutarAjaxJson(parametros,12);
 	imprimir("contenidoModal");
-	//cambiarEstado a pagado (Porque se ha generado una nueva factura)
-	/*var parametros1 = { "opc" : 13, "idPedido" : idPedido };
-	ejecutarAjaxJson(parametros1,13);*/
-	//Vuelve y carga la tabla del cajero 
 	consultarFacturas();
+
+	//Al Facturar un pedido se emite el mensaje para que el mesero y el
+	var msg = {
+				tipoMensaje: 2,
+				idPedido: idPedido,
+				idMesero: getIdMeseroSocket()
+			};
+
+	websocket.send(JSON.stringify(msg));
 }
 
 
