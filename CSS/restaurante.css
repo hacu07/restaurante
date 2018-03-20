@@ -315,6 +315,36 @@ tr,th{
 	font-weight: bold;
 	margin-bottom: 1%;	
 }
+
+
+/********************************************************
+// 			MODULO ADMINISTRADOR 
+/********************************************************/
+#btnUsuario, #btnCategorias, #btnProductos, #btnEstadisticas{
+	color: var(--bg-azul);
+	background-color: #fff;
+	font-weight: bold;
+	margin-bottom: 1%;	
+}
+#trabajo{
+	height: 100%;
+}
+#titulo{
+	height: 15%;
+}
+#titulo h1 {
+	color: var(--bg-azul);
+    font-size: 30px;
+    font-weight: bold;	
+}
+
+#trabajoCentro{
+	height: 60%;
+}
+
+#trabajoSur{
+	height: 10%;
+}
 /*******************************************************/
 
 .alinearMedio{

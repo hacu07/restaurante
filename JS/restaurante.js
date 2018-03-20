@@ -72,7 +72,11 @@ function leerDatos(responseJSON, opc){
 					setIdMesero(parseInt(mesero[0]["idUsuario"])); //Obtenemos el Id del mesero que ha iniciado sesion y lo almacenamos en la variable global  'idMeseroGlobal'
 					setNombreMesero(mesero[0]["nombre"]); //obtenemos el nombre del mesero
 					navegar(1);
+				}else if (response[0]["idRol"]==2) {
+					administrador = response;
+					mostrarModuloAdmin(administrador[0]["nombre"]);
 				}
+
 				iniciarSocket();
 			}
 		break;
