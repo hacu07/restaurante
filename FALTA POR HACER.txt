@@ -4,6 +4,8 @@ MODULO MESERO
 
 -Bloquear el boton de ver detalle pedido una vez el estado de este es FACTURADO
 
+-cuando el mesero genera un nuevo pedido se debe actualizar la interfaz del jefe de cocina (tambien cuando agrega un producto a ese pedido)
+
 
 -------------------------------------
 MODULO CAJERO

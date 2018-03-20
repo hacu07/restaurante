@@ -164,10 +164,19 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		case 22:
+		case 22://Nuevo pedido solicitado por el mesero al seleccionar una mesa
 			if (response.length > 0) {
 				$('#ultimoPedido').text('Pedido N° '+response[0]["idPedido"]);
 				setIdPedido(response[0]["idPedido"]);
+
+				var msg = {
+				tipoMensaje: 3,
+				idPedido: getIdPedido(),
+				idMesero: getIdMesero()
+				};
+
+				websocket.send(JSON.stringify(msg));
+
 			} 
 		break;
 
@@ -190,6 +199,13 @@ function leerDatos(responseJSON, opc){
 		case 27:
 			if (response["ok"] == "actualizo") {
 				navegar(3);
+				var msg = {
+				tipoMensaje: 3,
+				idPedido: getIdPedido(),
+				idMesero: getIdMesero()
+				};
+
+				websocket.send(JSON.stringify(msg));
 
 			}else{
 				console.log("NO REGISTRO PRODUCTO");
@@ -732,7 +748,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.37:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.137.57:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -769,15 +785,22 @@ function iniciarSocket(){
 				}
 			break;
 			case 2: //Mensajes enviados por el Cajero al generar una factura
-				var idePedido = msg.idPedido; //Nombre Usuario
-				var ideMesero = msg.idMesero; //Color Asignado al Usuario
+				var idePedido = msg.idPedido; //Numero del pedido
+				var ideMesero = msg.idMesero; //id Asignado al Usuario
 				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
 					consultarPedidosCocina();
 				}
 				if (ideMesero == getIdMesero()) { //Verificamos que el ID del mesero almacenado en el dispositivo sea igual al que debe de recibir el mensaje
 					actualizarVentanaMesero();
 				}
-			break;	
+			break;
+			case 3: //Mensajes enviado por el mesero para actualizar interfaz del jefe de cocina
+				var idePedido = msg.idPedido; //Numero del pedido
+				var ideMesero = msg.idMesero; //id Asignado al Usuario
+				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
+					consultarPedidosCocina();
+				}
+			break;
 		}
     };
     
