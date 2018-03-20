@@ -339,3 +339,18 @@ tr,th{
  			text-align: center;
  			margin-bottom: 0;
  	} */
+
+
+
+
+
+ /*                   CAMBIOS CSS HAROLD 20/03/2018                            */
+ .btnEntregadoMesero{
+ 	width: 70%;
+ }
+ td .btnConfirmarEntrega{
+ 	width: 25%;
+ 	height: 100%;
+ 	background-color: var(--font-btn);
+ 	color: var(--bg-Entregado);
+ }

@@ -726,7 +726,11 @@ function mostrarVentanaProductoPedidoMesero(productos){
 	fila += '<tbody>';
 	for (var i =0; i< productos.length; i++) {
 		estado = productos[i]["estado"].replace(" ","");
-		fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-block btn-'+ estado +'">'+ productos[i]["estado"] +'</button></td></tr>';
+		if (estado == 'Entregado') { //si el estado es entregado aparece el boton para confirmar que recibe el producto
+			fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-'+ estado +' btnEntregadoMesero">'+ productos[i]["estado"] +'</button><button class="btn btnConfirmarEntrega" onclick="confirmarEntregaProducto('+ productos[i]["numero"] +')"><span class="glyphicon glyphicon-ok"></span></button></td></tr>';
+		}else{
+			fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-block btn-'+ estado +'">'+ productos[i]["estado"] +'</button></td></tr>';
+		}
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
@@ -821,4 +825,10 @@ function actualizarVentanaMesero(){
 			navegar(3);
 		break;
 	}
+}
+
+
+function confirmarEntregaProducto(numeroProducto){
+	var parametros = {"opc" : 29, "idPedido" : getIdPedido(), "numeroProducto" : numeroProducto};
+	ejecutarAjaxJson(parametros,29);
 }
