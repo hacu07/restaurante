@@ -390,7 +390,7 @@ input:focus{
     border-color: #000;
 }
 
-#btnRegistrar{
+#btnRegistrar, #btnAgregar{
 	color: #fff;
 	background-color: var(--bg-azul);
 	font-weight: bold;
