@@ -20,7 +20,7 @@ function mostrarModuloAdmin(nombre){
 	txt += '<div id="titulo"></div>';
 	txt += '<div id="trabajoCentro">';
 	txt += '</div>';
-	txt += '<div id="tabajoSur"></div>';
+	txt += '<div id="trabajoSur"></div>';
 	txt += '</div>';
 
 	txt += '</div>';
@@ -36,19 +36,46 @@ function registroNuevosUsuarios(){
 
     $("#titulo").html(txt); 
 
+    var txt1 = '<form method="post">';
+    txt1 += '<div>';
+    txt1 += 	'<label for="Nombre">Usuario:</label>';
+    txt1 += 	'<input type="text" id="nombre" />';
+    txt1 += '</div>';
+    txt1 += '<div>';
+    txt1 += 	'<label for="contrasenia">Contraseña:</label>';
+    txt1 += 	'<input type="password" id="contrasenia" />';
+    txt1 += '</div>';
+    txt1 += '<div>';
 
-    var txt1 = '<form>';
-    txt1 += '<label for="choose">¿Preferirías un plátano o una cereza?</label>';
-    txt1 += ' <input id="choose" name="i_like" pattern="plátano|cereza">';
-    txt1 += '<button>Enviar</button>';
+    txt1 += '<div class="btn-group">';
+    txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '	<div class="dropdown-menu">';
+    txt1 += '	<li><a href="#">ADMINISTRADOR</a></li>';
+    txt1 += '	<li><a href="#">JEFE DE COCINA</a></li>';
+    txt1 += '	<li><a href="#">MESERO</a></li>';
+    txt1 += '<li><a href="#">CAJERO</a></li>';
+   txt1 += '</div>';   
+   txt1 += '</div>';
     txt1 += '</form>';
-    txt1 += '';
-    txt1 += '';
-    txt1 += '';
-    txt1 += '';
-    txt1 += '';
-    txt1 += '';
-
+	
     $("#trabajoCentro").html(txt1); 
 
+    var txt2 = '<div>';
+    txt2 += '	<button id="btnRegistrar" class="btn" type="button">REGISTRAR</button>';
+    txt2 += ' </div>';
+
+    $("#trabajoSur").html(txt2); 
 }
+
+  
+
+  
+    
+    
+    
+    
+      
+      
+      
+    
+ 
