@@ -358,7 +358,9 @@ form {
     padding: 1em;
     border: 1px solid #CCC;
     border-radius: 2em;
+    text-align: center;
 }
+
 
 form div + div {
     margin-top: 2em;
@@ -367,7 +369,7 @@ form div + div {
 label {
     /* Para asegurarse que todos los labels tienen el mismo tamaño y están alineados correctamente */
     display: inline-block;
-    width: 90px;
+    width: 100%;
     text-align: center;
 }
 
@@ -377,14 +379,28 @@ input {
     font: 1em sans-serif;
 
     /* Para darle el mismo tamaño a todos los campos de texto */
-    width: 300px;
+    width: 80%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: .5em;
 
-    /* Para armonizar el look&feel del borde en los campos de texto */
+     /*Para armonizar el look&feel del borde en los campos de texto */
     border: 1px solid #999;
+    text-align: center;
+
 }
+#inputInsertarImg{
+    font: 1em sans-serif;
+	width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: .5em;
+    border: 1px ;
+    margin-left: 11%;
+
+
+}
+
 input:focus{
     /* Para dar un pequeño destaque en elementos activos*/
     border-color: #000;
