@@ -89,7 +89,6 @@ function send_message($msg)
 	return true;
 }
 
-
 //Unmask incoming framed message
 function unmask($text) {
 	$length = ord($text[1]) & 127;

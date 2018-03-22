@@ -97,7 +97,14 @@ function leerDatos(responseJSON, opc){
 		break;
 		case 4:
 			if (response["ok"] == "actualizo") {
-				//consultarPedidosCocina();
+				var msg = {
+				tipoMensaje: 1,
+				idPedido: getIdPedido(),
+				idMesero: getIdMeseroSocket()
+				};
+
+				websocket.send(JSON.stringify(msg));
+				consultarPedidosCocina();
 			}else{
 				console.log("Error "+ response);
 			}
@@ -108,13 +115,7 @@ function leerDatos(responseJSON, opc){
 
 				//prueba envio de mensajes con SOCKETS
 				//Prepara los datos de JSON
-				var msg = {
-				tipoMensaje: 1,
-				idPedido: getIdPedido(),
-				idMesero: getIdMeseroSocket()
-				};
-
-				websocket.send(JSON.stringify(msg));
+				
 
 				//FIN DE PRUEBA
 
