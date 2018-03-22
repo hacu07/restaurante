@@ -855,6 +855,8 @@ function actualizarVentanaMesero(){
 
 /* 	Ejecuta consulta para cambiar el estado del pedido a "Recibido" cuando el mesero confirma que recibe el producto por parte del jefe de cocina		*/
 function confirmarEntregaProducto(numeroProducto){
-	var parametros = {"opc" : 29, "idPedido" : getIdPedido(), "numeroProducto" : numeroProducto};
+	/*var parametros = {"opc" : 29, "idPedido" : getIdPedido(), "numeroProducto" : numeroProducto};
+	ejecutarAjaxJson(parametros,29);*/
+	var parametros = {"opc" : 29, "idEstado": 7, "numero" : numeroProducto, "idPedido": getIdPedido()};
 	ejecutarAjaxJson(parametros,29);
 }

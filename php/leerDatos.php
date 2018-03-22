@@ -119,9 +119,10 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 	case 29://actualizar el estado del producto a "recibido" desps de confirma en la interfaz
+		$idEstado = $_POST["idEstado"];
+		$numero = $_POST["numero"];
 		$idPedido = $_POST["idPedido"];
-		$numero = $_POST["numeroProducto"];
-		$sql = "UPDATE productopedido SET idEstado = 7 WHERE numero= {$numero} and idPedido = {$idPedido}";
+		$sql = "call sp_actualizarEstados({$idPedido},{$idEstado},{$numero})";
 		actualizarRegistro($sql);
 	break;
 }
