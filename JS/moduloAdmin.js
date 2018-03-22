@@ -32,18 +32,20 @@ function mostrarModuloAdmin(nombre){
 
 function registroNuevosUsuarios(){
 
-	var txt = '<h1>REGISTRAR USUARIO </h1>';
+	var txt = '<h1> USUARIOS </h1>';
 
     $("#titulo").html(txt); 
 
-    var txt1 = '<form method="post">';
+
+    var txt1 = '<form method="post">';    
+    txt1 += '<img src="img/registroUsuarios.png" alt="Usuario" id="imgUsuario">';
     txt1 += '<div>';
     txt1 += 	'<label for="Nombre">Usuario:</label>';
-    txt1 += 	'<input type="text" id="nombre" placeholder="Escriba Nombre de Usuario" />';
+    txt1 += 	'<input type="text" id="nombre" placeholder=" Escriba Nombre de Usuario" />';
     txt1 += '</div>';
     txt1 += '<div>';
     txt1 += 	'<label for="contrasenia">Contraseña:</label>';
-    txt1 += 	'<input type="password" id="contrasenia" placeholder="Escriba Contraseña" />';
+    txt1 += 	'<input type="password" id="contrasenia" placeholder=" Escriba Contraseña" />';
     txt1 += '</div>';
     txt1 += '<div>';
 
@@ -62,6 +64,10 @@ function registroNuevosUsuarios(){
 
     var txt2 = '<div>';
     txt2 += '	<button id="btnRegistrar" class="btn" type="button">REGISTRAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">ACTUALIZAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">CONSULTAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">ELIMINAR</button>';
+
     txt2 += ' </div>';
 
     $("#trabajoSur").html(txt2); 
@@ -77,7 +83,7 @@ function AgregarCategoria(){
     var txt1 = '<form method="post">';
     txt1 += '<div>';
     txt1 += 	'<label for="categoria">Nombre de la categoria:</label>';
-    txt1 += 	'<input type="text" id="nomCategoria" placeholder="Escriba el nombre de la categoria"/>';
+    txt1 += 	'<input type="text" id="nomCategoria" placeholder=" Escriba el nombre de la categoria"/>';
     txt1 += '</form>';
 	
     $("#trabajoCentro").html(txt1); 
@@ -99,21 +105,33 @@ function agregarProducto(){
     var txt1 = '<form method="post">';
     txt1 += '<div>';
     txt1 += 	'<label for="producto">Nombre del producto:</label>';
-    txt1 += 	'<input type="text" id="producto" placeholder="Escriba Nombre del producto" />';
+    txt1 += 	'<input type="text" id="producto" placeholder=" Escriba Nombre del producto" />';
     txt1 += '</div>';
     txt1 += '<div>';
     txt1 += 	'<label for="precio">Precio:</label>';
-    txt1 += 	'<input type="number" id="precio" placeholder="Escriba precio el producto" />';
+    txt1 += 	'<input type="number" id="precio" placeholder=" Escriba precio el producto" />';
     txt1 += '</div>';
-    txt1 += '<div>';
-
     txt1 += '<div class="btn-group">';
     txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categoria <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
-    txt1 += '	<div class="dropdown-menu">';
-    txt1 += '	<li><a href="#">PLATOS</a></li>';
-    txt1 += '	<li><a href="#">BEBIDAS</a></li>';
-   txt1 += '</div>';   
-   txt1 += '</div>';
+    txt1 += '   <div class="dropdown-menu">';
+    txt1 += '      <li><a href="#">PLATOS</a></li>';
+    txt1 += '      <li><a href="#">BEBIDAS</a></li>';
+    txt1 += '   </div>';   
+    txt1 += '</div>';
+    txt1 +='<div>';
+    txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';
+    txt1 +=     '<label for="precio">Insertar Imagen:</label>';
+    txt1 +='     <input id="inputInsertarImg" name="archivo" type="file" size="20">';
+    txt1 +='  </form>';
+    txt1 +='</div>';
+/*    txt1 +='';
+    txt1 +='';
+    txt1 +='';
+    txt1 +='';
+    txt1 +='';
+
+*/
+
     txt1 += '</form>';
 	
     $("#trabajoCentro").html(txt1); 
@@ -125,14 +143,13 @@ function agregarProducto(){
     $("#trabajoSur").html(txt2); 
 }
 
-  
-  
-    
-    
-    
-    
-      
-      
-      
-    
+
+
+
+
+
  
+         
+
+ 
+
