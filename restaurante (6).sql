@@ -101,7 +101,8 @@ INSERT INTO `estadopedido` (`idEstado`, `estado`) VALUES
 (3, 'Preparando'),
 (4, 'Preparado'),
 (5, 'Entregado'),
-(6, 'Facturado');
+(6, 'Facturado'),
+(7, 'Recibido');
 
 -- --------------------------------------------------------
 
