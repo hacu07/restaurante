@@ -54,3 +54,13 @@ BEGIN
     UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
     update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
 END
+
+
+//Actualiza los estados del producto y el estado del pedido segun el producto que tenga el estado menor
+
+DELIMITER $$
+create procedure sp_actualizarEstados(in idePedido int, in ideEstado int, in numeroProd int )
+BEGIN
+	UPDATE productopedido SET idEstado = ideEstado WHERE numero = numeroProd;
+	UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = idePedido) WHERE idPedido = idePedido;
+END

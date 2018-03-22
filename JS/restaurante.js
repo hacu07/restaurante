@@ -222,6 +222,25 @@ function leerDatos(responseJSON, opc){
 			//}
 		break;
 
+		case 29:
+			if (response["ok"] == "actualizo") {
+				navegar(3);
+
+				/*Evia Mensaje al socket para actualizar interfaz de los Jefe de cocina y Cajeros*/
+
+				var msg = {
+				tipoMensaje: 3,
+				idPedido: getIdPedido(),
+				idMesero: getIdMesero()
+				};
+
+				websocket.send(JSON.stringify(msg));
+
+			}else{
+				console.log("NO CAMBIO ESTADO PEDIDO DESPUES DE FACTURAR");
+			}
+		break;
+
 	}
 }
 
@@ -356,6 +375,9 @@ function nombrarEstado(idEstado){
 		break;
 		case 6:
 			nombreEstado = "Facturado"; 
+		break;
+		case 7:
+			nombreEstado = "Recibido";
 		break;
 	}
 
@@ -493,11 +515,8 @@ function asignarClases(clase,idEstado,idNumProducto,idPedido){
 		$('#btnTd'+idNumProducto).text(clase);
 	}
 
-	var parametros = {"opc" : 4, "idEstado": idEstado, "numero" : idNumProducto};
+	var parametros = {"opc" : 4, "idEstado": idEstado, "numero" : idNumProducto, "idPedido": idPedido};
 	ejecutarAjaxJson(parametros,4);
-	parametros = "";
-	parametros = {"opc" : 6, "idPedido": idPedido}
-	ejecutarAjaxJson(parametros,6);
 }
 
 
@@ -756,7 +775,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.57:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.137.36:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -802,11 +821,14 @@ function iniciarSocket(){
 					actualizarVentanaMesero();
 				}
 			break;
-			case 3: //Mensajes enviado por el mesero para actualizar interfaz del jefe de cocina
+			case 3: //Mensajes enviado por el mesero para actualizar interfaz del jefe de cocina y/o cajero
 				var idePedido = msg.idPedido; //Numero del pedido
 				var ideMesero = msg.idMesero; //id Asignado al Usuario
 				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
 					consultarPedidosCocina();
+				}
+				if(getRolUsuario() == 4){
+					consultarFacturas();	
 				}
 			break;
 		}
@@ -831,7 +853,7 @@ function actualizarVentanaMesero(){
 	}
 }
 
-
+/* 	Ejecuta consulta para cambiar el estado del pedido a "Recibido" cuando el mesero confirma que recibe el producto por parte del jefe de cocina		*/
 function confirmarEntregaProducto(numeroProducto){
 	var parametros = {"opc" : 29, "idPedido" : getIdPedido(), "numeroProducto" : numeroProducto};
 	ejecutarAjaxJson(parametros,29);

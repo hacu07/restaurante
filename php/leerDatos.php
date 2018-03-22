@@ -16,7 +16,7 @@ switch ($opcion) {
 		$sql = "SELECT DISTINCT Pe.idPedido, U.idUsuario ,U.nombre, Pe.numMesa, Pe.fechaPedido, Pr.idEstado FROM  pedidos Pe
 				JOIN usuario U ON Pe.idMesero = U.idUsuario 
 				JOIN productopedido Pr ON Pe.idPedido = Pr.idPedido 
-				WHERE Pr.idEstado <= 5 AND 
+				WHERE Pr.idEstado <= 5 or  Pr.idEstado = 7 AND 
 				Pr.idEstado IN
 				( select MIN(idEstado) FROM productopedido Pr WHERE Pr.idPedido = Pe.idPedido )";
 		leerRegistro($sql);
@@ -33,14 +33,9 @@ switch ($opcion) {
 	case 4: 
 		$idEstado = $_POST["idEstado"];
 		$numero = $_POST["numero"];
-		$sql = "UPDATE productopedido SET idEstado = {$idEstado} WHERE numero ={$numero}";
+		$idPedido = $_POST["idPedido"];
+		$sql = "call sp_actualizarEstados({$idPedido},{$idEstado},{$numero})";
 		actualizarRegistro($sql);
-		break;
-
-		case 6:
-			$idPedido = $_POST["idPedido"];
-			$sql2 = "UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = {$idPedido}) WHERE idPedido ={$idPedido}";
-			actualizarRegistro($sql2);
 		break;
 		
 
@@ -50,15 +45,16 @@ switch ($opcion) {
 
 	case 10:  
 		// Consulta los pedidos  que esten en estado entregado (5) para cargar tabla Facturas en modulo caja. 
-		$sql= "SELECT  pedidos.idMesero,pedidos.idPedido,pedidos.numMesa,estadopedido.estado FROM pedidos JOIN estadopedido on pedidos.idEstado = estadopedido.idEstado WHERE pedidos.idEstado = 5";
-
+		$sql= "SELECT  pedidos.idMesero,pedidos.idPedido,pedidos.numMesa,estadopedido.estado FROM pedidos JOIN estadopedido on pedidos.idEstado = estadopedido.idEstado WHERE pedidos.idEstado = 7";
        leerRegistro($sql);         			 
 		break;
+
 	case 11:
 		$idPedido = $_POST["idPedido"];
 		$sql = "SELECT producto.nombre, producto.Precio, productopedido.cantidad, productopedido.valor from producto join productopedido on producto.idProducto = productopedido.idProducto where productopedido.idPedido = {$idPedido}";
 		leerRegistro($sql);
 	break;
+
 	case 12: 		//Inserta un nuevo registro en la tabla factura y actualiza el estado del pedido a 'Facturado'
 		$idPedido= $_POST["idPedido"];
 		$idCajero= $_POST["idCajero"];
@@ -121,10 +117,12 @@ switch ($opcion) {
     					join estadopedido on productopedido.idEstado = estadopedido.idEstado
     					where productopedido.idPedido = {$idPedido}";
 		leerRegistro($sql);
+	break;
 	case 29://actualizar el estado del producto a "recibido" desps de confirma en la interfaz
 		$idPedido = $_POST["idPedido"];
-		$numero = $_POST["numero"];
-		$sql = "UPDATE productopedido SET idEstado = 7 WHERE numero=";				//falta terminar consulta
+		$numero = $_POST["numeroProducto"];
+		$sql = "UPDATE productopedido SET idEstado = 7 WHERE numero= {$numero} and idPedido = {$idPedido}";
+		actualizarRegistro($sql);
 	break;
 }
 
