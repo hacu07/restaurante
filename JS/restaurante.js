@@ -17,6 +17,7 @@ var idMeseroSocket = 0; 	//Contiene el ID del mesero que va a recibir el mensaje
 var nombreMeseroGlobal = ""; 
 var respuestaGlobal = "";
 var navegarMesero = 0;
+var navegarCocina = 0;		//Indica en que ventana se encuentra el Jefe de cocina
 var rolUsuario = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
@@ -388,6 +389,8 @@ function nombrarEstado(idEstado){
 
 //****** MOSTRAR VENTANAS **************************************************
 function mostrarVentanaChef1(nombre){
+	navegarCocina = 1;
+	console.log("navegarCocina "+navegarCocina);
 	var txt= forPantallaChef1('COCINA', nombre);
 	/*consultarPedidosCocina()
 	txt += filaHtml;*/
@@ -410,6 +413,8 @@ function mostrarVentanaMesero1(){
 
 //Despliega datos de un pedido en la ventana modal ***********************
 function mostrarVentanaPedidoCocina(idPedido,ideMeseroSocket){
+	navegarCocina = 2;
+	console.log("navegarCocina "+navegarCocina);
 	setIdPedido(idPedido);
 	setIdMeseroSocket(ideMeseroSocket);
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
@@ -470,7 +475,7 @@ function navegar(nav){
 			mostrarDetalleProducto();
 		break;
 	}
-	console.log(navegarMesero);
+	
 }
 
 //Cierra el formulario modal **********************************************
@@ -592,8 +597,12 @@ function cargarTablaPedidosMesero(pedidosMesero){
 
 		estado = pedidosMesero[i]["estado"];
 		claseEstado = estado.replace("n E", "nE");
+		if(estado == "Facturado"){
+			fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')" disabled><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
 
-		fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+		}else{
+			fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+		}
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
@@ -636,7 +645,7 @@ function consultarUltimoPedido(){
 
 function consultarCategorias(){
 	navegarMesero = 4;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var parametros = {"opc": 24 };
 	ejecutarAjaxJson(parametros, 24 );
 }
@@ -681,7 +690,7 @@ function mostrarProductosMesero(productos){
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
 function mostrarDetalleProducto(idProducto,nombre,precio){
 	navegarMesero = 6;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var nombreImg = nombre.replaceAll(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
 	var txt = '<h3>Pedido # '+ getIdPedido() +'<div id="imgProducto">';
 	txt+= '<img src="IMG/'+nombreImg+'.png">';
@@ -739,7 +748,7 @@ function agregarProductoPedido(idProducto){
 function consultarProductosPedido(idPedido){
 	setIdPedido(idPedido);
 	navegarMesero = 3;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var parametros = { "opc" : 28, "idPedido" : idPedido};
 	ejecutarAjaxJson(parametros, 28);
 }
@@ -795,7 +804,7 @@ function iniciarSocket(){
         var tipoMensaje = msg.tipoMensaje;
 		/*var idePedido = msg.idPedido; //Nombre Usuario
 		var ideMesero = msg.idMesero; //Color Asignado al Usuario*/
-		console.log(tipoMensaje);
+		console.log("tipoMensaje "+tipoMensaje);
 		switch(parseInt(tipoMensaje)){
 			case 0: //Mensajes de alerta (Conectado,desconectado,etc.).
 				var msj =  msg.message;
@@ -823,14 +832,27 @@ function iniciarSocket(){
 				}
 			break;
 			case 3: //Mensajes enviado por el mesero para actualizar interfaz del jefe de cocina y/o cajero
+			console.log("entra tipo 3");
+			console.log("usuario " + getRolUsuario());
 				var idePedido = msg.idPedido; //Numero del pedido
 				var ideMesero = msg.idMesero; //id Asignado al Usuario
-				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
-					consultarPedidosCocina();
+				if(getRolUsuario() == 3){	//Si el jefe de cocina a iniciado sesion
+					console.log("switch");
+					switch(navegarCocina){
+						case 1:
+							consultarPedidosCocina();
+						break;
+						case 2:
+							//cerrarModal();
+							mostrarVentanaPedidoCocina(idePedido,ideMesero);
+							console.log("entro");
+						break;
+					}	
 				}
 				if(getRolUsuario() == 4){
-					consultarFacturas();	
+					consultarFacturas();
 				}
+					
 			break;
 		}
     };
