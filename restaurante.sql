@@ -24,19 +24,19 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualizarEstados` (IN `idePedido` INT, IN `ideEstado` INT, IN `numeroProd` INT)  BEGIN
+CREATE  PROCEDURE `sp_actualizarEstados` (IN `idePedido` INT, IN `ideEstado` INT, IN `numeroProd` INT)  BEGIN
 	UPDATE productopedido SET idEstado = ideEstado WHERE numero = numeroProd;
 	UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = idePedido) WHERE idPedido = idePedido;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
+CREATE  PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
 	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
     UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
     update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
     update productopedido set idEstado = 6 where idPedido = idePedido;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
+CREATE  PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
 	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
     UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
     SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
@@ -430,6 +430,9 @@ ALTER TABLE `productopedido`
 ALTER TABLE `roles`
   MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+ALTER TABLE `usuario`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 -- Restricciones para tablas volcadas
 --
 

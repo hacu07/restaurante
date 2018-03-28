@@ -125,6 +125,16 @@ switch ($opcion) {
 		$sql = "call sp_actualizarEstados({$idPedido},{$idEstado},{$numero})";
 		actualizarRegistro($sql);
 	break;
+
+	//Modulo del administrador 
+	//registrar nuevo usuario
+	case 40:
+		$nombre = $_POST["nombre"];
+		$contrasenia = $_POST["contrasenia"];
+		$idRol = $_POST["idRol"];
+		$sql = "INSERT INTO usuario(nombre,contrasenia,idRol) values ('{$nombre}','$contrasenia',{$idRol})";
+		actualizarRegistro($sql);
+	break;
 }
 
 

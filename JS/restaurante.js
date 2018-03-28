@@ -243,6 +243,17 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
+		//Modulo Admin
+
+		
+		case 40:
+			if (response["ok"] == "actualizo") {
+				alert("Usuario Creado");
+
+			}else{
+				console.log("NO CREO EL USUARIO");
+			}
+		break;
 	}
 }
 

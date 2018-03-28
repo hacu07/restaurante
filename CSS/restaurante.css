@@ -138,6 +138,17 @@ div.content h3{
 	text-align: center;
 }
 
+#cont_centroAdmin{
+	width: 95%;
+	height: 85%;
+	background-color: #E6E6E6;
+	margin: auto;
+	/* margin-top: 2.5%; */
+	padding-top:1.5%;
+	overflow: auto;
+	text-align: center;
+}
+
 #cont_pie{
 	width: 95%;
 	margin: auto;
@@ -346,6 +357,15 @@ tr,th{
 	height: 10%;
 }
 
+.btnDropDown{
+	background-color: #337ab7;
+	margin-bottom: 2px;
+	color: #fff;
+}
+
+#btnRol{
+	margin-top: 5%;
+}
 
 /***********************************
 formulario registro (21/03/18)*/

@@ -6,7 +6,7 @@ function mostrarModuloAdmin(nombre){
 
 	var txt = forEncabezado("ADMINISTRADOR",nombre);
 
-	txt += '<div id="cont_centro">';
+	txt += '<div id="cont_centroAdmin">';
 
 
 	txt += '<div id="menu" class="col-md-2 col-lg-2 col-sm-2">';
@@ -37,7 +37,8 @@ function registroNuevosUsuarios(){
     $("#titulo").html(txt); 
 
 
-    var txt1 = '<form method="post">';    
+    //var txt1 = '<form>';
+    var txt1 = '';    
     txt1 += '<img src="img/registroUsuarios.png" alt="Usuario" id="imgUsuario">';
     txt1 += '<div>';
     txt1 += 	'<label for="Nombre">Usuario:</label>';
@@ -50,22 +51,22 @@ function registroNuevosUsuarios(){
     txt1 += '<div>';
 
     txt1 += '<div class="btn-group">';
-    txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '<button id="btnRol" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
     txt1 += '	<div class="dropdown-menu">';
-    txt1 += '	<li><a href="#">ADMINISTRADOR</a></li>';
-    txt1 += '	<li><a href="#">JEFE DE COCINA</a></li>';
-    txt1 += '	<li><a href="#">MESERO</a></li>';
-    txt1 += '<li><a href="#">CAJERO</a></li>';
+    txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'ADMINISTRADOR\')">ADMINISTRADOR</button>   ';
+    txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'JEFE DE COCINA\')">JEFE DE COCINA</button>  ';
+    txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'MESERO\')">MESERO</button>  ';
+    txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'CAJERO\')">CAJERO</button>    ';
    txt1 += '</div>';   
    txt1 += '</div>';
-    txt1 += '</form>';
+    //txt1 += '</form>';
 	
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '	<button id="btnRegistrar" class="btn" type="button">REGISTRAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button">ACTUALIZAR</button>';
+    txt2 += '	<button id="btnRegistrar" class="btn" type="button" onclick="registrarNuevoUsuario()">REGISTRAR</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button">CONSULTAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">ACTUALIZAR</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button">ELIMINAR</button>';
 
     txt2 += ' </div>';
@@ -80,7 +81,7 @@ function AgregarCategoria(){
 
     $("#titulo").html(txt); 
 
-    var txt1 = '<form method="post">';
+    var txt1 = '<form>';
     txt1 += '<div>';
     txt1 += 	'<label for="categoria">Nombre de la categoria:</label>';
     txt1 += 	'<input type="text" id="nomCategoria" placeholder=" Escriba el nombre de la categoria"/>';
@@ -102,7 +103,7 @@ function agregarProducto(){
 
     $("#titulo").html(txt); 
 
-    var txt1 = '<form method="post">';
+    var txt1 = '<form>';
     txt1 += '<div>';
     txt1 += 	'<label for="producto">Nombre del producto:</label>';
     txt1 += 	'<input type="text" id="producto" placeholder=" Escriba Nombre del producto" />';
@@ -124,16 +125,7 @@ function agregarProducto(){
     txt1 +='     <input id="inputInsertarImg" name="archivo" type="file" size="20">';
     txt1 +='  </form>';
     txt1 +='</div>';
-/*    txt1 +='';
-    txt1 +='';
-    txt1 +='';
-    txt1 +='';
-    txt1 +='';
-
-*/
-
     txt1 += '</form>';
-	
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
@@ -144,12 +136,30 @@ function agregarProducto(){
 }
 
 
-
-
-
-
+//Cambia el nombre del elemento #btnRol al rol seleccionado en el dropdown 
+function cambiarTextoRol(rol){
+    $("#btnRol").text(rol); 
+}
  
-         
+//Toma el nombres, contraseña y rol del nuevo usuario para insertar a la BD    
+function registrarNuevoUsuario(){
+    var nombre = $("#nombre").val(); //obtiene lo escrito en el campo de nombre
+    var contrasenia = $("#contrasenia").val(); //obtiene lo escrito en el campo de contrasenia
+    var rol = $("#btnRol").text();
+
+    if (rol == "ADMINISTRADOR") {
+        idRol = 2;
+    }else if (rol == "JEFE DE COCINA") {
+        idRol = 3;
+    }else if (rol == "CAJERO") {
+        idRol = 4;
+    }else if (rol == "MESERO"){
+        idRol = 5;
+    }
+
+    var parametros = {"opc" : 40, "nombre" : nombre, "contrasenia" : contrasenia, "idRol" : idRol };
+    ejecutarAjaxJson(parametros, 40);
+}
 
  
 
