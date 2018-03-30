@@ -53,7 +53,7 @@ function registroNuevosUsuarios(){
     txt2 += '	<button id="btnRegistrar" class="btn" type="button" onclick="registrarNuevoUsuario()">REGISTRAR</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarUsuarioAdmon()">CONSULTAR</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="actualizarUsuarioAdmon()">ACTUALIZAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button">ELIMINAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="eliminarUsuarioAdmon()">ELIMINAR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2); 
 }
@@ -178,6 +178,11 @@ function actualizarUsuarioAdmon(){
     ejecutarAjaxJson(parametros,42);
 }
 
+//Elimina el usuario de la BD tomando el nombre
+function eliminarUsuarioAdmon(){
+    var nombre = $("#nombre").val(); //obtiene lo escrito en el campo de nombre
 
- 
+    var parametros = {"opc" : 43, "nombre" : nombre};
+    ejecutarAjaxJson(parametros, 43);
+}
 

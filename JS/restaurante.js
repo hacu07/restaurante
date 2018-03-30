@@ -273,6 +273,15 @@ function leerDatos(responseJSON, opc){
 				console.log("NO ACTUALIZO USUARIO");
 			}
 		break;
+
+		case 43://Elimina Usuario
+			if (response["ok"] == "actualizo") {
+				alert("Usuario ELIMINADO");
+				limpiarUsuarioAdmon();
+			}else{
+				console.log("NO ELIMINO USUARIO");
+			}
+		break;
 	}
 }
 

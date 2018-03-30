@@ -159,6 +159,13 @@ switch ($opcion) {
 
 		actualizarRegistro($sql);
 	break;
+
+	//Elimina el Usuario de la BD - (Cuando se realiza el trabajo de auditoria de BD se debe deshabilitar)
+	case 43:
+		$nombre = $_POST["nombre"];
+		$sql = "DELETE FROM usuario where nombre = '{$nombre}' ";
+		actualizarRegistro($sql);
+	break;
 }
 
 

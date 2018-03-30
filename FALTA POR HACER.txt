@@ -17,3 +17,4 @@ MODULO ADMIN
 ---------------------------------
 - Crear boton de limpiar (limpiar los campos y habilitarlos)
 - Una vez consulte el usuario bloquear el campo de usuario
+- mejorar la parte de sacar el idRol 
