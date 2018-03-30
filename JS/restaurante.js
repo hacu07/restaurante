@@ -244,14 +244,33 @@ function leerDatos(responseJSON, opc){
 		break;
 
 		//Modulo Admin
-
-		
 		case 40:
 			if (response["ok"] == "actualizo") {
 				alert("Usuario Creado");
 
 			}else{
 				console.log("NO CREO EL USUARIO");
+			}
+		break;
+
+		case 41: //Respuesta de la Consulta de Usuario
+			if (response.length > 0) {
+				alert("Usuario encontrado");
+				$("#btnRol").text(response[0]["nombre"].toUpperCase());//Muestra el rol que tenga
+				$("#contrasenia").val("");
+			}
+			else{
+				alert("Usuario no registra");
+				limpiarUsuarioAdmon();
+			}
+		break;
+
+		case 42://Actualiza
+			if (response["ok"] == "actualizo") {
+				alert("Usuario Actualizado");
+
+			}else{
+				console.log("NO ACTUALIZO USUARIO");
 			}
 		break;
 	}

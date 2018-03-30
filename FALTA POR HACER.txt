@@ -11,3 +11,9 @@ MODULO MESERO
 MODULO CAJERO
 -------------------------------------
 -Una vez facturado un pedido actualizar el estado de los productos a facturado
+
+---------------------------------
+MODULO ADMIN 
+---------------------------------
+- Crear boton de limpiar (limpiar los campos y habilitarlos)
+- Una vez consulte el usuario bloquear el campo de usuario
