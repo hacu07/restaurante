@@ -247,7 +247,7 @@ function leerDatos(responseJSON, opc){
 		case 40:
 			if (response["ok"] == "actualizo") {
 				alert("Usuario Creado");
-
+				limpiarUsuarioAdmon();
 			}else{
 				console.log("NO CREO EL USUARIO");
 			}
@@ -270,6 +270,8 @@ function leerDatos(responseJSON, opc){
     			document.getElementById("contrasenia").disabled  = false;
     			document.getElementById("btnRegistrar").disabled  = false;
     			document.getElementById("btnConsultar").disabled  = true;
+    			document.getElementById("btnActualizar").disabled  = true;
+    			document.getElementById("btnEliminar").disabled  = true;
 				//limpiarUsuarioAdmon();
 
 			}

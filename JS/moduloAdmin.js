@@ -141,8 +141,12 @@ function registrarNuevoUsuario(){
 //Consulta los usuarios en la BD desde el modulo del Administrador, toma solo el valor escrito en el campo de "USUARIO"
 function consultarUsuarioAdmon(){
     usuario = $("#nombre").val(); //toma el valor escrito en el campo "USUARIO"
-    var parametros = {"opc" : 41, "usuario" : usuario};
-    ejecutarAjaxJson(parametros,41);
+    if (usuario != "") {
+        var parametros = {"opc" : 41, "usuario" : usuario};
+        ejecutarAjaxJson(parametros,41);
+    }else{
+        alert("Debe digitar el usuario para consultar");
+    }
 }
 
 //Limpia lo escrito en los campos del formulario de usuario
@@ -150,6 +154,12 @@ function limpiarUsuarioAdmon(){
     $("#nombre").val("");
     $("#contrasenia").val("");
     $("#btnRol").text("ROL");
+    document.getElementById("btnRol").disabled  = true;
+    document.getElementById("contrasenia").disabled  = true;
+    document.getElementById("btnRegistrar").disabled  = true;
+    document.getElementById("btnConsultar").disabled  = false;
+    document.getElementById("btnActualizar").disabled  = true;
+    document.getElementById("btnEliminar").disabled  = true;
 }
 
 //Actualiza la contraseña y/o rol del usuario
