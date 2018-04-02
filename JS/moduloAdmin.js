@@ -51,9 +51,9 @@ function registroNuevosUsuarios(){
 
     var txt2 = '<div>';
     txt2 += '	<button id="btnRegistrar" class="btn" type="button" onclick="registrarNuevoUsuario()" disabled="true">REGISTRAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarUsuarioAdmon()">CONSULTAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="actualizarUsuarioAdmon()" disabled="true">ACTUALIZAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="eliminarUsuarioAdmon()" disabled="true">ELIMINAR</button>';
+    txt2 += '   <button id="btnConsultar" class="btn" type="button" onclick="consultarUsuarioAdmon()">CONSULTAR</button>';
+    txt2 += '   <button id="btnActualizar" class="btn" type="button" onclick="actualizarUsuarioAdmon()" disabled="true">ACTUALIZAR</button>';
+    txt2 += '   <button id="btnEliminar" class="btn" type="button" onclick="eliminarUsuarioAdmon()" disabled="true">ELIMINAR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2); 
 }
@@ -186,3 +186,11 @@ function eliminarUsuarioAdmon(){
     ejecutarAjaxJson(parametros, 43);
 }
 
+
+function habilitarBotonesUsuario()
+{
+    document.getElementById("btnActualizar").disabled  = false;
+    document.getElementById("btnEliminar").disabled  = false;
+    document.getElementById("btnRol").disabled  = false;
+    document.getElementById("contrasenia").disabled  = false;
+}

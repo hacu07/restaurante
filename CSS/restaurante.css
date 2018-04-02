@@ -426,7 +426,7 @@ input:focus{
     border-color: #000;
 }
 
-#btnRegistrar, #btnAgregar{
+#btnRegistrar, #btnAgregar, #btnEliminar, #btnActualizar, #btnConsultar{
 	color: #fff;
 	background-color: var(--bg-azul);
 	font-weight: bold;

@@ -259,11 +259,19 @@ function leerDatos(responseJSON, opc){
 				alert("Usuario encontrado");
 				$("#btnRol").text(response[0]["nombre"].toUpperCase());//Muestra el rol que tenga
 				$("#contrasenia").val("");
+
+				//Habilitamos los botones de actualizar,eliminar
+				habilitarBotonesUsuario();
 			}
 			else{
 				//No se encuentra registrado
 				alert("Usuario no registra");
-				limpiarUsuarioAdmon();
+				document.getElementById("btnRol").disabled  = false;
+    			document.getElementById("contrasenia").disabled  = false;
+    			document.getElementById("btnRegistrar").disabled  = false;
+    			document.getElementById("btnConsultar").disabled  = true;
+				//limpiarUsuarioAdmon();
+
 			}
 		break;
 
