@@ -35,11 +35,11 @@ function registroNuevosUsuarios(){
     txt1 += '</div>';
     txt1 += '<div>';
     txt1 += 	'<label for="contrasenia">Contraseña:</label>';
-    txt1 += 	'<input type="password" id="contrasenia" placeholder=" Escriba Contraseña" minlength="4" />';
+    txt1 += 	'<input type="password" id="contrasenia" placeholder=" Escriba Contraseña" minlength="4" disabled="true"/>';
     txt1 += '</div>';
     txt1 += '<div>';
-    txt1 += '<div class="btn-group">';
-    txt1 += '<button id="btnRol" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '<div class="btn-group" >';
+    txt1 += '<button id="btnRol" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled="true"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
     txt1 += '	<div class="dropdown-menu">';
     txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'ADMINISTRADOR\')">ADMINISTRADOR</button>   ';
     txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'JEFE DE COCINA\')">JEFE DE COCINA</button>  ';
@@ -50,10 +50,10 @@ function registroNuevosUsuarios(){
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '	<button id="btnRegistrar" class="btn" type="button" onclick="registrarNuevoUsuario()">REGISTRAR</button>';
+    txt2 += '	<button id="btnRegistrar" class="btn" type="button" onclick="registrarNuevoUsuario()" disabled="true">REGISTRAR</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarUsuarioAdmon()">CONSULTAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="actualizarUsuarioAdmon()">ACTUALIZAR</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="eliminarUsuarioAdmon()">ELIMINAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="actualizarUsuarioAdmon()" disabled="true">ACTUALIZAR</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="eliminarUsuarioAdmon()" disabled="true">ELIMINAR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2); 
 }

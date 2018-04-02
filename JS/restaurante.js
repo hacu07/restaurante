@@ -255,11 +255,13 @@ function leerDatos(responseJSON, opc){
 
 		case 41: //Respuesta de la Consulta de Usuario
 			if (response.length > 0) {
+				//Si se encuentra registrado en la BD
 				alert("Usuario encontrado");
 				$("#btnRol").text(response[0]["nombre"].toUpperCase());//Muestra el rol que tenga
 				$("#contrasenia").val("");
 			}
 			else{
+				//No se encuentra registrado
 				alert("Usuario no registra");
 				limpiarUsuarioAdmon();
 			}
@@ -824,7 +826,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://192.168.1.84:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.148.32:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
