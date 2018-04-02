@@ -39,7 +39,7 @@ function registroNuevosUsuarios(){
     txt1 += '</div>';
     txt1 += '<div>';
     txt1 += '<div class="btn-group" >';
-    txt1 += '<button id="btnRol" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled="true"> Rol <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '<button id="btnRol" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled="true">ROL<span class="glyphicon glyphicon-triangle-bottom"></span></button>';
     txt1 += '	<div class="dropdown-menu">';
     txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'ADMINISTRADOR\')">ADMINISTRADOR</button>   ';
     txt1 += '   <button class="btn btn-block btnDropDown" onclick="cambiarTextoRol(\'JEFE DE COCINA\')">JEFE DE COCINA</button>  ';
@@ -124,18 +124,24 @@ function registrarNuevoUsuario(){
     var contrasenia = $("#contrasenia").val(); //obtiene lo escrito en el campo de contrasenia
     var rol = $("#btnRol").text();
 
-    if (rol == "ADMINISTRADOR") {
+    if(nombre == "" || contrasenia  == "" || rol == "ROL"){
+        alert("Faltan campos por digitar o seleccionar");
+    }else{
+        if (rol == "ADMINISTRADOR") {
         idRol = 2;
-    }else if (rol == "JEFE DE COCINA") {
-        idRol = 3;
-    }else if (rol == "CAJERO") {
-        idRol = 4;
-    }else if (rol == "MESERO"){
-        idRol = 5;
+        }else if (rol == "JEFE DE COCINA") {
+            idRol = 3;
+        }else if (rol == "CAJERO") {
+            idRol = 4;
+        }else if (rol == "MESERO"){
+            idRol = 5;
+        }
+
+        var parametros = {"opc" : 40, "nombre" : nombre, "contrasenia" : contrasenia, "idRol" : idRol };
+        ejecutarAjaxJson(parametros, 40);
     }
 
-    var parametros = {"opc" : 40, "nombre" : nombre, "contrasenia" : contrasenia, "idRol" : idRol };
-    ejecutarAjaxJson(parametros, 40);
+    
 }
 
 //Consulta los usuarios en la BD desde el modulo del Administrador, toma solo el valor escrito en el campo de "USUARIO"
