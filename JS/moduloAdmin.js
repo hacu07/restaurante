@@ -94,7 +94,7 @@ function agregarProducto(){
 	var txt = '<h1>AÑADIR NUEVO PRODUCTO</h1>';
     $("#titulo").html(txt); 
 
-    var txt1 = '<form>';
+    var txt1 = '';
     txt1 += '<div>';
     txt1 += 	'<label for="producto">Nombre del producto:</label>';
     txt1 += 	'<input type="text" id="producto" placeholder=" Escriba Nombre del producto" />';
@@ -109,12 +109,11 @@ function agregarProducto(){
     txt1 += '   </div>';   
     txt1 += '</div>';
     txt1 +='<div>';
-    /*txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';*/
+    txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';
     txt1 +=     '<label for="precio">Insertar Imagen:</label>';
     txt1 +='     <input id="inputInsertarImg" name="archivo" type="file">';
-    /*txt1 +='  </form>';*/
+    txt1 +='  </form>';
     txt1 +='</div>';
-    txt1 += '</form>';
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
