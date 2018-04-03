@@ -193,6 +193,14 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 47: //agrega el nuevo nombre de la categoria
+
+		$nombreCategoria = $_POST["nombreCategoria"];
+		$sql= "	INSERT INTO categoria(nombre) values ('{$nombreCategoria}')";
+		actualizarRegistro($sql);
+
+	break;
+
 }
 
 

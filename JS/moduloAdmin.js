@@ -76,15 +76,14 @@ function AgregarCategoria(){
 	var txt = '<h1>AÑADIR NUEVA CATEGORIA</h1>';
     $("#titulo").html(txt); 
 
-    var txt1 = '<form>';
+    var txt1 = '';
     txt1 += '<div>';
     txt1 += 	'<label for="categoria">Nombre de la categoria:</label>';
     txt1 += 	'<input type="text" id="nomCategoria" placeholder=" Escriba el nombre de la categoria"/>';
-    txt1 += '</form>';
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '	<button id="btnAgregar" class="btn" type="button">AÑADIR</button>';
+    txt2 += '	<button id="btnAgregar" class="btn" onclick="agregarCategoriaBD()" type="button">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2); 
 }
@@ -278,4 +277,11 @@ function agregarProductoBD(){
     //alert("nombreProducto: " + nombreProducto + "\n precio: " + precio + "\n categoria: " + nombreCategoria + "\n imagen: "+ imagen);
     /*if(input.files && input.files[0])
         console.log("File Seleccionado : ", input.files[0]);*/
+}
+
+function agregarCategoriaBD(){
+    var nombreCategoria = $('#nomCategoria').val(); //obtiene el nombre de la categoria
+
+    var parametros = { "opc": 47, "nombreCategoria": nombreCategoria};
+    ejecutarAjaxJson(parametros,47);
 }

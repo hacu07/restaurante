@@ -315,7 +315,13 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-
+		case 47: //registra una nueva categoria
+			if (response["ok"] == "actualizo") {
+				alert("categoria REGISTRADA");
+			}else{
+				console.log("ERROR! No se registro LA CATEGORIA");
+			}
+		break;
 
 	}
 }
