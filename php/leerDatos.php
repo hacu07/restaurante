@@ -166,6 +166,26 @@ switch ($opcion) {
 		$sql = "DELETE FROM usuario where nombre = '{$nombre}' ";
 		actualizarRegistro($sql);
 	break;
+
+	//Categorias del restaurante
+	case 44:
+		$sql = "SELECT * FROM categoria";
+		leerRegistro($sql);
+	break;
+
+	case 45://Agregar producto con imagen
+		//$imagen = $_POST["imagen"];
+		/*$ruta="IMG";//carpeta donde se almacenara
+		$archivo=$_FILES['imagen']['tmp_name']; //toma el archivo imagen
+		$nombreArchivo=$_FILES['imagen']['name'];//toma el nombre de la imagen
+		move_uploaded_file($archivo,$ruta."/".$nombreArchivo);*/
+
+		$nombreProducto = $_POST["nombreProducto"];
+		$precio = $_POST["precio"];
+		$idCategoria = $_POST["idCategoria"];
+		$sql = "INSERT INTO(Precio, nombre, idCategoria) values('{$precio}','{$nombreProducto}',{$idCategoria})";
+		actualizarRegistro($sql);
+	break;
 }
 
 

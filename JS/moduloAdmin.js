@@ -2,6 +2,19 @@
 //			MODULO ADMINISTRADOR 	
 /*************************************************/
 
+//Variables Globales
+var idCategoriaGlobal = 0;
+
+//Metodos Get & Set
+function setIdCategoria(id){
+    idCategoriaGlobal = id;
+}
+
+function getIdCategoria(){
+    return idCategoriaGlobal;
+}
+
+
 function mostrarModuloAdmin(nombre){
 
 	var txt = forEncabezado("ADMINISTRADOR",nombre);
@@ -91,26 +104,44 @@ function agregarProducto(){
     txt1 += 	'<input type="number" id="precio" placeholder=" Escriba precio el producto" />';
     txt1 += '</div>';
     txt1 += '<div class="btn-group">';
-    txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categoria <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
-    txt1 += '   <div class="dropdown-menu">';
-    txt1 += '      <li><a href="#">PLATOS</a></li>';
-    txt1 += '      <li><a href="#">BEBIDAS</a></li>';
+    txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" id="btnCategoria" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categoria <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '   <div class="dropdown-menu" id="dpdCategorias">';
     txt1 += '   </div>';   
     txt1 += '</div>';
     txt1 +='<div>';
-    txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';
+    /*txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';*/
     txt1 +=     '<label for="precio">Insertar Imagen:</label>';
-    txt1 +='     <input id="inputInsertarImg" name="archivo" type="file" size="20">';
-    txt1 +='  </form>';
+    txt1 +='     <input id="inputInsertarImg" name="archivo" type="file">';
+    /*txt1 +='  </form>';*/
     txt1 +='</div>';
     txt1 += '</form>';
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '	<button id="btnAgregar" class="btn" type="button">AÑADIR</button>';
+    txt2 += '	<button id="btnAgregar" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
     txt2 += ' </div>';
-    $("#trabajoSur").html(txt2); 
+    $("#trabajoSur").html(txt2);
+
+    //Consulta para cargar las categorias encontradas en la BD
+    var parametros = {"opc" : 44};
+    ejecutarAjaxJson(parametros,44) 
 }
+
+//Carga el nombre de las categorias al dropdown del formulario de productos
+function cargarCategorias(categorias){
+    var txt = '';
+    for(var i = 0; i < categorias.length; i++){
+        txt += '<button class="btn btn-block" onclick="cambiarTextoCategoria('+ categorias[i]["idCategoria"] +',\''+categorias[i]["nombre"]+'\')">'+ categorias[i]["nombre"] +'</button>';
+    }
+    $('#dpdCategorias').html(txt);
+}
+
+//Obtiene el nombre de la categoria y lo asigna al boton principal del dropdown para ver cual fue el seleccionado
+function cambiarTextoCategoria(idCategoria, nombreCategoria){
+    $('#btnCategoria').text(nombreCategoria);
+    setIdCategoria(idCategoria);
+}
+
 
 
 //Cambia el nombre del elemento #btnRol al rol seleccionado en el dropdown 
@@ -209,4 +240,29 @@ function habilitarBotonesUsuario()
     document.getElementById("btnEliminar").disabled  = false;
     document.getElementById("btnRol").disabled  = false;
     document.getElementById("contrasenia").disabled  = false;
+}
+
+
+/*Abrir una nueva pestaña*/
+
+function abrirEnPestana(url) {
+        var a = document.createElement("a");
+        a.target = "_blank";
+        a.href = url;
+        a.click();
+    }
+
+//Falta agregar validaciones ----- OJO OJO OJO OJO 
+function agregarProductoBD(){
+    var nombreProducto = $('#producto').val(); //Obtiene el nombre del producto
+    var precio = $('#precio').val(); //Obtiene el precio del producto
+    var idCategoria = getIdCategoria;
+    const imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
+
+
+    var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria, "imagen" : imagen};
+    ejecutarAjaxJson(parametros, 45);
+    //alert("nombreProducto: " + nombreProducto + "\n precio: " + precio + "\n categoria: " + nombreCategoria + "\n imagen: "+ imagen);
+    /*if(input.files && input.files[0])
+        console.log("File Seleccionado : ", input.files[0]);*/
 }
