@@ -309,6 +309,13 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
+		case 46:
+			if (response.length > 0) {
+				cargarTablaProductos(response);
+			}
+		break;
+
+
 
 	}
 }
@@ -950,4 +957,32 @@ function confirmarEntregaProducto(numeroProducto){
 	ejecutarAjaxJson(parametros,29);*/
 	var parametros = {"opc" : 29, "idEstado": 7, "numero" : numeroProducto, "idPedido": getIdPedido()};
 	ejecutarAjaxJson(parametros,29);
+}
+
+
+
+//CARGA TABLA DE PRODUCTOS EXISTENTES EN MODULO ADMINISTRADOR (PRODUCTOS)
+
+function cargarTablaProductos(response){
+
+	var txt = '<h1>PRODUCTOS</h1>';
+    $("#titulo").html(txt); 
+
+
+	//Llena las filas de HTML 
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Nombre</th><th>Precio</th><th>Categoria</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< response.length; i++) {
+			fila += '<tr><td>'+response[i]["nombre"]+'</td><td>'+response[i]["precio"]+'</td><td>'+response[i]["nombreCategoria"]+'</td></tr>';
+
+	}
+	fila += '</tbody></table>';
+	$('#tablaProductos').html(fila);
+
+ 	 var txt2 = '<div>';
+    txt2 += '	<button id="btnAgregar" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
+    txt2 += ' </div>';
+    $("#trabajoSur").html(txt2);
+
 }

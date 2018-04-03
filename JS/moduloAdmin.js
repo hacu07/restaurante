@@ -91,17 +91,30 @@ function AgregarCategoria(){
 
   
 function agregarProducto(){
-	var txt = '<h1>AÑADIR NUEVO PRODUCTO</h1>';
+
+ var txt2='<div id="tablaProductos" >';
+
+    txt2 +='</div>';
+    $("#trabajoCentro").html(txt2);
+
+    var parametros = {"opc" : 46};
+    ejecutarAjaxJson(parametros,46);
+
+}
+
+
+function cargarFormProducto(){
+     var txt = '<h1>AÑADIR NUEVO PRODUCTO</h1>';
     $("#titulo").html(txt); 
 
     var txt1 = '';
     txt1 += '<div>';
-    txt1 += 	'<label for="producto">Nombre del producto:</label>';
-    txt1 += 	'<input type="text" id="producto" placeholder=" Escriba Nombre del producto" />';
+    txt1 +=     '<label for="producto">Nombre del producto:</label>';
+    txt1 +=     '<input type="text" id="producto" placeholder=" Escriba Nombre del producto" />';
     txt1 += '</div>';
     txt1 += '<div>';
-    txt1 += 	'<label for="precio">Precio:</label>';
-    txt1 += 	'<input type="number" id="precio" placeholder=" Escriba precio el producto" />';
+    txt1 +=     '<label for="precio">Precio:</label>';
+    txt1 +=     '<input type="number" id="precio" placeholder=" Escriba precio el producto" />';
     txt1 += '</div>';
     txt1 += '<div class="btn-group">';
     txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" id="btnCategoria" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categoria <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
@@ -117,13 +130,14 @@ function agregarProducto(){
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '	<button id="btnAgregar" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
+    txt2 += '   <button id="btnAgregar" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
 
-    //Consulta para cargar las categorias encontradas en la BD
+  //Consulta para cargar las categorias encontradas en la BD
     var parametros = {"opc" : 44};
-    ejecutarAjaxJson(parametros,44) 
+    ejecutarAjaxJson(parametros,44);
+
 }
 
 //Carga el nombre de las categorias al dropdown del formulario de productos
@@ -255,11 +269,11 @@ function abrirEnPestana(url) {
 function agregarProductoBD(){
     var nombreProducto = $('#producto').val(); //Obtiene el nombre del producto
     var precio = $('#precio').val(); //Obtiene el precio del producto
-    var idCategoria = getIdCategoria;
-    const imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
+    var idCategoria = getIdCategoria();
+//    const imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
 
 
-    var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria, "imagen" : imagen};
+    var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria/*, "imagen" : imagen*/};
     ejecutarAjaxJson(parametros, 45);
     //alert("nombreProducto: " + nombreProducto + "\n precio: " + precio + "\n categoria: " + nombreCategoria + "\n imagen: "+ imagen);
     /*if(input.files && input.files[0])

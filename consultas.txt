@@ -64,3 +64,8 @@ BEGIN
 	UPDATE productopedido SET idEstado = ideEstado WHERE numero = numeroProd;
 	UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = idePedido) WHERE idPedido = idePedido;
 END
+
+
+
+//MUESTRA LOS PRODUCTOS EXISTENTES 
+select producto.nombre, producto.precio, categoria.nombre from producto join categoria on producto.idCategoria = categoria.idCategoria

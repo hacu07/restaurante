@@ -402,7 +402,7 @@ input {
     font: 1em sans-serif;
 
     /* Para darle el mismo tamaño a todos los campos de texto */
-    width: 80%;
+    width: 30%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: .5em;
@@ -411,6 +411,10 @@ input {
     border: 1px solid #999;
     text-align: center;
 
+}
+
+#nomCategoria{
+	 width: 60%;
 }
 
 #inputInsertarImg{

@@ -183,9 +183,16 @@ switch ($opcion) {
 		$nombreProducto = $_POST["nombreProducto"];
 		$precio = $_POST["precio"];
 		$idCategoria = $_POST["idCategoria"];
-		$sql = "INSERT INTO(Precio, nombre, idCategoria) values('{$precio}','{$nombreProducto}',{$idCategoria})";
+		$sql = "INSERT INTO producto(precio, nombre, idCategoria) values('{$precio}','{$nombreProducto}',{$idCategoria})";
 		actualizarRegistro($sql);
+
 	break;
+
+	case 46:
+		$sql = "SELECT producto.nombre, producto.precio, categoria.nombre AS nombreCategoria FROM producto JOIN categoria ON producto.idCategoria = categoria.idCategoria";
+		leerRegistro($sql);
+	break;
+
 }
 
 
