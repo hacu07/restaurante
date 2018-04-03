@@ -304,6 +304,9 @@ function leerDatos(responseJSON, opc){
 		case 45: //Registrar un nuevo producto con la imagen 
 			if (response["ok"] == "actualizo") {
 				alert("Producto REGISTRADO");
+				    $("#producto").val("");
+   					$("#precio").val("");
+    				$("#btnCategoria").text("CATEGORIA");
 			}else{
 				console.log("ERROR! No se registro el producto");
 			}

@@ -271,9 +271,13 @@ function agregarProductoBD(){
     var idCategoria = getIdCategoria();
 //    const imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
 
-
-    var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria/*, "imagen" : imagen*/};
-    ejecutarAjaxJson(parametros, 45);
+    if (nombreProducto =="" || precio=="" || idCategoria==0){
+        alert("Faltan campos por llenar");
+    }else  {
+        var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria/*, "imagen" : imagen*/};
+        ejecutarAjaxJson(parametros, 45);
+    }
+    
     //alert("nombreProducto: " + nombreProducto + "\n precio: " + precio + "\n categoria: " + nombreCategoria + "\n imagen: "+ imagen);
     /*if(input.files && input.files[0])
         console.log("File Seleccionado : ", input.files[0]);*/
@@ -282,6 +286,11 @@ function agregarProductoBD(){
 function agregarCategoriaBD(){
     var nombreCategoria = $('#nomCategoria').val(); //obtiene el nombre de la categoria
 
-    var parametros = { "opc": 47, "nombreCategoria": nombreCategoria};
-    ejecutarAjaxJson(parametros,47);
+    if (nombreCategoria !=""){
+        var parametros = { "opc": 47, "nombreCategoria": nombreCategoria};
+        ejecutarAjaxJson(parametros,47);
+    }else{
+        alert("Por favor introduzca un nombre de categoria");
+    }
 }
+ 
