@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2018 a las 12:21:25
+-- Tiempo de generación: 04-04-2018 a las 15:09:02
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -24,19 +24,31 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE  PROCEDURE `sp_actualizarEstados` (IN `idePedido` INT, IN `ideEstado` INT, IN `numeroProd` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualizarEstados` (IN `idePedido` INT, IN `ideEstado` INT, IN `numeroProd` INT)  BEGIN
 	UPDATE productopedido SET idEstado = ideEstado WHERE numero = numeroProd;
 	UPDATE pedidos SET idEstado = (SELECT MIN(idEstado) AS estadoMinimo FROM productopedido WHERE idPedido = idePedido) WHERE idPedido = idePedido;
 END$$
 
-CREATE  PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_nombresCategorias` (IN `nombreABuscar` VARCHAR(30))  BEGIN 
+	
+	SELECT @existe := COUNT(nombre) AS existen FROM categoria WHERE nombre LIKE nombreABuscar;
+    
+    IF @existe = 0 THEN 
+    
+    INSERT INTO categoria(nombre) values (nombreABuscar);
+    
+   END IF;
+    
+ END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarFactura` (IN `idePedido` INT, IN `ideCajero` INT, IN `valFac` INT, IN `ivaFac` INT, IN `cc` VARCHAR(30))  BEGIN
 	INSERT INTO factura(numFactura,fechaFactura,valorFactura,ivaFactura,idCajero,idPedido,ccCliente) VALUES('Aqui va numFactura',NOW(),valFac,ivaFac,ideCajero,	idePedido, cc);
     UPDATE pedidos SET idEstado = 6 WHERE idPedido = idePedido;
     update mesa set idEstado = 1 where numMesa like (select numMesa from pedidos WHERE idPedido = idePedido);
     update productopedido set idEstado = 6 where idPedido = idePedido;
 END$$
 
-CREATE  PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrarNuevoPedido` (IN `numeroMesa` INT, IN `ideMesero` INT)  begin 
 	INSERT INTO pedidos(numMesa,fechaPedido,idMesero,idEstado) VALUES (numeromesa,NOW(),ideMesero,1);
     UPDATE mesa SET idEstado = 2 WHERE numMesa = numeroMesa;
     SELECT MAX(idPedido) AS idPedido FROM pedidos WHERE idMesero = ideMesero AND idEstado = 1;
@@ -393,7 +405,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `estadomesa`
 --
@@ -418,7 +430,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `productopedido`
 --
@@ -430,9 +442,11 @@ ALTER TABLE `productopedido`
 ALTER TABLE `roles`
   MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT de la tabla `usuario`
+--
 ALTER TABLE `usuario`
   MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+--
 -- Restricciones para tablas volcadas
 --
 

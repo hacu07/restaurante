@@ -69,3 +69,20 @@ END
 
 //MUESTRA LOS PRODUCTOS EXISTENTES 
 select producto.nombre, producto.precio, categoria.nombre from producto join categoria on producto.idCategoria = categoria.idCategoria
+
+
+
+//CONSULTA SI EXISTE UN NOMBRE EN LA CATEGORIA EN LA BD
+DELIMITER $$
+CREATE PROCEDURE sp_nombresCategorias(in nombreABuscar varchar(30)) 
+BEGIN 
+	
+	SELECT @existe := COUNT(nombre) AS existen FROM categoria WHERE nombre LIKE nombreABuscar;
+    
+    IF @existe = 0 THEN 
+    
+    INSERT INTO categoria(nombre) values (nombreABuscar);
+    
+   END IF;
+    
+ END

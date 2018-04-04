@@ -319,11 +319,13 @@ function leerDatos(responseJSON, opc){
 		break;
 
 		case 47: //registra una nueva categoria
-			if (response["ok"] == "actualizo") {
+			if (response[0]["existen"] == 0) {
 				alert("categoria REGISTRADA");
+				$("#nomCategoria").val("");
 			}else{
-				console.log("ERROR! No se registro LA CATEGORIA");
+				alert("ERROR! No se registro LA CATEGORIA \n Puede que ya existe");
 			}
+
 		break;
 
 	}
@@ -868,7 +870,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://192.168.1.84:9000/restaurante/php/server.php";   
+    var wsUri = "ws://192.168.254.1:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
