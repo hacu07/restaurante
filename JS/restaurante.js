@@ -1002,8 +1002,9 @@ function cargarTablaProductos(response){
 	fila += '</tbody></table>';
 	$('#tablaProductos').html(fila);
 
+
  	 var txt2 = '<div>';
-    txt2 += '	<button id="btnAgregar" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
+    txt2 += '	<button id="btnAgregarProductos" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
 
@@ -1014,7 +1015,7 @@ function cargarTablaCategorias(response){
 
 	//Llena las filas de HTML 
 	var fila = '<table class="table table-hover table-striped">';
-	fila += '<thead><tr><th>Categoria</th></tr></thead>';
+	fila += '<thead><tr><th>Categorias</th></tr></thead>';
 	fila += '<tbody>';
 	for (var i =0; i< response.length; i++) {
 			fila += '<tr><td>'+response[i]["nombre"]+'</td></tr>';

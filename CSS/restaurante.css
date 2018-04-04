@@ -351,6 +351,8 @@ tr,th{
 
 #trabajoCentro{
 	height: 60%;
+	margin: auto;
+	overflow: auto;
 }
 
 #trabajoSur{
@@ -367,8 +369,6 @@ tr,th{
 	margin-top: 5%;
 	margin-bottom: 5%;
 }
-
-
 
 /***********************************
 formulario registro (21/03/18)*/
@@ -432,7 +432,7 @@ input:focus{
     border-color: #000;
 }
 
-#btnRegistrar, #btnAgregar, #btnEliminar, #btnActualizar, #btnConsultar{
+#btnRegistrar, #btnAgregar, #btnAgregarProductos, #btnEliminar, #btnActualizar, #btnConsultar{
 	color: #fff;
 	background-color: var(--bg-azul);
 	font-weight: bold;

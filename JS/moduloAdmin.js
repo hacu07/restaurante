@@ -140,7 +140,7 @@ function cargarFormProducto(){
     $("#trabajoCentro").html(txt1); 
 
     var txt2 = '<div>';
-    txt2 += '   <button id="btnAgregar" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
+    txt2 += '   <button id="btnAgregarProductos" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
 
