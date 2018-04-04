@@ -322,11 +322,22 @@ function leerDatos(responseJSON, opc){
 			if (response[0]["existen"] == 0) {
 				alert("categoria REGISTRADA");
 				$("#nomCategoria").val("");
+				consultarNombresCategorias();
 			}else{
 				alert("ERROR! No se registro LA CATEGORIA \n Puede que ya existe");
+
 			}
 
 		break;
+
+		case 48: //muestra los nombres de las categorias
+			if (response.length > 0) {
+				cargarTablaCategorias(response);
+
+			}
+
+		break;
+
 
 	}
 }
@@ -995,5 +1006,23 @@ function cargarTablaProductos(response){
     txt2 += '	<button id="btnAgregar" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
+
+}
+
+// CARGA TABLA DE CATEGORIAS EXISTENTES EN MODULO ADMINISTRADOR
+function cargarTablaCategorias(response){
+
+	//Llena las filas de HTML 
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Categoria</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< response.length; i++) {
+			fila += '<tr><td>'+response[i]["nombre"]+'</td></tr>';
+
+	}
+	fila += '</tbody></table>';
+	$('#cargaTablaCategorias').html(fila);
+
+	consultarNombresCategorias();
 
 }

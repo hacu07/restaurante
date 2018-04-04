@@ -201,6 +201,11 @@ switch ($opcion) {
 
 	break;
 
+	case 48: //CONSULTA LOS NOMBRES DE LAS CATEGORIAS EXISTENTES
+		$sql= "SELECT nombre from categoria";
+		leerRegistro($sql);
+	break;
+
 }
 
 
