@@ -246,7 +246,7 @@ function leerDatos(responseJSON, opc){
 		//Modulo Admin
 		case 40:
 			if (response["ok"] == "actualizo") {
-				alert("Usuario Creado");
+				mostrarModal("","Usuario Creado","");
 				limpiarUsuarioAdmon();
 			}else{
 				console.log("NO CREO EL USUARIO");
@@ -256,7 +256,7 @@ function leerDatos(responseJSON, opc){
 		case 41: //Respuesta de la Consulta de Usuario
 			if (response.length > 0) {
 				//Si se encuentra registrado en la BD
-				alert("Usuario encontrado");
+				mostrarModal("","Usuario encontrado","");
 				$("#btnRol").text(response[0]["nombre"].toUpperCase());//Muestra el rol que tenga
 				$("#contrasenia").val("");
 
@@ -265,7 +265,7 @@ function leerDatos(responseJSON, opc){
 			}
 			else{
 				//No se encuentra registrado
-				alert("Usuario no registra");
+				mostrarModal("","Usuario no registra","");
 				document.getElementById("btnRol").disabled  = false;
     			document.getElementById("contrasenia").disabled  = false;
     			document.getElementById("btnRegistrar").disabled  = false;
@@ -279,7 +279,7 @@ function leerDatos(responseJSON, opc){
 
 		case 42://Actualiza
 			if (response["ok"] == "actualizo") {
-				alert("Usuario Actualizado");
+				mostrarModal("","Usuario Actualizado","");
 
 			}else{
 				console.log("NO ACTUALIZO USUARIO");
@@ -288,7 +288,7 @@ function leerDatos(responseJSON, opc){
 
 		case 43://Elimina Usuario
 			if (response["ok"] == "actualizo") {
-				alert("Usuario ELIMINADO");
+				mostrarModal("","Usuario ELIMINADO","");
 				limpiarUsuarioAdmon();
 			}else{
 				console.log("NO ELIMINO USUARIO");
@@ -303,7 +303,7 @@ function leerDatos(responseJSON, opc){
 
 		case 45: //Registrar un nuevo producto con la imagen 
 			if (response["ok"] == "actualizo") {
-				alert("Producto REGISTRADO");
+				mostrarModal("","Producto REGISTRADO","");
 				    $("#producto").val("");
    					$("#precio").val("");
     				$("#btnCategoria").text("CATEGORIA");
@@ -321,11 +321,11 @@ function leerDatos(responseJSON, opc){
 
 		case 47: //registra una nueva categoria
 			if (response[0]["existen"] == 0) {
-				alert("categoria REGISTRADA");
+				mostrarModal("","categoria REGISTRADA","");
 				$("#nomCategoria").val("");
 				consultarNombresCategorias();
 			}else{
-				alert("ERROR! No se registro LA CATEGORIA \n Puede que ya existe");
+				mostrarModal("","ERROR! No se registro LA CATEGORIA \n Puede que ya existe","");
 
 			}
 
@@ -887,12 +887,12 @@ function iniciarSocket(){
     
     //Connected to server
     websocket.onopen = function(ev) {
-        alert('Conectado al servidor');
+        console.log('Conectado al servidor');
     }
     
     //Connection close
     websocket.onclose = function(ev) { 
-        alert('Desconectado');
+        console.log('Desconectado');
     };
     
     //Message Receved
@@ -957,7 +957,7 @@ function iniciarSocket(){
     
     //Error
     websocket.onerror = function(ev) { 
-        alert('Error '+ev.data);
+        mostrarModal('','Error '+ev.data,'');
     };
     
 }
@@ -998,13 +998,11 @@ function cargarTablaProductos(response){
 	fila += '<tbody>';
 	for (var i =0; i< response.length; i++) {
 			fila += '<tr><td>'+response[i]["nombre"]+'</td><td>'+response[i]["precio"]+'</td><td>'+response[i]["nombreCategoria"]+'</td></tr>';
-
 	}
 	fila += '</tbody></table>';
 	$('#tablaProductos').html(fila);
 
-
- 	 var txt2 = '<div>';
+ 	var txt2 = '<div>';
     txt2 += '	<button id="btnAgregarProductos" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
@@ -1020,7 +1018,6 @@ function cargarTablaCategorias(response){
 	fila += '<tbody>';
 	for (var i =0; i< response.length; i++) {
 			fila += '<tr><td>'+response[i]["nombre"]+'</td></tr>';
-
 	}
 	fila += '</tbody></table>';
 	$('#cargaTablaCategorias').html(fila);

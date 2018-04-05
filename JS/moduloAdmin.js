@@ -178,7 +178,7 @@ function registrarNuevoUsuario(){
     var rol = $("#btnRol").text();
 
     if(nombre == "" || contrasenia  == "" || rol == "ROL"){
-        alert("Faltan campos por digitar o seleccionar");
+        mostrarModal("","Faltan campos por digitar o seleccionar","");
     }else{
         if (rol == "ADMINISTRADOR") {
         idRol = 2;
@@ -204,7 +204,7 @@ function consultarUsuarioAdmon(){
         var parametros = {"opc" : 41, "usuario" : usuario};
         ejecutarAjaxJson(parametros,41);
     }else{
-        alert("Debe digitar el usuario para consultar");
+        mostrarModal("","Debe digitar el usuario para consultar","");
     }
 }
 
@@ -253,9 +253,9 @@ function actualizarUsuarioAdmon(){
 }
 
 function actualizarDatosUsuario(nom,con,id){
+    cerrarModal();
     var parametros = {"opc" : 42, "nombre" : nom, "contrasenia" : con, "idRol" : id };
     ejecutarAjaxJson(parametros,42);
-    cerrarModal();
     limpiarUsuarioAdmon();
 }
 
@@ -272,9 +272,9 @@ function eliminarUsuarioAdmon(){
 
 
 function eliminarUsuario(nombreUsuario){
+    cerrarModal();
     var parametros = {"opc" : 43, "nombre" : nombreUsuario};
     ejecutarAjaxJson(parametros, 43);
-    cerrarModal();
     $("#nombre").val("");
 }
 
@@ -304,7 +304,7 @@ function agregarProductoBD(){
     //var imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
 
     if (nombreProducto =="" || precio=="" || idCategoria==0){
-        alert("Faltan campos por llenar");
+        mostrarModal("","Faltan campos por llenar","");
     }else  {
         var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria, /*"imagen" : imagen*/};
         ejecutarAjaxJson(parametros, 45);
@@ -319,7 +319,7 @@ function agregarCategoriaBD(){
         var parametros = { "opc": 47, "nombreCategoria": nombreCategoria};
         ejecutarAjaxJson(parametros,47);
     }else{
-        alert("Por favor introduzca un nombre de categoria");
+        mostrarModal("","Por favor introduzca un nombre de categoria","");
     }
 }
  
