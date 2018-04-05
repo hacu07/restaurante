@@ -13,7 +13,7 @@ function mostrarModuloAdmin(nombre){
 	txt += '<button type=button id="btnUsuario" class="btn btn-block " onclick=registroNuevosUsuarios()>USUARIO</button>';
 	txt += '<button type=button id="btnCategorias" class="btn btn-block" onclick=AgregarCategoria()>CATEGORIAS</button>';
 	txt += '<button type=button id="btnProductos" class="btn btn-block "onclick=agregarProducto()>PRODUCTOS</button>';
-	txt += '<button type=button id="btnEstadisticas" class="btn btn-block ">ESTADISTICAS</button>';
+	txt += '<button type=button id="btnEstadisticas" class="btn btn-block" onclick=graficasEstadisticas()>ESTADISTICAS</button>';
 	txt += '</div>';
 
 	txt += '<div id="trabajo" class="col-md-10 col-lg-10 col-sm-10" >';
@@ -144,11 +144,89 @@ function agregarProducto(){
 }
 
 
+/***************************************************************/
+//               GRAFICAS DE ESTADISTICAS
+/***************************************************************/
+
+function graficasEstadisticas(){ 
+
+    var txt = '<h1>ESTADÍSTICAS</h1>';
+
+    $("#titulo").html(txt); 
 
 
 
+    Highcharts.chart('trabajoCentro', {
 
- 
+    title: {
+        text: 'Ventas por mesero diarias'
+    },
+
+    subtitle: {
+        text: 'Mes: Abril'
+    },
+
+    yAxis: {
+        title: {
+            text: 'ventas por empleado'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: 2010
+        }
+    },
+
+    series: [{
+        name: 'Paula',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+    }, {
+        name: 'Lucia',
+        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+    }, {
+        name: 'Lina',
+        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+    }, {
+        name: 'Luis',
+        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+    }, {
+        name: 'Juan',
+        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+});
+
+var txt2 = '<div>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">MENSUALES</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button">SEMANALES</button>';
+    txt2 += ' </div>';
+
+    $("#trabajoSur").html(txt2); 
+}
+
          
 
  
