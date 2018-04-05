@@ -307,6 +307,7 @@ function leerDatos(responseJSON, opc){
 				    $("#producto").val("");
    					$("#precio").val("");
     				$("#btnCategoria").text("CATEGORIA");
+    				setIdCategoria(0);
 			}else{
 				console.log("ERROR! No se registro el producto");
 			}
@@ -881,7 +882,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://192.168.254.1:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.137.5:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -1026,4 +1027,12 @@ function cargarTablaCategorias(response){
 
 	consultarNombresCategorias();
 
+}
+
+
+function mostrarModal(titulo,contenido,botones){
+	$(".modal-title").html(titulo);
+    $(".modal-body").html(contenido);   
+    $(".modal-footer").html(botones);
+    $("#myModal").collapse('show'); 
 }

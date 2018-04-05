@@ -33,6 +33,7 @@ function mostrarModuloAdmin(nombre){
 	txt += '</div>';
 	txt += '</div>';
 	$("#contenedor").html(txt);
+    $('#contenedor').append(cargarModalCocina());//Agrega HTML del formulario modal
 }
 
 
@@ -132,10 +133,8 @@ function cargarFormProducto(){
     txt1 += '   </div>';   
     txt1 += '</div>';
     txt1 +='<div>';
-    txt1 +='  <form  name="formulario"  action="envio.php" method="post" enctype="multipart/form-data">';
-    txt1 +=     '<label for="precio">Insertar Imagen:</label>';
+    txt1 +=     '<label for="archivo">Insertar Imagen:</label>';
     txt1 +='     <input id="inputInsertarImg" name="archivo" type="file">';
-    txt1 +='  </form>';
     txt1 +='</div>';
     $("#trabajoCentro").html(txt1); 
 
@@ -224,6 +223,8 @@ function limpiarUsuarioAdmon(){
 
 //Actualiza la contraseña y/o rol del usuario
 function actualizarUsuarioAdmon(){
+    
+
     var nombre = $("#nombre").val(); //obtiene lo escrito en el campo de nombre
     var contrasenia = $("#contrasenia").val(); //obtiene lo escrito en el campo de contrasenia
     var rol = $("#btnRol").text();
@@ -243,19 +244,37 @@ function actualizarUsuarioAdmon(){
         break;
     }
 
-    //Si la contraseña va vacia solo se actualiza el rol
-    var parametros = {"opc" : 42, "nombre" : nombre, "contrasenia" : contrasenia, "idRol" : idRol };
+    if (nombre == "" || contrasenia == "" || idRol < 2 || idRol > 5  ) { //valida que los campos necesario esten digitados correctamente 
+        mostrarModal('Campos Incompletos', 'Por favor diligencia todos los campos', '');
+    }else{
+        var txt = '<button class="btn btn-success" onclick="actualizarDatosUsuario(\''+nombre+'\',\''+contrasenia+'\','+idRol+')">SI</button><button class="btn btn-danger" onclick="cerrarModal()">NO</button>';
+        mostrarModal('Confirmar Actualizacion', '¿Esta seguro de actualizar los datos del usuario?', txt);
+    }
+}
+
+function actualizarDatosUsuario(nom,con,id){
+    var parametros = {"opc" : 42, "nombre" : nom, "contrasenia" : con, "idRol" : id };
     ejecutarAjaxJson(parametros,42);
+    cerrarModal();
+    limpiarUsuarioAdmon();
 }
 
 //Elimina el usuario de la BD tomando el nombre
 function eliminarUsuarioAdmon(){
     var nombre = $("#nombre").val(); //obtiene lo escrito en el campo de nombre
-
-    var parametros = {"opc" : 43, "nombre" : nombre};
-    ejecutarAjaxJson(parametros, 43);
+    if (nombre == "") {//valida que los campos necesario esten digitados correctamente  
+        mostrarModal('Campos Incompletos', 'Todos los campos deben estar correctamente diligenciados', '');
+    }else{
+        var txt = '<button class="btn btn-success" onclick="eliminarUsuario(\''+nombre+'\')">SI</button><button class="btn btn-danger" onclick="cerrarModal()">NO</button>';
+        mostrarModal('Confirmar Eliminacion', '¿Esta seguro de eliminar los datos del usuario?', txt);
+    }
 }
 
+
+function eliminarUsuario(nombreUsuario){
+    var parametros = {"opc" : 43, "nombre" : nombreUsuario};
+    ejecutarAjaxJson(parametros, 43);
+}
 
 function habilitarBotonesUsuario()
 {
@@ -280,18 +299,15 @@ function agregarProductoBD(){
     var nombreProducto = $('#producto').val(); //Obtiene el nombre del producto
     var precio = $('#precio').val(); //Obtiene el precio del producto
     var idCategoria = getIdCategoria();
-//    const imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
+    //var imagen = document.getElementById('inputInsertarImg');//Obtiene la imagen seleccionada
 
     if (nombreProducto =="" || precio=="" || idCategoria==0){
         alert("Faltan campos por llenar");
     }else  {
-        var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria/*, "imagen" : imagen*/};
+        var parametros = { "opc" : 45, "nombreProducto" : nombreProducto, "precio" : precio, "idCategoria" : idCategoria, /*"imagen" : imagen*/};
         ejecutarAjaxJson(parametros, 45);
     }
     
-    //alert("nombreProducto: " + nombreProducto + "\n precio: " + precio + "\n categoria: " + nombreCategoria + "\n imagen: "+ imagen);
-    /*if(input.files && input.files[0])
-        console.log("File Seleccionado : ", input.files[0]);*/
 }
 
 function agregarCategoriaBD(){
