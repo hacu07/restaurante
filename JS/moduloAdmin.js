@@ -253,7 +253,7 @@ function actualizarUsuarioAdmon(){
 }
 
 function actualizarDatosUsuario(nom,con,id){
-    cerrarModal();
+    //cerrarModal();
     var parametros = {"opc" : 42, "nombre" : nom, "contrasenia" : con, "idRol" : id };
     ejecutarAjaxJson(parametros,42);
     limpiarUsuarioAdmon();
@@ -272,7 +272,7 @@ function eliminarUsuarioAdmon(){
 
 
 function eliminarUsuario(nombreUsuario){
-    cerrarModal();
+    //cerrarModal();
     var parametros = {"opc" : 43, "nombre" : nombreUsuario};
     ejecutarAjaxJson(parametros, 43);
     $("#nombre").val("");
