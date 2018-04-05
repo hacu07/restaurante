@@ -17,6 +17,7 @@ var idMeseroSocket = 0; 	//Contiene el ID del mesero que va a recibir el mensaje
 var nombreMeseroGlobal = ""; 
 var respuestaGlobal = "";
 var navegarMesero = 0;
+var navegarCocina = 0;		//Indica en que ventana se encuentra el Jefe de cocina
 var rolUsuario = 0;
 
 //****** Llamado desde INDEX, controla modulo a accesar *********************
@@ -242,6 +243,103 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
+		//Modulo Admin
+		case 40:
+			if (response["ok"] == "actualizo") {
+				alert("Usuario Creado");
+				limpiarUsuarioAdmon();
+			}else{
+				console.log("NO CREO EL USUARIO");
+			}
+		break;
+
+		case 41: //Respuesta de la Consulta de Usuario
+			if (response.length > 0) {
+				//Si se encuentra registrado en la BD
+				alert("Usuario encontrado");
+				$("#btnRol").text(response[0]["nombre"].toUpperCase());//Muestra el rol que tenga
+				$("#contrasenia").val("");
+
+				//Habilitamos los botones de actualizar,eliminar
+				habilitarBotonesUsuario();
+			}
+			else{
+				//No se encuentra registrado
+				alert("Usuario no registra");
+				document.getElementById("btnRol").disabled  = false;
+    			document.getElementById("contrasenia").disabled  = false;
+    			document.getElementById("btnRegistrar").disabled  = false;
+    			document.getElementById("btnConsultar").disabled  = true;
+    			document.getElementById("btnActualizar").disabled  = true;
+    			document.getElementById("btnEliminar").disabled  = true;
+				//limpiarUsuarioAdmon();
+
+			}
+		break;
+
+		case 42://Actualiza
+			if (response["ok"] == "actualizo") {
+				alert("Usuario Actualizado");
+
+			}else{
+				console.log("NO ACTUALIZO USUARIO");
+			}
+		break;
+
+		case 43://Elimina Usuario
+			if (response["ok"] == "actualizo") {
+				alert("Usuario ELIMINADO");
+				limpiarUsuarioAdmon();
+			}else{
+				console.log("NO ELIMINO USUARIO");
+			}
+		break;
+
+		case 44:
+			if (response.length > 0) {
+				cargarCategorias(response);
+			}
+		break;
+
+		case 45: //Registrar un nuevo producto con la imagen 
+			if (response["ok"] == "actualizo") {
+				alert("Producto REGISTRADO");
+				    $("#producto").val("");
+   					$("#precio").val("");
+    				$("#btnCategoria").text("CATEGORIA");
+    				setIdCategoria(0);
+			}else{
+				console.log("ERROR! No se registro el producto");
+			}
+		break;
+
+		case 46:
+			if (response.length > 0) {
+				cargarTablaProductos(response);
+			}
+		break;
+
+		case 47: //registra una nueva categoria
+			if (response[0]["existen"] == 0) {
+				alert("categoria REGISTRADA");
+				$("#nomCategoria").val("");
+				consultarNombresCategorias();
+			}else{
+				alert("ERROR! No se registro LA CATEGORIA \n Puede que ya existe");
+
+			}
+
+		break;
+
+		case 48: //muestra los nombres de las categorias
+			if (response.length > 0) {
+				cargarTablaCategorias(response);
+
+			}
+
+		break;
+
+
 	}
 }
 
@@ -388,6 +486,8 @@ function nombrarEstado(idEstado){
 
 //****** MOSTRAR VENTANAS **************************************************
 function mostrarVentanaChef1(nombre){
+	navegarCocina = 1;
+	console.log("navegarCocina "+navegarCocina);
 	var txt= forPantallaChef1('COCINA', nombre);
 	/*consultarPedidosCocina()
 	txt += filaHtml;*/
@@ -410,6 +510,8 @@ function mostrarVentanaMesero1(){
 
 //Despliega datos de un pedido en la ventana modal ***********************
 function mostrarVentanaPedidoCocina(idPedido,ideMeseroSocket){
+	navegarCocina = 2;
+	console.log("navegarCocina "+navegarCocina);
 	setIdPedido(idPedido);
 	setIdMeseroSocket(ideMeseroSocket);
 	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
@@ -470,7 +572,7 @@ function navegar(nav){
 			mostrarDetalleProducto();
 		break;
 	}
-	console.log(navegarMesero);
+	
 }
 
 //Cierra el formulario modal **********************************************
@@ -592,8 +694,12 @@ function cargarTablaPedidosMesero(pedidosMesero){
 
 		estado = pedidosMesero[i]["estado"];
 		claseEstado = estado.replace("n E", "nE");
+		if(estado == "Facturado"){
+			fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')" disabled><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
 
-		fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+		}else{
+			fila += '<tr><td>'+ pedidosMesero[i]["idPedido"] +'</td><td>'+ pedidosMesero[i]["numMesa"] +'</td><td class="btn-'+ claseEstado+'">'+ pedidosMesero[i]["estado"] +'</td><td><button class="btn btn-block" onclick="consultarProductosPedido('+ pedidosMesero[i]["idPedido"] +')"><span class="glyphicon glyphicon-fullscreen"></span></button></td></tr>';
+		}
 	}
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
@@ -636,7 +742,7 @@ function consultarUltimoPedido(){
 
 function consultarCategorias(){
 	navegarMesero = 4;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var parametros = {"opc": 24 };
 	ejecutarAjaxJson(parametros, 24 );
 }
@@ -681,7 +787,7 @@ function mostrarProductosMesero(productos){
 //MUESTRA LA INTERFAZ DEL DETALLE DEL PRODUCTO (NOMBRE,PRECIO Y CANTIDAD)
 function mostrarDetalleProducto(idProducto,nombre,precio){
 	navegarMesero = 6;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var nombreImg = nombre.replaceAll(" ",""); //Quitamos los espacios que trae el nombre para asi buscar la imagen 
 	var txt = '<h3>Pedido # '+ getIdPedido() +'<div id="imgProducto">';
 	txt+= '<img src="IMG/'+nombreImg+'.png">';
@@ -739,7 +845,7 @@ function agregarProductoPedido(idProducto){
 function consultarProductosPedido(idPedido){
 	setIdPedido(idPedido);
 	navegarMesero = 3;
-	console.log(navegarMesero);
+	//console.log(navegarMesero);
 	var parametros = { "opc" : 28, "idPedido" : idPedido};
 	ejecutarAjaxJson(parametros, 28);
 }
@@ -776,7 +882,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.36:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.137.5:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -795,7 +901,7 @@ function iniciarSocket(){
         var tipoMensaje = msg.tipoMensaje;
 		/*var idePedido = msg.idPedido; //Nombre Usuario
 		var ideMesero = msg.idMesero; //Color Asignado al Usuario*/
-		console.log(tipoMensaje);
+		console.log("tipoMensaje "+tipoMensaje);
 		switch(parseInt(tipoMensaje)){
 			case 0: //Mensajes de alerta (Conectado,desconectado,etc.).
 				var msj =  msg.message;
@@ -823,14 +929,28 @@ function iniciarSocket(){
 				}
 			break;
 			case 3: //Mensajes enviado por el mesero para actualizar interfaz del jefe de cocina y/o cajero
+			console.log("entra tipo 3");
+			console.log("usuario " + getRolUsuario());
 				var idePedido = msg.idPedido; //Numero del pedido
 				var ideMesero = msg.idMesero; //id Asignado al Usuario
-				if(getRolUsuario() == 3){	//Si el cajero a iniciado sesion
-					consultarPedidosCocina();
+				if(getRolUsuario() == 3){	//Si el jefe de cocina a iniciado sesion
+					console.log("switch");
+					switch(navegarCocina){
+						case 1:
+							consultarPedidosCocina();
+						break;
+						case 2:
+							//cerrarModal();
+							mostrarVentanaPedidoCocina(idePedido,ideMesero);
+							consultarPedidosCocina();
+							console.log("entro");
+						break;
+					}	
 				}
 				if(getRolUsuario() == 4){
-					consultarFacturas();	
+					consultarFacturas();
 				}
+					
 			break;
 		}
     };
@@ -860,4 +980,59 @@ function confirmarEntregaProducto(numeroProducto){
 	ejecutarAjaxJson(parametros,29);*/
 	var parametros = {"opc" : 29, "idEstado": 7, "numero" : numeroProducto, "idPedido": getIdPedido()};
 	ejecutarAjaxJson(parametros,29);
+}
+
+
+
+//CARGA TABLA DE PRODUCTOS EXISTENTES EN MODULO ADMINISTRADOR (PRODUCTOS)
+
+function cargarTablaProductos(response){
+
+	var txt = '<h1>PRODUCTOS</h1>';
+    $("#titulo").html(txt); 
+
+
+	//Llena las filas de HTML 
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Nombre</th><th>Precio</th><th>Categoria</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< response.length; i++) {
+			fila += '<tr><td>'+response[i]["nombre"]+'</td><td>'+response[i]["precio"]+'</td><td>'+response[i]["nombreCategoria"]+'</td></tr>';
+
+	}
+	fila += '</tbody></table>';
+	$('#tablaProductos').html(fila);
+
+
+ 	 var txt2 = '<div>';
+    txt2 += '	<button id="btnAgregarProductos" class="btn" type="button" onclick="cargarFormProducto()">AÑADIR</button>';
+    txt2 += ' </div>';
+    $("#trabajoSur").html(txt2);
+
+}
+
+// CARGA TABLA DE CATEGORIAS EXISTENTES EN MODULO ADMINISTRADOR
+function cargarTablaCategorias(response){
+
+	//Llena las filas de HTML 
+	var fila = '<table class="table table-hover table-striped">';
+	fila += '<thead><tr><th>Categorias</th></tr></thead>';
+	fila += '<tbody>';
+	for (var i =0; i< response.length; i++) {
+			fila += '<tr><td>'+response[i]["nombre"]+'</td></tr>';
+
+	}
+	fila += '</tbody></table>';
+	$('#cargaTablaCategorias').html(fila);
+
+	consultarNombresCategorias();
+
+}
+
+
+function mostrarModal(titulo,contenido,botones){
+	$(".modal-title").html(titulo);
+    $(".modal-body").html(contenido);   
+    $(".modal-footer").html(botones);
+    $("#myModal").collapse('show'); 
 }

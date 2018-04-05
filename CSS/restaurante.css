@@ -138,6 +138,17 @@ div.content h3{
 	text-align: center;
 }
 
+#cont_centroAdmin{
+	width: 95%;
+	height: 85%;
+	background-color: #E6E6E6;
+	margin: auto;
+	/* margin-top: 2.5%; */
+	padding-top:1.5%;
+	overflow: auto;
+	text-align: center;
+}
+
 #cont_pie{
 	width: 95%;
 	margin: auto;
@@ -330,7 +341,7 @@ tr,th{
 	height: 100%;
 }
 #titulo{
-	height: 15%;
+	height: 8%;
 }
 #titulo h1 {
 	color: var(--bg-azul);
@@ -340,12 +351,24 @@ tr,th{
 
 #trabajoCentro{
 	height: 60%;
+	margin: auto;
+	overflow: auto;
 }
 
 #trabajoSur{
 	height: 10%;
 }
 
+.btnDropDown{
+	background-color: #337ab7;
+	margin-bottom: 2px;
+	color: #fff;
+}
+
+#btnRol, #btnCategoria{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
 
 /***********************************
 formulario registro (21/03/18)*/
@@ -379,7 +402,7 @@ input {
     font: 1em sans-serif;
 
     /* Para darle el mismo tamaño a todos los campos de texto */
-    width: 80%;
+    width: 30%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: .5em;
@@ -389,6 +412,11 @@ input {
     text-align: center;
 
 }
+
+#nomCategoria{
+	 width: 60%;
+}
+
 #inputInsertarImg{
     font: 1em sans-serif;
 	width: 100%;
@@ -397,8 +425,6 @@ input {
     border-radius: .5em;
     border: 1px ;
     margin-left: 11%;
-
-
 }
 
 input:focus{
@@ -406,25 +432,16 @@ input:focus{
     border-color: #000;
 }
 
-#btnRegistrar, #btnAgregar{
+#btnRegistrar, #btnAgregar, #btnAgregarProductos, #btnEliminar, #btnActualizar, #btnConsultar{
 	color: #fff;
 	background-color: var(--bg-azul);
 	font-weight: bold;
 	margin-top: 5%;		
 }
 
-
-
-/******************************
-GRAFICAS (05/04/18) Ps*/
-/*
-#container {
-	min-width: 310px;
-	max-width: 800px;
-	height: 400px;
-	margin: 0 auto
+#btnAgregar{
+	margin-left: 36%;
 }
-*/
 /*******************************************************/
 
 .alinearMedio{

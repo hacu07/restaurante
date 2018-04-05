@@ -4,6 +4,7 @@ $opcion = $_POST["opc"];
 
 
 switch ($opcion) {
+	//CONSULTAS MODULO JEFE DE COCINA -----------------------------------------------------
 	case 1:
 		$usuario = $_POST["usuario"];
 		$password = $_POST["password"];
@@ -40,7 +41,7 @@ switch ($opcion) {
 		
 
 
-		//CONSULTAS MODULO DE CAJA (inicia desde 10)
+		//CONSULTAS MODULO DE CAJA (inicia desde 10)----------------------------------------------
 
 
 	case 10:  
@@ -71,7 +72,7 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 	break;*/
 
-	//CONSULTAS MODULO DE MESERO (inicia desde 20)
+	//CONSULTAS MODULO DE MESERO (inicia desde 20)-------------------------------------------
 	case 20: 
 		$idMesero = $_POST["idMesero"];
 		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero}";
@@ -125,6 +126,86 @@ switch ($opcion) {
 		$sql = "call sp_actualizarEstados({$idPedido},{$idEstado},{$numero})";
 		actualizarRegistro($sql);
 	break;
+
+	//Modulo del administrador ---------------------------------------------------
+
+	//registrar nuevo usuario
+	case 40:
+		$nombre = $_POST["nombre"];
+		$contrasenia = $_POST["contrasenia"];
+		$idRol = $_POST["idRol"];
+		$sql = "INSERT INTO usuario(nombre,contrasenia,idRol) values ('{$nombre}','$contrasenia',{$idRol})";
+		actualizarRegistro($sql);
+	break;
+
+
+	//Consulta de un Usuario - si existe retorna el rol del usuario
+	case 41:
+		$usuario = $_POST["usuario"];
+		$sql = "SELECT  roles.nombre FROM usuario JOIN roles on usuario.idRol = roles.idRol WHERE usuario.nombre = '{$usuario}'";
+		leerRegistro($sql);
+	break;
+
+	//Actualiza datos del usuario - si la contraseña es vacia solo actualiza el rol
+	case 42:
+		$nombre = $_POST["nombre"];
+		$contrasenia = $_POST["contrasenia"];
+		$idRol = $_POST["idRol"];
+		if($contrasenia === ""){
+			$sql = "UPDATE usuario set idRol = {$idRol} where nombre = '{$nombre}'";
+		}else{
+			$sql = "UPDATE usuario set contrasenia = '{$contrasenia}', idRol = {$idRol} where nombre = '{$nombre}'";
+		}
+
+		actualizarRegistro($sql);
+	break;
+
+	//Elimina el Usuario de la BD - (Cuando se realiza el trabajo de auditoria de BD se debe deshabilitar)
+	case 43:
+		$nombre = $_POST["nombre"];
+		$sql = "DELETE FROM usuario where nombre = '{$nombre}' ";
+		actualizarRegistro($sql);
+	break;
+
+	//Categorias del restaurante
+	case 44:
+		$sql = "SELECT * FROM categoria";
+		leerRegistro($sql);
+	break;
+
+	case 45://Agregar producto con imagen
+		//$imagen = $_POST["imagen"];
+		/*$ruta="IMG";//carpeta donde se almacenara
+		$archivo=$_FILES['imagen']['tmp_name']; //toma el archivo imagen
+		$nombreArchivo=$_FILES['imagen']['name'];//toma el nombre de la imagen
+		move_uploaded_file($archivo,$ruta."/".$nombreArchivo);*/
+
+		$nombreProducto = $_POST["nombreProducto"];
+		$precio = $_POST["precio"];
+		$idCategoria = $_POST["idCategoria"];
+		$sql = "INSERT INTO producto(precio, nombre, idCategoria) values('{$precio}','{$nombreProducto}',{$idCategoria})";
+		actualizarRegistro($sql);
+
+	break;
+
+	case 46:
+		$sql = "SELECT producto.nombre, producto.precio, categoria.nombre AS nombreCategoria FROM producto JOIN categoria ON producto.idCategoria = categoria.idCategoria";
+		leerRegistro($sql);
+	break;
+
+	case 47: //agrega el nuevo nombre de la categoria
+
+		$nombreCategoria = $_POST["nombreCategoria"];
+		$sql= "	CALL sp_nombresCategorias('{$nombreCategoria}')";
+		leerRegistro($sql);
+
+	break;
+
+	case 48: //CONSULTA LOS NOMBRES DE LAS CATEGORIAS EXISTENTES
+		$sql= "SELECT nombre from categoria";
+		leerRegistro($sql);
+	break;
+
 }
 
 
