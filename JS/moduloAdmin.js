@@ -274,6 +274,8 @@ function eliminarUsuarioAdmon(){
 function eliminarUsuario(nombreUsuario){
     var parametros = {"opc" : 43, "nombre" : nombreUsuario};
     ejecutarAjaxJson(parametros, 43);
+    cerrarModal();
+    $("#nombre").val("");
 }
 
 function habilitarBotonesUsuario()
