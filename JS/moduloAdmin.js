@@ -429,7 +429,7 @@ function graficasEstadisticas(texto){
 });
 
 var txt2 = '<div>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button">MENSUALES</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="ventasMensuales()">MENSUALES</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button">SEMANALES</button>';
     txt2 += ' </div>';
 
@@ -437,3 +437,35 @@ var txt2 = '<div>';
 }
 
 
+//*************************************/
+//ESTADISTICAS VENTAS MENSUALES
+/**************************************/
+function ventasMensuales(){
+ var txt1 ='';
+    txt1 += '<div class="btn-group">';
+    txt1 += '<button type="button" class="btn btn-primary dropdown-toggle" id="btnVentas" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> MES <span class="glyphicon glyphicon-triangle-bottom"></span></button>';
+    txt1 += '   <div class="dropdown-menu" id="dpdVentas">';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Enero\')" >Enero</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Febrero\')">Febrero</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Marzo\')">Marzo</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Abril\')">Abril</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Mayo\')">Mayo</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Junio\')">Junio</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Julio\')">Julio</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Agosto\')">Agosto</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Septiembre\')">Septiembre</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Octubre\')">Octubre</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Noviembre\')">Noviembre</button>';
+    txt1 += ' <button class="btn btn-block" onclick="cambiarTextoMes(\'Diciembre\')">Diciembre</button>';
+    txt1 += '   </div>';   
+    txt1 += '</div>';
+  $("#trabajoCentro").html(txt1); 
+}
+   
+function cambiarTextoMes(mes){
+    $("#btnVentas").text(mes);     
+ } 
+  
+    
+    
+    
