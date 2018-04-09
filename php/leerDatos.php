@@ -206,6 +206,11 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 49://CONSULTA LAS VENTAS GENERALES POR MESERO 
+		$sql="SELECT usuario.nombre, sum(factura.valorFactura) as ventasTotales from factura join pedidos on factura.idPedido = pedidos.idPedido join usuario on pedidos.idMesero = usuario.idUsuario GROUP BY usuario.nombre";
+		leerRegistro($sql);
+	break;
+
 }
 
 

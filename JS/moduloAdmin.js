@@ -4,6 +4,7 @@
 
 //Variables Globales
 var idCategoriaGlobal = 0;
+var stringGlobal = 0; //almacena el codigo a usar en las estadisticas 
 
 //Metodos Get & Set
 function setIdCategoria(id){
@@ -14,6 +15,16 @@ function getIdCategoria(){
     return idCategoriaGlobal;
 }
 
+function setString(string){
+    stringGlobal = string;
+}
+
+function getString(){
+    return stringGlobal;
+}
+
+
+
 
 function mostrarModuloAdmin(nombre){
 
@@ -23,7 +34,7 @@ function mostrarModuloAdmin(nombre){
 	txt += '<button type=button id="btnUsuario" class="btn btn-block " onclick=registroNuevosUsuarios()>USUARIO</button>';
 	txt += '<button type=button id="btnCategorias" class="btn btn-block" onclick=AgregarCategoria()>CATEGORIAS</button>';
 	txt += '<button type=button id="btnProductos" class="btn btn-block "onclick=agregarProducto()>PRODUCTOS</button>';
-	txt += '<button type=button id="btnEstadisticas" class="btn btn-block " onclick=graficasEstadisticas()>ESTADISTICAS</button>';
+	txt += '<button type=button id="btnEstadisticas" class="btn btn-block " onclick=consultarVentasGenerales()>ESTADISTICAS</button>';
 	txt += '</div>';
 	txt += '<div id="trabajo" class="col-md-10 col-lg-10 col-sm-10" >';
 	txt += '<div id="titulo"></div>';
@@ -328,12 +339,43 @@ function agregarCategoriaBD(){
 //               GRAFICAS DE ESTADISTICAS
 /***************************************************************/
 
-function graficasEstadisticas(){ 
+function consultarVentasGenerales(){
+    var parametros={"opc": 49};
+    ejecutarAjaxJson(parametros,49);
+}
+
+
+
+function crearStringEstadisticas(response){
+ 
+var texto = '';
+
+ 
+
+        for (var i = 0; i< response.length; i++) {
+            texto +="{";
+            texto +="name: '"+response[i]["nombre"]+"',";
+            texto +="data: [0,"+response[i]["ventasTotales"]+"]";
+            if (i == response.length -1 ){
+                texto +="}";
+            }else{
+                texto +="},";
+            }
+            
+        }
+
+    graficasEstadisticas(texto);
+
+}
+
+
+function graficasEstadisticas(texto){ 
 
     var txt = '<h1>ESTADÍSTICAS</h1>';
 
     $("#titulo").html(txt); 
 
+    var codigo =  JSON.stringify(texto);
 
 
     Highcharts.chart('trabajoCentro', {
@@ -366,22 +408,9 @@ function graficasEstadisticas(){
         }
     },
 
-    series: [{
-        name: 'Paula',
-        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-    }, {
-        name: 'Lucia',
-        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-    }, {
-        name: 'Lina',
-        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-        name: 'Luis',
-        data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-    }, {
-        name: 'Juan',
-        data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-    }],
+    series: [
+        codigo
+    ],
 
     responsive: {
         rules: [{
@@ -406,3 +435,5 @@ var txt2 = '<div>';
 
     $("#trabajoSur").html(txt2); 
 }
+
+

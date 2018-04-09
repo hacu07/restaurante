@@ -334,10 +334,19 @@ function leerDatos(responseJSON, opc){
 		case 48: //muestra los nombres de las categorias
 			if (response.length > 0) {
 				cargarTablaCategorias(response);
-
 			}
 
 		break;
+
+		case 49://MUESTRA LAS VENTAS GENERALES POR MESERO
+
+			if (response.length > 0) {
+
+				crearStringEstadisticas(response);
+			}
+
+		break;
+
 
 
 	}
@@ -882,7 +891,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.5:9000/restaurante/php/server.php";   
+    var wsUri = "ws://192.168.254.1:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
@@ -1036,3 +1045,6 @@ function mostrarModal(titulo,contenido,botones){
     $(".modal-footer").html(botones);
     $("#myModal").collapse('show'); 
 }
+
+
+
