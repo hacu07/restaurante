@@ -347,24 +347,15 @@ function consultarVentasGenerales(){
 
 
 function crearStringEstadisticas(response){
- 
-var texto = '';
+    var paula = [];
+    for(var i=0; i < response.length; i++) {
+        paula.push({"name" : response[i]["nombre"], "data" : response[i]["numeroPedidos"] })
+    }
 
- 
 
-        for (var i = 0; i< response.length; i++) {
-            texto +="{";
-            texto +="name: '"+response[i]["nombre"]+"',";
-            texto +="data: [0,"+response[i]["ventasTotales"]+"]";
-            if (i == response.length -1 ){
-                texto +="}";
-            }else{
-                texto +="},";
-            }
-            
-        }
 
-    graficasEstadisticas(texto);
+
+    graficasEstadisticas(paula);
 
 }
 
@@ -399,18 +390,8 @@ function graficasEstadisticas(texto){
         verticalAlign: 'middle'
     },
 
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            pointStart: 2010
-        }
-    },
 
-    series: [
-        codigo
-    ],
+    series: texto,
 
     responsive: {
         rules: [{
