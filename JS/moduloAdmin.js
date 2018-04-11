@@ -349,8 +349,12 @@ function consultarVentasProductos(){
     ejecutarAjaxJson(parametros,50);
 }
 
+function consultarVentasDiarias(){
+    var parametros={"opc": 51};
+    ejecutarAjaxJson(parametros,51);
+}
 
-function crearStringEstadisticas(response,opc){
+function crearStringEstadisticas(response,nombre1,nombre2){
     /*var graficas = [];
     for(var i=0; i < response.length; i++) {
         paula.push({"name" : response[i]["nombre"], "data" : [0,parseInt(response[i]["numeroPedidos"])] })
@@ -359,7 +363,7 @@ function crearStringEstadisticas(response,opc){
 
     var graficas = {"name" : 'Pedidos', "data" : []};
     for(var i=0; i < response.length; i++) {
-        graficas["data"].push([response[i]["nombre"],parseInt(response[i][opc])]);
+        graficas["data"].push([response[i][nombre1],parseInt(response[i][nombre2])]);
     } 
     graficasBarras(graficas);
 }
@@ -424,7 +428,7 @@ function graficasBarras(respuesta){
     var txt2 = '<div>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasProductos()">PRODUCTOS</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="ventasMensuales()">MENSUALES</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button">SEMANALES</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasDiarias()">DIARIAS</button>';
     txt2 += ' </div>';
 
     $("#trabajoSur").html(txt2); 

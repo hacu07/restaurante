@@ -218,6 +218,12 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 51://CONSULTA LAS VENTAS GENERALES POR MESERO 
+		$sql="SELECT date(fechaFactura) as fecha, sum(valorFactura) as ventaDiaria from factura group by date(fechaFactura)";
+		/*$sql="SELECT usuario.nombre, count(pedidos.idPedido) as numeroPedidos FROM pedidos join usuario on pedidos.idMesero = usuario.idUsuario GROUP by usuario.nombre";*/
+		leerRegistro($sql);
+	break;
+
 }
 
 

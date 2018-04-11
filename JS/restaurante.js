@@ -337,13 +337,19 @@ function leerDatos(responseJSON, opc){
 
 		case 49://MUESTRA LAS VENTAS GENERALES POR MESERO
 			if (response.length > 0) {
-				crearStringEstadisticas(response,'ventasTotales');
+				crearStringEstadisticas(response,'nombre','ventasTotales');//(respuesta,nombreColumna1,nombreColumna2)
 			}
 		break;
 
 		case 50://MUESTRA LAS VENTAS GENERALES POR MESERO
 			if (response.length > 0) {
-				crearStringEstadisticas(response,'vendido');
+				crearStringEstadisticas(response,'nombre','vendido');//(respuesta,nombreColumna1,nombreColumna2)
+			}
+		break;
+
+		case 51://MUESTRA LAS VENTAS GENERALES POR MESERO
+			if (response.length > 0) {
+				crearStringEstadisticas(response,'fecha','ventaDiaria');//(respuesta,nombreColumna1,nombreColumna2)
 			}
 		break;
 	}
