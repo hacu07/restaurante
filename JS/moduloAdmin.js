@@ -349,7 +349,7 @@ function consultarVentasGenerales(){
 function crearStringEstadisticas(response){
     var paula = [];
     for(var i=0; i < response.length; i++) {
-        paula.push({"name" : response[i]["nombre"], "data" : response[i]["numeroPedidos"] })
+        paula.push({"name" : response[i]["nombre"], "data" : [0,parseInt(response[i]["numeroPedidos"])] })
     }
 
 
