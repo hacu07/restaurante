@@ -123,3 +123,8 @@ BEGIN
   ventas diarias
 
   SELECT date(fechaFactura) as fecha, sum(valorFactura) as ventaDiaria from factura group by date(fechaFactura)
+
+---------------------------------
+  VENTAS MENSUALES
+
+SELECT MONTHNAME(fechaFactura) as mes, sum(valorFactura) as ventaMensual from factura group by MONTH(fechaFactura)

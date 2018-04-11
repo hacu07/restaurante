@@ -354,6 +354,11 @@ function consultarVentasDiarias(){
     ejecutarAjaxJson(parametros,51);
 }
 
+function consultarVentasMensuales(){
+   var parametros={"opc": 52};
+    ejecutarAjaxJson(parametros,52); 
+}
+
 function crearStringEstadisticas(response,nombre1,nombre2){
     /*var graficas = [];
     for(var i=0; i < response.length; i++) {
@@ -427,7 +432,7 @@ function graficasBarras(respuesta){
 
     var txt2 = '<div>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasProductos()">PRODUCTOS</button>';
-    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="ventasMensuales()">MENSUALES</button>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasMensuales()">MENSUALES</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasDiarias()">DIARIAS</button>';
     txt2 += ' </div>';
 

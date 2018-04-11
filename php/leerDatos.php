@@ -224,6 +224,12 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 52://CONSULTA LAS VENTAS GENERALES POR MESERO 
+		$sql="SELECT MONTHNAME(fechaFactura) as mes, sum(valorFactura) as ventaMensual from factura group by MONTH(fechaFactura)";
+		/*$sql="SELECT usuario.nombre, count(pedidos.idPedido) as numeroPedidos FROM pedidos join usuario on pedidos.idMesero = usuario.idUsuario GROUP by usuario.nombre";*/
+		leerRegistro($sql);
+	break;
+
 }
 
 

@@ -352,6 +352,12 @@ function leerDatos(responseJSON, opc){
 				crearStringEstadisticas(response,'fecha','ventaDiaria');//(respuesta,nombreColumna1,nombreColumna2)
 			}
 		break;
+
+		case 52://MUESTRA LAS VENTAS GENERALES POR MESERO
+			if (response.length > 0) {
+				crearStringEstadisticas(response,'mes','ventaMensual');//(respuesta,nombreColumna1,nombreColumna2)
+			}
+		break;
 	}
 }
 
