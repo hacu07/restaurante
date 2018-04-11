@@ -883,8 +883,13 @@ function mostrarVentanaProductoPedidoMesero(productos){
 	fila += '</tbody></table>';
 	$('#cont_centro').html(fila);
 	var btn = '<button class="btn btnSur" onclick="navegar(1)"><span class="glyphicon glyphicon-chevron-left"></span> Volver a Pedidos</button>';
-	btn += '<button class="btn  btnSur" onclick="consultarCategorias('+ getIdPedido()+')"> Agregar Productos</button> ';
+	btn += '<button class="btn  btnSur" id="btnSur" onclick="consultarCategorias('+ getIdPedido()+')"> Agregar Productos</button> ';
 	$('#cont_sur').html(btn);
+
+	if (estado == "Facturado") {
+		var elemento = document.getElementById("btnSur");
+		elemento.style.display = 'none';
+	}
 }
 
 
