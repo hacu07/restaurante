@@ -400,7 +400,7 @@ function graficasBarras(respuesta){
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+            pointFormat: 'Ventas en pesos'
         },
         series: [{
             name: respuesta.name,

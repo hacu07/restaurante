@@ -810,7 +810,7 @@ function mostrarDetalleProducto(idProducto,nombre,precio){
 	txt += 	'</div>';
 	txt += 	'<div id="cantidadProducto">';
 	txt += 		'<button class="btnSur" onclick="aumentarCant('+ precio +')"><span class="glyphicon glyphicon-triangle-top"></span></button>';
-	txt += 		'<input type="number" class="" text="1" id="cantProducto" name="cantidadProducto" placeholder="Cant.">';
+	txt += 		'<input type="number" class="" text="1" id="cantProducto" name="cantidadProducto" placeholder="Cant." disabled="true">';
 	txt += 		'<button class="btnSur" onclick="disminuirCant('+ precio +')"><span class="glyphicon glyphicon-triangle-bottom"></span></button>';
 	txt += '</div>';
 	txt += 	'<h3 id="totalProducto">...</h3>'
