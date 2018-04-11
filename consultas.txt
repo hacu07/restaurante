@@ -103,3 +103,17 @@ BEGIN
 
  MUESTRA VENTAS SEMANALES POR MESERO 
   SELECT usuario.nombre, sum(factura.valorFactura) as ventasTotales from factura join pedidos on factura.idPedido = pedidos.idPedido join usuario on pedidos.idMesero = usuario.idUsuario WHERE week(factura.fechaFactura) = 4 GROUP BY usuario.nombre
+
+
+
+
+
+  --------------------------------------
+  consulta la cantidad de productos vendidos
+
+  select producto.nombre, sum(productopedido.cantidad) from producto join productopedido on  producto.idProducto = productopedido.idProducto where productopedido.idEstado = 6 group by producto.nombre
+
+  ------------------------------------
+  VALOR DE CADA PRODUCTO VENDIDO
+
+  select producto.nombre, sum(productopedido.valor) from productopedido join producto on productopedido.idProducto = producto.idProducto where productopedido.idEstado = 6 GROUP by producto.nombre

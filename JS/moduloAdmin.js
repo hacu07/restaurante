@@ -374,10 +374,10 @@ function graficasBarras(respuesta){
         },
 
         title: {
-            text: 'Pedidos por Mesero'
+            text: 'VENTAS GENERALES POR MESERO'
         },
         subtitle: {
-            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+            text: 'Estadisticas'
         },
         xAxis: {
             type: 'category',

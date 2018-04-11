@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2018 a las 15:06:28
+-- Tiempo de generación: 11-04-2018 a las 16:48:00
 -- Versión del servidor: 10.1.13-MariaDB
 -- Versión de PHP: 5.6.21
 
@@ -142,18 +142,10 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idFactura`, `numFactura`, `fechaFactura`, `valorFactura`, `ivaFactura`, `idCajero`, `idPedido`, `ccCliente`) VALUES
-(4, 'Aqui va numFactura', '2018-03-11 14:45:27', 110000, 20900, 2, 1, '34534534'),
-(5, 'Aqui va numFactura', '2018-03-11 14:48:14', 110000, 20900, 2, 1, ''),
-(6, 'Aqui va numFactura', '2018-04-11 07:52:16', 53000, 10070, 2, 29, ''),
-(7, 'Aqui va numFactura', '2018-04-11 07:52:48', 9000, 1710, 2, 6, ''),
-(8, 'Aqui va numFactura', '2018-04-11 07:52:53', 10000, 1900, 2, 30, ''),
-(9, 'Aqui va numFactura', '2018-04-11 07:57:12', 74000, 14060, 2, 2, ''),
-(10, 'Aqui va numFactura', '2018-04-11 07:58:11', 10000, 1900, 2, 7, ''),
-(11, 'Aqui va numFactura', '2018-04-11 07:58:15', 28000, 5320, 2, 4, ''),
-(12, 'Aqui va numFactura', '2018-04-11 07:59:49', 210000, 39900, 2, 31, ''),
-(13, 'Aqui va numFactura', '2018-04-11 08:00:21', 46000, 8740, 2, 3, ''),
-(14, 'Aqui va numFactura', '2018-04-11 08:03:23', 10000, 1900, 2, 32, ''),
-(15, 'Aqui va numFactura', '2018-04-11 08:05:36', 290000, 55100, 2, 33, '');
+(19, 'Aqui va numFactura', '2018-04-11 08:41:37', 57000, 10830, 2, 37, ''),
+(20, 'Aqui va numFactura', '2018-04-11 08:41:42', 84500, 16055, 2, 38, ''),
+(21, 'Aqui va numFactura', '2018-04-11 08:41:46', 78500, 14915, 2, 39, ''),
+(22, 'Aqui va numFactura', '2018-04-11 08:44:55', 43000, 8170, 2, 40, '');
 
 -- --------------------------------------------------------
 
@@ -197,18 +189,10 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`idPedido`, `fechaPedido`, `numMesa`, `idMesero`, `idEstado`) VALUES
-(1, '2018-02-05 08:43:51', 1, 1, 6),
-(2, '2018-02-15 10:29:09', 4, 6, 6),
-(3, '2018-02-15 10:29:09', 3, 7, 6),
-(4, '2018-02-15 10:29:09', 2, 8, 6),
-(5, '2018-02-15 10:29:09', 1, 9, 2),
-(6, '2018-02-15 10:29:09', 5, 6, 6),
-(7, '2018-02-15 10:29:09', 4, 8, 6),
-(29, '2018-03-04 17:08:52', 1, 6, 6),
-(30, '2018-03-11 14:23:50', 2, 6, 6),
-(31, '2018-04-11 07:59:11', 4, 8, 6),
-(32, '2018-04-11 08:02:14', 1, 7, 6),
-(33, '2018-04-11 08:03:41', 1, 7, 6);
+(37, '2018-04-11 08:38:59', 1, 8, 6),
+(38, '2018-04-11 08:39:33', 2, 1, 6),
+(39, '2018-04-11 08:40:05', 3, 6, 6),
+(40, '2018-04-11 08:44:15', 1, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -260,33 +244,20 @@ CREATE TABLE `productopedido` (
 --
 
 INSERT INTO `productopedido` (`idPedido`, `idProducto`, `cantidad`, `valor`, `idEstado`, `numero`) VALUES
-(1, 1, 4, 40000, 5, 1),
-(1, 1, 6, 60000, 5, 2),
-(1, 3, 5, 10000, 5, 3),
-(3, 4, 2, 16000, 6, 4),
-(3, 1, 2, 20000, 6, 5),
-(3, 3, 2, 4000, 6, 6),
-(3, 2, 2, 6000, 6, 7),
-(2, 1, 4, 40000, 6, 8),
-(2, 5, 2, 10000, 6, 9),
-(2, 3, 4, 8000, 6, 10),
-(2, 2, 1, 4000, 6, 11),
-(4, 4, 1, 8000, 6, 12),
-(4, 2, 2, 6000, 6, 13),
-(4, 3, 2, 4000, 6, 14),
-(4, 5, 5, 10000, 6, 15),
-(2, 5, 2, 4000, 6, 16),
-(29, 1, 3, 30000, 6, 17),
-(29, 4, 1, 8000, 6, 18),
-(29, 6, 4, 12000, 6, 19),
-(29, 2, 1, 3000, 6, 20),
-(2, 9, 2, 8000, 6, 21),
-(6, 7, 2, 9000, 6, 22),
-(30, 1, 1, 10000, 6, 23),
-(7, 1, 110, 10000, 6, 24),
-(31, 1, 21, 210000, 6, 25),
-(32, 1, 20, 10000, 6, 26),
-(33, 1, 29, 290000, 6, 27);
+(37, 1, 3, 30000, 6, 41),
+(37, 3, 3, 6000, 6, 42),
+(37, 5, 3, 6000, 6, 43),
+(37, 6, 5, 15000, 6, 44),
+(38, 2, 6, 18000, 6, 45),
+(38, 7, 5, 22500, 6, 46),
+(38, 8, 6, 24000, 6, 47),
+(38, 9, 5, 20000, 6, 48),
+(39, 4, 6, 48000, 6, 49),
+(39, 10, 6, 18000, 6, 50),
+(39, 11, 5, 12500, 6, 51),
+(40, 1, 3, 30000, 6, 52),
+(40, 6, 1, 3000, 6, 53),
+(40, 1, 1, 10000, 6, 54);
 
 -- --------------------------------------------------------
 
@@ -437,12 +408,12 @@ ALTER TABLE `estadopedido`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
@@ -452,7 +423,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productopedido`
 --
 ALTER TABLE `productopedido`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
