@@ -326,29 +326,26 @@ function leerDatos(responseJSON, opc){
 				consultarNombresCategorias();
 			}else{
 				alert("ERROR! No se registro LA CATEGORIA \n Puede que ya existe");
-
 			}
-
 		break;
 
 		case 48: //muestra los nombres de las categorias
 			if (response.length > 0) {
 				cargarTablaCategorias(response);
 			}
-
 		break;
 
 		case 49://MUESTRA LAS VENTAS GENERALES POR MESERO
-
 			if (response.length > 0) {
-
-				crearStringEstadisticas(response);
+				crearStringEstadisticas(response,'ventasTotales');
 			}
-
 		break;
 
-
-
+		case 50://MUESTRA LAS VENTAS GENERALES POR MESERO
+			if (response.length > 0) {
+				crearStringEstadisticas(response,'vendido');
+			}
+		break;
 	}
 }
 

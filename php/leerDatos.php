@@ -212,6 +212,12 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 50://CONSULTA LAS VENTAS GENERALES POR MESERO 
+		$sql="SELECT producto.nombre, sum(productopedido.valor) as vendido from productopedido join producto on productopedido.idProducto = producto.idProducto where productopedido.idEstado = 6 GROUP by producto.nombre";
+		/*$sql="SELECT usuario.nombre, count(pedidos.idPedido) as numeroPedidos FROM pedidos join usuario on pedidos.idMesero = usuario.idUsuario GROUP by usuario.nombre";*/
+		leerRegistro($sql);
+	break;
+
 }
 
 

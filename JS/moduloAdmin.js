@@ -344,25 +344,24 @@ function consultarVentasGenerales(){
     ejecutarAjaxJson(parametros,49);
 }
 
+function consultarVentasProductos(){
+    var parametros={"opc": 50};
+    ejecutarAjaxJson(parametros,50);
+}
 
 
-function crearStringEstadisticas(response){
+function crearStringEstadisticas(response,opc){
     /*var graficas = [];
     for(var i=0; i < response.length; i++) {
         paula.push({"name" : response[i]["nombre"], "data" : [0,parseInt(response[i]["numeroPedidos"])] })
     }
-
     graficasEstadisticas(paula);*/
+
     var graficas = {"name" : 'Pedidos', "data" : []};
-    /*graficas["name"] = 'pedidos';
-    graficas["data"] = [['Prueba',0]];*/
     for(var i=0; i < response.length; i++) {
-        graficas["data"].push([response[i]["nombre"],parseInt(response[i]["ventasTotales"])]);
+        graficas["data"].push([response[i]["nombre"],parseInt(response[i][opc])]);
     } 
     graficasBarras(graficas);
-
-
-    
 }
 
 
@@ -374,7 +373,7 @@ function graficasBarras(respuesta){
         },
 
         title: {
-            text: 'VENTAS GENERALES POR MESERO'
+            text: 'VENTAS GENERALES '
         },
         subtitle: {
             text: 'Estadisticas'
@@ -393,7 +392,7 @@ function graficasBarras(respuesta){
         yAxis: {
             min: 0,
             title: {
-                text: 'Pedidos'
+                text: 'Ventas $'
             }
         },
         legend: {
@@ -408,20 +407,22 @@ function graficasBarras(respuesta){
             ,
             dataLabels: {
                 enabled: true,
-                rotation: -90,
+                rotation: 0,
                 color: '#000000',
                 align: 'right',
                 format: '{point.y:.1f}', // one decimal
                 y: 10, // 10 pixels down from the top
                 style: {
                     fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
+                    fontFamily: 'Verdana, sans-serif',
+                    background: '#000000'
                 }
             }
         }]
     });
 
     var txt2 = '<div>';
+    txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="consultarVentasProductos()">PRODUCTOS</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button" onclick="ventasMensuales()">MENSUALES</button>';
     txt2 += '   <button id="btnRegistrar" class="btn" type="button">SEMANALES</button>';
     txt2 += ' </div>';
@@ -429,6 +430,8 @@ function graficasBarras(respuesta){
     $("#trabajoSur").html(txt2); 
 
 }
+
+
 
 function graficasEstadisticas(texto){ 
 
