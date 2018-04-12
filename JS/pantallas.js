@@ -212,7 +212,7 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 function imprimir(nombreDiv){
 	ccCliente = $('#ccCliente').val();
-	$('#contenidoModal').append('<h4>Cedula del cliente: '+ ccCliente +'</h4>');
+	$(".modal-title").text('Datos del Pedido No. '+ getIdPedido()+ ' Cedula del cliente: ' + ccCliente );
 	$('.modal-footer').hide();
 	var contenido= document.getElementById(nombreDiv).innerHTML;
     var contenidoOriginal= document.body.innerHTML;

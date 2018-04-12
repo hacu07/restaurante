@@ -539,10 +539,11 @@ function mostrarVentanaPedidoCocina(idPedido,ideMeseroSocket){
 }
 
 //Despliega datos de un pedido en la ventana modal ***********************
-function mostrarVentanaPedidoCaja(idPedido,idMesero){
-	setIdPedido(idPedido);
+function mostrarVentanaPedidoCaja(idPedido,idMesero,ccCliente){
+/*	ccCliente = $(".modal-title").val();
+*/	setIdPedido(idPedido);
 	setIdMeseroSocket(idMesero);
-	$(".modal-title").html('Datos del Pedido No. '+ idPedido);
+	$(".modal-title").html('Datos del Pedido No. '+ idPedido );
 	consultarDetalleFactura(idPedido);
 	//cargarDatosPedidoCaja(idPedido);
 	$("#myModal").collapse('show');  
@@ -905,7 +906,7 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.137.41:9000/restaurante/php/server.php";   
+    var wsUri = "ws://192.168.254.1:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
