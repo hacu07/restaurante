@@ -358,6 +358,15 @@ function leerDatos(responseJSON, opc){
 				crearStringEstadisticas(response,'mes','ventaMensual');//(respuesta,nombreColumna1,nombreColumna2)
 			}
 		break;
+
+		case 53: //ELIMINA PRODUCTOS 
+			if (response["ok"] == "actualizo") {
+				alert("producto ELIMINADO");
+
+			}else{
+				console.log("NO ELIMINO PRODUCTO");
+			}
+		break;
 	}
 }
 

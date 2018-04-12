@@ -230,6 +230,13 @@ switch ($opcion) {
 		leerRegistro($sql);
 	break;
 
+	case 53:
+		$nombreProducto = $_POST["nombreProducto"];
+		$sql = "DELETE FROM producto where nombre ='{$nombreProducto}' ";
+		actualizarRegistro($sql);
+	break;
+
+
 }
 
 

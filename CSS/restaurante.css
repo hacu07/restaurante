@@ -394,6 +394,7 @@ label {
     display: inline-block;
     width: 100%;
     text-align: center;
+    margin-top: 1%;
 }
 
 input {
@@ -419,12 +420,12 @@ input {
 
 #inputInsertarImg{
     font: 1em sans-serif;
-	width: 100%;
+	width: 20%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border-radius: .5em;
     border: 1px ;
-    margin-left: 11%;
+    margin-left: 42%;
 }
 
 input:focus{

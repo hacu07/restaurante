@@ -151,7 +151,8 @@ function cargarFormProducto(){
 
     var txt2 = '<div>';
     txt2 += '   <button id="btnAgregarProductos" class="btn" type="button" onclick="agregarProductoBD()">AÑADIR</button>';
-    txt2 += ' </div>';
+    txt2 += '   <button id="btnAgregarProductos" class="btn" type="button" onclick="eliminarProductoAdmon()">ELIMINAR</button>';
+   txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
 
   //Consulta para cargar las categorias encontradas en la BD
@@ -159,6 +160,31 @@ function cargarFormProducto(){
     ejecutarAjaxJson(parametros,44);
 
 }
+
+
+//ELIMINAR PRODUCTOS DE LA BASE DE DATOS 
+function eliminarProductoAdmon(){
+    var nombreProducto = $("#producto").val(); //obtiene lo escrito en el campo de nombre
+    if (nombreProducto == "") {//valida que los campos necesario esten digitados correctamente  
+        mostrarModal('Campos Incompletos', 'Todos los campos deben estar correctamente diligenciados', '');
+    }else{
+        var txt = '<button class="btn btn-success" onclick="eliminarProducto(\''+nombreProducto+'\')">SI</button><button class="btn btn-danger" onclick="cerrarModal()">NO</button>';
+        mostrarModal('Confirmar Eliminacion', '¿Esta seguro de eliminar producto?', txt);
+    }
+}
+
+function eliminarProducto(){
+    var nombreProducto = $('#producto').val();
+    var parametros = {"opc" : 53, "nombreProducto" : nombreProducto };
+    ejecutarAjaxJson(parametros, 53);
+    cerrarModal();
+    $("#producto").val("");
+
+}
+
+
+
+
 
 //Carga el nombre de las categorias al dropdown del formulario de productos
 function cargarCategorias(categorias){
@@ -288,6 +314,8 @@ function eliminarUsuario(nombreUsuario){
     cerrarModal();
     $("#nombre").val("");
 }
+
+
 
 function habilitarBotonesUsuario()
 {
