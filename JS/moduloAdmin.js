@@ -101,6 +101,7 @@ function AgregarCategoria(){
 
     var txt2 = '<div>';
     txt2 += '	<button id="btnAgregar" class="btn" onclick="agregarCategoriaBD()" type="button">AÑADIR</button>';
+    txt2 += '   <button id="btnAgregarProductos" class="btn" type="button" onclick="eliminarCategoriaAdmon()">ELIMINAR</button>';
     txt2 += ' </div>';
     $("#trabajoSur").html(txt2);
 
@@ -123,6 +124,32 @@ function agregarProducto(){
     ejecutarAjaxJson(parametros,46);
 
 }
+
+
+//ELIMINAR CATEGORIAS DE LA BASE DE DATOS 
+function eliminarCategoriaAdmon(){
+    var categoria = $("#nomCategoria").val(); //obtiene lo escrito en el campo de nombre
+    if (categoria == "") {//valida que los campos necesario esten digitados correctamente  
+        mostrarModal('Campos Incompletos', 'Debe poner nombre de la categoria', '');
+    }else{
+        var txt = '<button class="btn btn-success" onclick="eliminarCategoria(\''+categoria+'\')">SI</button><button class="btn btn-danger" onclick="cerrarModal()">NO</button>';
+        mostrarModal('Confirmar Eliminacion', '¿Esta seguro de eliminar Categoria?', txt);
+    }
+}
+
+function eliminarCategoria(){
+    var categoria = $('#nomCategoria').val();
+    var parametros = {"opc" : 54, "categoria" : categoria };
+    ejecutarAjaxJson(parametros, 54);
+    cerrarModal();
+    $("#categoria").val("");
+
+}
+
+
+
+
+
 
 
 function cargarFormProducto(){
@@ -166,7 +193,7 @@ function cargarFormProducto(){
 function eliminarProductoAdmon(){
     var nombreProducto = $("#producto").val(); //obtiene lo escrito en el campo de nombre
     if (nombreProducto == "") {//valida que los campos necesario esten digitados correctamente  
-        mostrarModal('Campos Incompletos', 'Todos los campos deben estar correctamente diligenciados', '');
+        mostrarModal('Campos Incompletos', 'Debe poner nombre del producto', '');
     }else{
         var txt = '<button class="btn btn-success" onclick="eliminarProducto(\''+nombreProducto+'\')">SI</button><button class="btn btn-danger" onclick="cerrarModal()">NO</button>';
         mostrarModal('Confirmar Eliminacion', '¿Esta seguro de eliminar producto?', txt);
@@ -403,14 +430,18 @@ function crearStringEstadisticas(response,nombre1,nombre2){
 
 
 function graficasBarras(respuesta){
+    var txt = '<h1>ESTADÍSTICAS</h1>';
 
+    $("#titulo").html(txt); 
+
+ 
     Highcharts.chart('trabajoCentro', {
         chart: {
             type: 'column'
         },
 
         title: {
-            text: 'VENTAS GENERALES '
+            text: 'VENTAS'
         },
         subtitle: {
             text: 'Estadisticas'

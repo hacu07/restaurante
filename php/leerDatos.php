@@ -236,6 +236,11 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 	break;
 
+	case 54:
+		$categoria = $_POST["categoria"];
+		$sql = "DELETE FROM categoria where nombre ='{$categoria}' ";
+		actualizarRegistro($sql);
+	break;
 
 }
 

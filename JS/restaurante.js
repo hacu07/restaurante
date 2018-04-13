@@ -367,6 +367,16 @@ function leerDatos(responseJSON, opc){
 				console.log("NO ELIMINO PRODUCTO");
 			}
 		break;
+
+		case 53: //ELIMINA CATEGORIAS
+			if (response["ok"] == "actualizo") {
+				alert("categoria ELIMINADA");
+
+			}else{
+				console.log("NO ELIMINO CATEGORIA");
+			}
+		break;
+
 	}
 }
 
