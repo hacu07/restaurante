@@ -368,12 +368,19 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
-		case 53: //ELIMINA CATEGORIAS
+		case 54: //ELIMINA CATEGORIAS
 			if (response["ok"] == "actualizo") {
 				alert("categoria ELIMINADA");
 
 			}else{
 				console.log("NO ELIMINO CATEGORIA");
+			}
+		break;
+
+		case 55:
+			if (response.length > 0) {
+				mostrarTablaPedidosAdmin();
+				cargarDatosTablaPedidosAdmin(response);
 			}
 		break;
 
@@ -930,12 +937,12 @@ function iniciarSocket(){
     
     //Connected to server
     websocket.onopen = function(ev) {
-        alert('Conectado al servidor');
+        //alert('Conectado al servidor');
     }
     
     //Connection close
     websocket.onclose = function(ev) { 
-        alert('Desconectado');
+        //alert('Desconectado');
     };
     
     //Message Receved
@@ -948,7 +955,7 @@ function iniciarSocket(){
 		switch(parseInt(tipoMensaje)){
 			case 0: //Mensajes de alerta (Conectado,desconectado,etc.).
 				var msj =  msg.message;
-				alert(msj);
+				console.log(msj);
 			break;
 			//Los mensaje de tipo 1 son son para los meseros y cajeros (Enviados por el Jefe de cocina)
 			case 1:

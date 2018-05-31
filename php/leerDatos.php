@@ -187,7 +187,7 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 
 	break;
-
+	//consulta los productos para mostrarlos en el modulo admin
 	case 46:
 		$sql = "SELECT producto.nombre, producto.precio, categoria.nombre AS nombreCategoria FROM producto JOIN categoria ON producto.idCategoria = categoria.idCategoria";
 		leerRegistro($sql);
@@ -242,6 +242,13 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 	break;
 
+	//consulta los pedidos para mostrar en el modulo admin
+	case 55:
+	$sql = "SELECT pedidos.idPedido, estadopedido.estado, usuario.nombre 
+			FROM usuario JOIN pedidos ON usuario.idUsuario = pedidos.idMesero
+			 JOIN estadopedido on estadopedido.idEstado = pedidos.idEstado";
+	leerRegistro($sql);
+	break;
 }
 
 

@@ -35,6 +35,7 @@ function mostrarModuloAdmin(nombre){
 	txt += '<button type=button id="btnCategorias" class="btn btn-block" onclick=AgregarCategoria()>CATEGORIAS</button>';
 	txt += '<button type=button id="btnProductos" class="btn btn-block "onclick=agregarProducto()>PRODUCTOS</button>';
 	txt += '<button type=button id="btnEstadisticas" class="btn btn-block " onclick=consultarVentasGenerales()>ESTADISTICAS</button>';
+    txt += '<button type=button id="btnEstadisticas" class="btn btn-block " onclick=consultarPedidosAdmon()>PEDIDOS</button>';
 	txt += '</div>';
 	txt += '<div id="trabajo" class="col-md-10 col-lg-10 col-sm-10" >';
 	txt += '<div id="titulo"></div>';
@@ -389,6 +390,31 @@ function agregarCategoriaBD(){
     }
 }
  
+//Consulta los pedidos en la BD
+function consultarPedidosAdmon(){
+    var parametros = {"opc": 55};
+    ejecutarAjaxJson(parametros,55);
+} 
+
+//Carga el html de la tabla en la interfaz del admon
+function mostrarTablaPedidosAdmin(){
+    var txt2='<div id="tablaPedidosAdmin" >';
+    txt2 +='</div>';
+    $("#trabajoCentro").html(txt2);
+}
+
+//carga los datos a la tabla de pedidos del admin
+function cargarDatosTablaPedidosAdmin(filasArreglo){
+    //Llenado de filas html
+    var fila = "<table class='table table-hover table-striped'>";
+    fila +='<thead><tr><th># Pedido</th><th>Estado</th><th>Mesero</th><th>Ver</th></tr></thead>';
+    fila += "<tbody>";
+    for (var i = 0; i < filasArreglo.length; i++) {
+        fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["estado"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td><button class='btn'  onclick='mostrarDetallePedidoAdmin("+ filasArreglo[i]["idPedido"]+")'>Ver</button></td></tr>";
+    }
+        fila +='</tbody></table>';
+        $('#tablaPedidosAdmin').html(fila);
+}
 
 /***************************************************************/
 //               GRAFICAS DE ESTADISTICAS
