@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	//crea un nuevo objeto WebSocket.
-	var wsUri = "ws://192.168.1.84:9000/restaurante/chat-copia/chat/php/server.php"; //direccion del servidor 	
+	var wsUri = "ws://10.78.148.38:9000/restaurante/chat-copia/chat/php/server.php"; //direccion del servidor 	
 	websocket = new WebSocket(wsUri); 	
 	
 	websocket.onopen = function(ev) { // Conexion Abierta 
