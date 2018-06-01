@@ -85,6 +85,8 @@ function leerDatos(responseJSON, opc){
 			if(response.length > 0 ){//Si la respuesta trae algo
 				pedidos = response;
 				tablaCocina(pedidos);
+			}else{
+				$('#cont_centro').html('');
 			}
 		break;
 		case 3: 

@@ -401,6 +401,8 @@ function mostrarTablaPedidosAdmin(){
     var txt2='<div id="tablaPedidosAdmin" >';
     txt2 +='</div>';
     $("#trabajoCentro").html(txt2);
+    $("#titulo").html('<h1> PEDIDOS </h1>');
+    $("#trabajoSur").html('');
 }
 
 //carga los datos a la tabla de pedidos del admin
@@ -413,19 +415,33 @@ function cargarDatosTablaPedidosAdmin(filasArreglo){
         var estado = filasArreglo[i]["estado"] ;
         var claseEstado = estado.replace(" ","");
 
-        fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td class='btn-"+claseEstado+"'>"+ filasArreglo[i]["estado"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td><button class='btn'  onclick='mostrarDetallePedidoAdmin("+ filasArreglo[i]["idPedido"]+")'>Ver</button></td></tr>";
+        fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td class='btn-"+claseEstado+"'>"+ filasArreglo[i]["estado"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td><button class='btn'  onclick='mostrarDetallePedidoAdmin("+ filasArreglo[i]["idPedido"]+",\""+filasArreglo[i]["estado"]+"\")'>Ver</button></td></tr>";
     }
         fila +='</tbody></table>';
         $('#tablaPedidosAdmin').html(fila);
 }
 
 //Consulta el detalle del pedido seleccionado en el modulo del admin
-function mostrarDetallePedidoAdmin(idPedido){
-    var parametros = {"opc" : 56, "idPedido" : idPedido};
-    ejecutarAjaxJson(parametros,56);
+function mostrarDetallePedidoAdmin(idPedido,estado){
+    if (estado != 'Facturado') {
+        var parametros = {"opc" : 56, "idPedido" : idPedido};
+        ejecutarAjaxJson(parametros,56);
+    }else{
+        var parametros = {"opc" : 57, "idPedido" : idPedido};
+        ejecutarAjaxJson(parametros,56);
+    }
+    
 }
 
 function cargarDetallePedidoAdmin(respuesta){
+    
+    //verifica si esta facturado o no
+    if (respuesta[0]["estado"] != 'Facturado') {
+        atendio = "mesero";
+    }else{
+        atendio = "cajero";
+    }
+
     //Se cargan los datos en el modal
     var totalPedido = 0;
     //.modal-title
@@ -446,7 +462,7 @@ function cargarDetallePedidoAdmin(respuesta){
     fila +='</tbody></table>';
 
     //.modal-footer
-    var pie = "<h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Total Pedido:</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+totalPedido+"</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Mesero: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]["nombre"]+"</h5>";
+    var pie = "<h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Total Pedido:</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+totalPedido+"</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+atendio+": </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]["nombre"]+"</h5>";
     pie += "<h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Fecha: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]['fechaPedido']+"</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Mesa: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]["numMesa"]+"</h5>";
 
     //Muestra el modal con los detalles

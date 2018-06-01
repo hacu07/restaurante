@@ -242,7 +242,7 @@ switch ($opcion) {
 		actualizarRegistro($sql);
 	break;
 
-	//consulta los pedidos para mostrar en el modulo admin
+	//consulta los pedidos para mostrar en el modulo admin  
 	case 55:
 	$sql = "SELECT pedidos.idPedido, estadopedido.estado, usuario.nombre 
 			FROM usuario JOIN pedidos ON usuario.idUsuario = pedidos.idMesero
@@ -250,11 +250,24 @@ switch ($opcion) {
 	leerRegistro($sql);
 	break;
 
-	//Consulta los detalles del pedido para mostrar en el modulo del admin
+	//Consulta los detalles del pedido para mostrar en el modulo del admin if(estado != facturado) muestra el nombre del mesero
 	case 56:
 		$idPedido = $_POST["idPedido"];
 		$sql = "SELECT pedidos.idPedido, pedidos.fechaPedido, usuario.nombre, pedidos.numMesa, producto.nombre as producto, estadopedido.estado, productopedido.cantidad, producto.Precio , productopedido.valor 
 		FROM usuario JOIN pedidos ON usuario.idUsuario = pedidos.idMesero JOIN productopedido ON productopedido.idPedido = pedidos.idPedido JOIN producto ON producto.idProducto = productopedido.idProducto JOIN estadopedido ON productopedido.idEstado = estadopedido.idEstado 
+		WHERE pedidos.idPedido = {$idPedido}";
+		leerRegistro($sql);
+	break;
+
+	//Consulta los detalles del pedido para mostrar en el modulo del admin if(estado != facturado) muestra el nombre del cajero
+	case 57:
+		$idPedido = $_POST["idPedido"];
+		$sql = "SELECT pedidos.idPedido, pedidos.fechaPedido, usuario.nombre, pedidos.numMesa, producto.nombre as producto, estadopedido.estado, productopedido.cantidad, producto.Precio , productopedido.valor 
+		FROM usuario JOIN factura ON usuario.idUsuario = factura.idCajero
+        			 JOIN pedidos ON pedidos.idPedido = factura.idPedido
+        			 JOIN productopedido ON productopedido.idPedido = pedidos.idPedido 
+                     JOIN producto ON producto.idProducto = productopedido.idProducto 
+                     JOIN estadopedido ON productopedido.idEstado = estadopedido.idEstado
 		WHERE pedidos.idPedido = {$idPedido}";
 		leerRegistro($sql);
 	break;
