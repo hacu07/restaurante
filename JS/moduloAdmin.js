@@ -416,6 +416,37 @@ function cargarDatosTablaPedidosAdmin(filasArreglo){
         $('#tablaPedidosAdmin').html(fila);
 }
 
+//Consulta el detalle del pedido seleccionado en el modulo del admin
+function mostrarDetallePedidoAdmin(idPedido){
+    var parametros = {"opc" : 56, "idPedido" : idPedido};
+    ejecutarAjaxJson(parametros,56);
+}
+
+function cargarDetallePedidoAdmin(respuesta){
+    //Se cargan los datos en el modal
+    var totalPedido = 0;
+    //.modal-title
+    var titulo = "PEDIDO No. "+ respuesta[0]["idPedido"];
+
+    //.modal-body
+    var fila = "<table class='table table-hover table-striped'>";
+    fila +='<thead><tr><th>Producto</th><th>Estado</th><th>Cantidad</th><th>Valor</th></tr></thead>';
+    fila += "<tbody>";
+    for (var i = 0; i < respuesta.length; i++) {
+        fila +="<tr><td>"+ respuesta[i]["producto"] +"</td><td>"+ respuesta[i]["estado"] +"</td><td>"+ respuesta[i]["cantidad"] +"</td><td>"+ respuesta[i]["valor"]+"</td></tr>";
+        total = respuesta[i]["cantidad"] * respuesta[i]["valor"];
+        totalPedido = totalPedido + total;
+    }
+    fila +='</tbody></table>';
+
+    //.modal-footer
+    var pie = "<h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Total Pedido:</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+totalPedido+"</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Mesero: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]["nombre"]+"</h5>";
+    pie += "<h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Fecha: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]['fechaPedido']+"</h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>Mesa: </h5><h5 class='col-xs-3 col-sm-3 col-md-3 col-lg-3'>"+respuesta[0]["numMesa"]+"</h5>";
+
+    //Muestra el modal con los detalles
+    mostrarModal(titulo,fila,pie);
+}
+
 /***************************************************************/
 //               GRAFICAS DE ESTADISTICAS
 /***************************************************************/

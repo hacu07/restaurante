@@ -249,6 +249,15 @@ switch ($opcion) {
 			 JOIN estadopedido on estadopedido.idEstado = pedidos.idEstado";
 	leerRegistro($sql);
 	break;
+
+	//Consulta los detalles del pedido para mostrar en el modulo del admin
+	case 56:
+		$idPedido = $_POST["idPedido"];
+		$sql = "SELECT pedidos.idPedido, pedidos.fechaPedido, usuario.nombre, pedidos.numMesa, producto.nombre as producto, estadopedido.estado, productopedido.cantidad, productopedido.valor 
+				FROM usuario JOIN pedidos ON usuario.idUsuario = pedidos.idMesero JOIN productopedido ON productopedido.idPedido = pedidos.idPedido JOIN producto ON producto.idProducto = productopedido.idProducto JOIN estadopedido ON productopedido.idEstado = estadopedido.idEstado 
+				WHERE pedidos.idPedido = {$idPedido}";
+		leerRegistro($sql);
+	break;
 }
 
 

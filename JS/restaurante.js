@@ -377,10 +377,18 @@ function leerDatos(responseJSON, opc){
 			}
 		break;
 
+		//Consulta de los pedidos para mostrar en modulo admin
 		case 55:
+		if(response.length > 0 ){
+			mostrarTablaPedidosAdmin();
+			cargarDatosTablaPedidosAdmin(response);
+		}
+		break;
+
+		//Consulta de los detalles del pedido seleccionado
+		case 56:
 			if (response.length > 0) {
-				mostrarTablaPedidosAdmin();
-				cargarDatosTablaPedidosAdmin(response);
+				cargarDetallePedidoAdmin(response);
 			}
 		break;
 
@@ -932,17 +940,17 @@ String.prototype.replaceAll = function(target, replacement) {
 *********************************************/
 function iniciarSocket(){
     //Open a WebSocket connection.
-    var wsUri = "ws://10.78.148.33:9000/restaurante/php/server.php";   
+    var wsUri = "ws://10.78.148.82:9000/restaurante/php/server.php";   
     websocket = new WebSocket(wsUri); 
     
     //Connected to server
     websocket.onopen = function(ev) {
-        //alert('Conectado al servidor');
+        alert('Conectado al servidor');
     }
     
     //Connection close
     websocket.onclose = function(ev) { 
-        //alert('Desconectado');
+        alert('Desconectado');
     };
     
     //Message Receved
@@ -955,7 +963,7 @@ function iniciarSocket(){
 		switch(parseInt(tipoMensaje)){
 			case 0: //Mensajes de alerta (Conectado,desconectado,etc.).
 				var msj =  msg.message;
-				console.log(msj);
+				alert(msj);
 			break;
 			//Los mensaje de tipo 1 son son para los meseros y cajeros (Enviados por el Jefe de cocina)
 			case 1:
