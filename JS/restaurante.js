@@ -475,6 +475,7 @@ function consultarDatosDetalleCocina(idPedido){
 
 
 function tablaCocina(filasArreglo){
+
 	//Llenado de filas html
 	var fila = "<table class='table table-hover table-striped'>";
 	fila +='<thead><tr><th>#</th><th>Mesero</th><th>Mesa</th><th>Demora</th><th>Estado</th></tr></thead>';
@@ -483,8 +484,8 @@ function tablaCocina(filasArreglo){
 
 		var estado = parseInt(filasArreglo[i]["idEstado"]);
 		var claseEstado = nombrarEstado(estado);
-
-		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ filasArreglo[i]["fechaPedido"] +"</td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"]+","+ filasArreglo[i]["idUsuario"]+")'>"+ claseEstado+"</button></td></tr>";
+		tiempoDeEspera = diff_minutes(Date.parse(filasArreglo[i]["fechaPedido"]));
+		fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td>"+ filasArreglo[i]["numMesa"] +"</td><td>"+ tiempoDeEspera +" minutos </td><td><button class='btn btn-"+claseEstado+" btnAncho '  onclick='mostrarVentanaPedidoCocina("+ filasArreglo[i]["idPedido"]+","+ filasArreglo[i]["idUsuario"]+")'>"+ claseEstado+"</button></td></tr>";
 	}
 		fila +='</tbody></table>';
 		$('#cont_centro').html(fila);

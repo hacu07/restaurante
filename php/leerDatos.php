@@ -75,7 +75,7 @@ switch ($opcion) {
 	//CONSULTAS MODULO DE MESERO (inicia desde 20)-------------------------------------------
 	case 20: 
 		$idMesero = $_POST["idMesero"];
-		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero} ORDER BY estadopedido.idEstado";
+		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero} and estadopedido.idEstado != 6 ORDER BY estadopedido.idEstado";
 		leerRegistro($sql);
 	break;
 	case 21:

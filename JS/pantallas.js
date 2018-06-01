@@ -222,3 +222,13 @@ function imprimir(nombreDiv){
     $('.modal-footer').show();
     cerrarModal();
 }
+
+//diferencia entre dos fechas
+function diff_minutes(dt2) 
+ {
+ 	var dt1 = new Date();
+  var diff =(dt2 - dt1.getTime()) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
+  
+ }
