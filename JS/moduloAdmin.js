@@ -410,7 +410,10 @@ function cargarDatosTablaPedidosAdmin(filasArreglo){
     fila +='<thead><tr><th># Pedido</th><th>Estado</th><th>Mesero</th><th>Ver</th></tr></thead>';
     fila += "<tbody>";
     for (var i = 0; i < filasArreglo.length; i++) {
-        fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td>"+ filasArreglo[i]["estado"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td><button class='btn'  onclick='mostrarDetallePedidoAdmin("+ filasArreglo[i]["idPedido"]+")'>Ver</button></td></tr>";
+        var estado = filasArreglo[i]["estado"] ;
+        var claseEstado = estado.replace(" ","");
+
+        fila +="<tr><td>"+ filasArreglo[i]["idPedido"] +"</td><td class='btn-"+claseEstado+"'>"+ filasArreglo[i]["estado"] +"</td><td>"+ filasArreglo[i]["nombre"] +"</td><td><button class='btn'  onclick='mostrarDetallePedidoAdmin("+ filasArreglo[i]["idPedido"]+")'>Ver</button></td></tr>";
     }
         fila +='</tbody></table>';
         $('#tablaPedidosAdmin').html(fila);
@@ -433,7 +436,10 @@ function cargarDetallePedidoAdmin(respuesta){
     fila +='<thead><tr><th>Producto</th><th>Estado</th><th>Cantidad</th><th>Valor</th></tr></thead>';
     fila += "<tbody>";
     for (var i = 0; i < respuesta.length; i++) {
-        fila +="<tr><td>"+ respuesta[i]["producto"] +"</td><td>"+ respuesta[i]["estado"] +"</td><td>"+ respuesta[i]["cantidad"] +"</td><td>"+ respuesta[i]["valor"]+"</td></tr>";
+        var estado = respuesta[i]["estado"] ;
+        var claseEstado = estado.replace(" ","");
+
+        fila +="<tr><td>"+ respuesta[i]["producto"] +"</td><td class='btn-"+claseEstado+"'>"+ respuesta[i]["estado"] +"</td><td>"+ respuesta[i]["cantidad"] +"</td><td>"+ respuesta[i]["valor"]+"</td></tr>";
         total = respuesta[i]["cantidad"] * respuesta[i]["valor"];
         totalPedido = totalPedido + total;
     }
