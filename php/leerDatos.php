@@ -75,7 +75,7 @@ switch ($opcion) {
 	//CONSULTAS MODULO DE MESERO (inicia desde 20)-------------------------------------------
 	case 20: 
 		$idMesero = $_POST["idMesero"];
-		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero}";
+		$sql = "SELECT idPedido, numMesa, estadopedido.estado from pedidos join estadopedido on pedidos.idEstado = estadopedido.idEstado where idMesero = {$idMesero} ORDER BY estadopedido.idEstado";
 		leerRegistro($sql);
 	break;
 	case 21:
@@ -124,6 +124,12 @@ switch ($opcion) {
 		$numero = $_POST["numero"];
 		$idPedido = $_POST["idPedido"];
 		$sql = "call sp_actualizarEstados({$idPedido},{$idEstado},{$numero})";
+		actualizarRegistro($sql);
+	break;
+	case 30:
+		$numero = $_POST["numero"];
+		$idPedido = $_POST["idPedido"];
+		$sql = "DELETE FROM productopedido where idPedido = {$idPedido} and numero = {$numero}";
 		actualizarRegistro($sql);
 	break;
 

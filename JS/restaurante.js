@@ -86,7 +86,7 @@ function leerDatos(responseJSON, opc){
 				pedidos = response;
 				tablaCocina(pedidos);
 			}else{
-				$('#cont_centro').html('');
+				$('#cont_centro').html('<h1>No hay pedidos por el momento</h1>');
 			}
 		break;
 		case 3: 
@@ -226,7 +226,8 @@ function leerDatos(responseJSON, opc){
 			//}
 		break;
 
-		case 29:
+		case 29: //confirma pedido
+		case 30: //cancela un producto del pedido que se encontraba en estado 'enespera'
 			if (response["ok"] == "actualizo") {
 				navegar(3);
 
@@ -913,7 +914,12 @@ function mostrarVentanaProductoPedidoMesero(productos){
 		estado = productos[i]["estado"].replace(" ","");
 		if (estado == 'Entregado') { //si el estado es entregado aparece el boton para confirmar que recibe el producto
 			fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-'+ estado +' btnEntregadoMesero">'+ productos[i]["estado"] +'</button><button class="btn btnConfirmarEntrega" onclick="confirmarEntregaProducto('+ productos[i]["numero"] +')"><span class="glyphicon glyphicon-ok"></span></button></td></tr>';
-		}else{
+		}
+		else if(estado == 'EnEspera'){
+			fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-'+ estado +' btnEntregadoMesero">'+ productos[i]["estado"] +'</button><button class="btn btnCancelarEntrega" onclick="cancelarProductoPedido('+ productos[i]["numero"] +')"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+
+		}
+		else{
 			fila += '<tr><td>'+ productos[i]["nombre"] +'</td><td>'+ productos[i]["cantidad"] +'</td><td><button class="btn btn-block btn-'+ estado +'">'+ productos[i]["estado"] +'</button></td></tr>';
 		}
 	}
@@ -1040,6 +1046,12 @@ function confirmarEntregaProducto(numeroProducto){
 	ejecutarAjaxJson(parametros,29);*/
 	var parametros = {"opc" : 29, "idEstado": 7, "numero" : numeroProducto, "idPedido": getIdPedido()};
 	ejecutarAjaxJson(parametros,29);
+}
+
+//Elimina el producto del pedido, solo se logra eliminar cuando se encuentra en estado 'EnEspera'
+function cancelarProductoPedido(numeroProducto){
+	var parametros = {"opc" : 30,"numero" : numeroProducto, "idPedido": getIdPedido()};
+	ejecutarAjaxJson(parametros,30);
 }
 
 

@@ -482,3 +482,11 @@ input:focus{
  	background-color: var(--font-btn);
  	color: var(--bg-Entregado);
  }
+
+
+ td .btnCancelarEntrega{
+ 	width: 25%;
+ 	height: 100%;
+ 	background-color: var(--font-btn);
+ 	color: var(--bg-enEspera);
+ }
