@@ -433,15 +433,15 @@ function cargarDetallePedidoAdmin(respuesta){
 
     //.modal-body
     var fila = "<table class='table table-hover table-striped'>";
-    fila +='<thead><tr><th>Producto</th><th>Estado</th><th>Cantidad</th><th>Valor</th></tr></thead>';
+    fila +='<thead><tr><th>Producto</th><th>Estado</th><th>Cantidad</th><th>Precio</th><th>Valor</th></tr></thead>';
     fila += "<tbody>";
     for (var i = 0; i < respuesta.length; i++) {
         var estado = respuesta[i]["estado"] ;
         var claseEstado = estado.replace(" ","");
 
-        fila +="<tr><td>"+ respuesta[i]["producto"] +"</td><td class='btn-"+claseEstado+"'>"+ respuesta[i]["estado"] +"</td><td>"+ respuesta[i]["cantidad"] +"</td><td>"+ respuesta[i]["valor"]+"</td></tr>";
-        total = respuesta[i]["cantidad"] * respuesta[i]["valor"];
-        totalPedido = totalPedido + total;
+        fila +="<tr><td>"+ respuesta[i]["producto"] +"</td><td class='btn-"+claseEstado+"'>"+ respuesta[i]["estado"] +"</td><td>"+ respuesta[i]["cantidad"] +"</td><td>"+ respuesta[i]["Precio"]+"</td><td>"+ respuesta[i]["valor"]+"</td></tr>";
+        
+        totalPedido = totalPedido +  parseInt(respuesta[i]["valor"]);
     }
     fila +='</tbody></table>';
 
